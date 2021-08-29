@@ -1,15 +1,52 @@
+using nickmaltbie.TileMap.Common;
 using System.Collections.Generic;
-using TileMap.Common;
+using System.Linq;
 using UnityEngine;
 
-namespace TileMap.Square
+namespace nickmaltbie.TileMap.Square
 {
+
+    /// <summary>
+    /// Types of adjacency for square grids.
+    /// </summary>
+    public enum Adjacency
+    {
+        Orthogonal,
+        Full
+    }
+
     /// <summary>
     /// Fixed size square grid tile map that can contain generic values at each position within the map.
     /// </summary>
     /// <typeparam name="V">Type of values contained within each cell in the grid.</typeparam>
     public class SquareTileMap<V> : ITileMap<Vector2Int, V>
     {
+        /// <summary>
+        /// Offset of all orthogonally adjacent tiles enumerated in counter
+        /// clockwise order starting with 0 radians at (1, 0).
+        /// </summary>
+        private static readonly Vector2Int[] orthongoalAdj = new Vector2Int[]{
+            Vector2Int.right,
+            Vector2Int.up,
+            Vector2Int.left,
+            Vector2Int.down
+        };
+
+        /// <summary>
+        /// Offset of all full adjacent tiles (orthogonal + diagonals) enumerated in counter
+        /// clockwise order starting with 0 radians at (1, 0).
+        /// </summary>
+        private static readonly Vector2Int[] fullAdj = new Vector2Int[]{
+            Vector2Int.right,
+            Vector2Int.right + Vector2Int.up,
+            Vector2Int.up,
+            Vector2Int.left + Vector2Int.up,
+            Vector2Int.left,
+            Vector2Int.left + Vector2Int.down,
+            Vector2Int.down,
+            Vector2Int.right + Vector2Int.down,
+        };
+
         /// <summary>
         /// Width of the tile map in squares.
         /// </summary>
@@ -21,19 +58,27 @@ namespace TileMap.Square
         private int height;
 
         /// <summary>
-        /// Values stored within each square of the tile map
+        /// Type of adjacency for square tiles in this grid.
+        /// </summary>
+        private Adjacency adjacencyType;
+
+        /// <summary>
+        /// Values stored within each square of the tile map.
         /// </summary>
         private V[,] values;
         
         /// <summary>
         /// Initialize a tile map with a given width and height.
         /// </summary>
-        /// <param name="width">Width of </param>
-        /// <param name="height"></param>
-        public SquareTileMap(int width, int height)
+        /// <param name="width">Width of the tile map in number of squares.</param>
+        /// <param name="height">Height of the tile map in number of squares.</param>
+        /// <param name="adjacencyType">Type of adjacency within the tile map.</param>
+        public SquareTileMap(int width, int height, Adjacency adjacencyType)
         {
             this.width = width;
             this.height = height;
+            this.values = new V[width, height];
+            this.adjacencyType = adjacencyType;
         }
 
         /// <inheritdoc/>
@@ -46,19 +91,39 @@ namespace TileMap.Square
         /// <inheritdoc/>
         public int GetNeighborCount(Vector2Int loc)
         {
-            throw new System.NotImplementedException();
+            switch (adjacencyType)
+            {
+                case Adjacency.Full:
+                    return 8;
+                case Adjacency.Orthogonal:
+                default:
+                    return 4;
+            }
         }
 
         /// <inheritdoc/>
         public IEnumerable<Vector2Int> GetNeighbors(Vector2Int loc)
         {
-            throw new System.NotImplementedException();
+            switch (adjacencyType)
+            {
+                case Adjacency.Full:
+                    return fullAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+                case Adjacency.Orthogonal:
+                default:
+                    return orthongoalAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+            }
         }
 
         /// <inheritdoc/>
         public bool IsInMap(Vector2Int loc)
         {
-            throw new System.NotImplementedException();
+            return loc.x >= 0 && loc.x < width && loc.y >= 0 && loc.y < height;
+        }
+
+        /// <inheritdoc/>
+        public void Clear()
+        {
+            this.values = new V[width, height];
         }
     }
 }

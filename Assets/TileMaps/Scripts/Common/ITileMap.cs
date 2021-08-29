@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace TileMap.Common
+namespace nickmaltbie.TileMap.Common
 {
     /// <summary>
     /// A tile map for a given coordinate system that contains specific values.
@@ -38,5 +38,10 @@ namespace TileMap.Common
             get;
             set;
         }
+
+        /// <summary>
+        /// Clear all values from the tile grid.
+        /// </summary>
+        void Clear();
     }
 }

@@ -91,14 +91,7 @@ namespace nickmaltbie.TileMap.Square
         /// <inheritdoc/>
         public int GetNeighborCount(Vector2Int loc)
         {
-            switch (adjacencyType)
-            {
-                case Adjacency.Full:
-                    return 8;
-                case Adjacency.Orthogonal:
-                default:
-                    return 4;
-            }
+            return GetNeighbors(loc).Count();
         }
 
         /// <inheritdoc/>

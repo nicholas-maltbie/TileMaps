@@ -41,5 +41,8 @@ namespace nickmaltbie.TileMap.Square
         /// <inheritdoc/>
         public Vector3 GetWorldPosition(Vector2Int loc) =>
             basePosition.TransformVector(new Vector3(loc.x, 0, loc.y) * tileSize);
+
+        /// <inheritdoc/>
+        public Quaternion GetWorldRotation(Vector2Int loc) => basePosition.rotation;
     }
 }

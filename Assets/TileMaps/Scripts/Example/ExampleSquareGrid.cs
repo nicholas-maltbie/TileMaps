@@ -57,10 +57,14 @@ namespace nickmaltbie.TileMap.Example
                     {
                         GameObject spawned = GameObject.Instantiate(this.tilePrefab);
                         spawned.transform.SetParent(base.transform);
+
+                        var pos = new Vector2Int(x, y);
+
                         spawned.name = $"({x}, {y})";
-                        spawned.transform.position = this.worldGrid.GetWorldPosition(new Vector2Int(x, y));
+                        spawned.transform.position = this.worldGrid.GetWorldPosition(pos);
                         spawned.transform.rotation = Quaternion.Euler(
-                            this.tilePrefab.transform.rotation.eulerAngles + this.transform.rotation.eulerAngles);
+                                this.tilePrefab.transform.rotation.eulerAngles +
+                                this.worldGrid.GetWorldRotation(pos).eulerAngles);
                     }
                 )
             );

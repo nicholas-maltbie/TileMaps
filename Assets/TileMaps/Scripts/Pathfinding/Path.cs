@@ -33,7 +33,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         {
             int length = 1;
             Path<V> previous = this.previous;
-            while(previous != null)
+            while (previous != null)
             {
                 length += 1;
                 previous = previous.previous;
@@ -50,7 +50,7 @@ namespace nickmaltbie.TileMap.Pathfinding
             Stack<V> stack = new Stack<V>();
             stack.Push(element);
             Path<V> previous = this.previous;
-            while(previous != null)
+            while (previous != null)
             {
                 stack.Push(previous.element);
                 previous = previous.previous;

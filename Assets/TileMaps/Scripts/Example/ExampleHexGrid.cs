@@ -8,6 +8,11 @@ using UnityEngine;
 
 namespace nickmaltbie.TileMap.Example
 {
+    public class Coord : MonoBehaviour
+    {
+        public Vector2Int coord;
+    }
+
     /// <summary>
     /// Example hexagon grid of spawned prefabs for testing purposes.
     /// </summary>
@@ -67,15 +72,66 @@ namespace nickmaltbie.TileMap.Example
                         spawned.transform.rotation = Quaternion.Euler(
                                 this.tilePrefab.transform.rotation.eulerAngles +
                                 this.worldGrid.GetWorldRotation(pos).eulerAngles);
+                        spawned.AddComponent<Coord>().coord = pos;
                         tileMap[pos] = spawned;
                     }
                 )
             );
+        }
 
-            tileMap.FindPathBFS(new Vector2Int(3, 3), new Vector2Int(10, 5), out List<Vector2Int> path);
-            for( int i = 0; i < path.Count; i++)
+        private Vector2Int selected1;
+        private Vector2Int selected2;
+        private int toggle = 0;
+        private List<Vector2Int> path = new List<Vector2Int>();
+
+        private GameObject GetTile(Vector2Int loc) => worldGrid.GetTileMap()[loc];
+
+        private void ColorTile(Vector2Int loc, Color color)
+        {
+            GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+        }
+
+        public void Update()
+        {
+            
+            if (Input.GetButtonDown("Fire1"))
             {
-                tileMap[path[i]].GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+                {
+                    if (hit.collider == null)
+                    {
+                        return;
+                    }
+
+                    Coord coord = hit.collider.gameObject.GetComponent<Coord>();
+                    if (coord == null)
+                    {
+                        return;
+                    }
+
+                    Vector2Int selected = coord.coord;
+
+                    if (toggle == 0)
+                    {
+                        path.ForEach(loc => ColorTile(loc, Color.white));
+                        selected1 = selected;
+                        ColorTile(selected, Color.yellow);
+                    }
+                    else if (toggle == 1)
+                    {
+                        selected2 = selected;
+                        ColorTile(selected, Color.yellow);
+
+                        worldGrid.GetTileMap().FindPathBFS(selected1, selected2, out path);
+                        path.Where(loc => loc != selected1 && loc != selected2)
+                            .ToList()
+                            .ForEach(loc => ColorTile(loc, Color.red));
+                    }
+
+                    toggle = (toggle + 1) % 2;
+                }
             }
         }
 

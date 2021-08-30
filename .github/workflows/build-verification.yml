@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion:
-          - 2020.3.14f1
+          - 2020.3.16f1
         platform:
           - StandaloneWindows64 # Build a Windows standalone.
     steps:

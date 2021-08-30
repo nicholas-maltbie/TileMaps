@@ -20,7 +20,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
         /// <typeparam name="K">Values stored within the graph</typeparam>
         /// <returns>True if a path can be found between the source and destination, false otherwise.</returns>
-        public static bool FindPathBFS<V, K>(ITileMap<V, K> tileMap, V source, V dest, out List<V> path)
+        public static bool FindPathBFS<V, K>(this ITileMap<V, K> tileMap, V source, V dest, out List<V> path)
         {
             // Base case if either source or dest are not in the tile map.
             if (!tileMap.IsInMap(source) || !tileMap.IsInMap(dest))
@@ -45,6 +45,14 @@ namespace nickmaltbie.TileMap.Pathfinding
                 // dequeue front of the stack.
                 (Path<V> previousPath, V node) = queue.Dequeue();
 
+                // Check if we found the destination
+                if (node.Equals(dest))
+                {
+                    // Compute full path to this node and mark path as found.
+                    path = new Path<V>(node, previousPath).FullPath().ToList<V>();
+                    return true;
+                }
+
                 // If the end has already been searched, continue to next edge in queue;
                 // otherwise add it to the queue.
                 if (searched.Contains(node))
@@ -59,14 +67,6 @@ namespace nickmaltbie.TileMap.Pathfinding
                 Path<V> pathToNode = new Path<V>(node, previousPath);
                 foreach (V neighbor in tileMap.GetNeighbors(node))
                 {
-                    // Check if we found the destination
-                    if (neighbor.Equals(dest))
-                    {
-                        // Compute full path to this node and mark path as found.
-                        path = new Path<V>(node, pathToNode).FullPath().ToList<V>();
-                        return true;
-                    }
-
                     // if the neighbor is not already searched, add it to the queue
                     if (searched.Contains(neighbor))
                     {

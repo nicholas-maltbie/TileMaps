@@ -1,7 +1,9 @@
 
+using System.Collections.Generic;
 using System.Linq;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Hexagon;
+using nickmaltbie.TileMap.Pathfinding;
 using UnityEngine;
 
 namespace nickmaltbie.TileMap.Example
@@ -65,9 +67,16 @@ namespace nickmaltbie.TileMap.Example
                         spawned.transform.rotation = Quaternion.Euler(
                                 this.tilePrefab.transform.rotation.eulerAngles +
                                 this.worldGrid.GetWorldRotation(pos).eulerAngles);
+                        tileMap[pos] = spawned;
                     }
                 )
             );
+
+            tileMap.FindPathBFS(new Vector2Int(3, 3), new Vector2Int(10, 5), out List<Vector2Int> path);
+            for( int i = 0; i < path.Count; i++)
+            {
+                tileMap[path[i]].GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+            }
         }
 
     }

@@ -52,7 +52,7 @@ namespace nickmaltbie.TileMap.Pathfinding
             Path<V> previous = this.previous;
             while(previous != null)
             {
-                stack.Push(element);
+                stack.Push(previous.element);
                 previous = previous.previous;
             }
             return stack.AsEnumerable();

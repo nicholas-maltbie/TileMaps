@@ -53,7 +53,7 @@ namespace nickmaltbie.TileMap.Example
 
             Enumerable.Range(0, this.width).ToList().ForEach(
                 x => Enumerable.Range(0, this.height).ToList().ForEach(
-                    y => 
+                    y =>
                     {
                         GameObject spawned = GameObject.Instantiate(this.tilePrefab);
                         spawned.transform.SetParent(base.transform);

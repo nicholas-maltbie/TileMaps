@@ -16,7 +16,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// Width of the hexagon grid in tiles.
         /// </summary>
         private int width;
-        
+
         /// <summary>
         /// Height of the hexagon grid in tiles.
         /// </summary>

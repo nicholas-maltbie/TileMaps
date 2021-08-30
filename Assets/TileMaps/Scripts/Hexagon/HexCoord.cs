@@ -16,12 +16,12 @@ namespace nickmaltbie.TileMap.Hexagon
     /// </summary>
     public enum HexDir
     {
-        Right       =   0,
-        TopRight    =  60,
-        TopLeft     = 120,
-        Left        = 180,
+        Right = 0,
+        TopRight = 60,
+        TopLeft = 120,
+        Left = 180,
         BottomRight = 240,
-        BottomLeft  = 300,
+        BottomLeft = 300,
     }
 
     /// <summary>

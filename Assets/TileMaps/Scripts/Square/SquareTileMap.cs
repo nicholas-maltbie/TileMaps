@@ -15,7 +15,7 @@ namespace nickmaltbie.TileMap.Square
         /// Width of the tile map in squares.
         /// </summary>
         private int width;
-        
+
         /// <summary>
         /// Height of the tile map in squares.
         /// </summary>
@@ -30,7 +30,7 @@ namespace nickmaltbie.TileMap.Square
         /// Values stored within each square of the tile map.
         /// </summary>
         private V[,] values;
-        
+
         /// <summary>
         /// Initialize a tile map with a given width and height.
         /// </summary>

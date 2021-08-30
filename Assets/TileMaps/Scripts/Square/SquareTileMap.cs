@@ -5,48 +5,12 @@ using UnityEngine;
 
 namespace nickmaltbie.TileMap.Square
 {
-
-    /// <summary>
-    /// Types of adjacency for square grids.
-    /// </summary>
-    public enum Adjacency
-    {
-        Orthogonal,
-        Full
-    }
-
     /// <summary>
     /// Fixed size square grid tile map that can contain generic values at each position within the map.
     /// </summary>
     /// <typeparam name="V">Type of values contained within each cell in the grid.</typeparam>
     public class SquareTileMap<V> : ITileMap<Vector2Int, V>
     {
-        /// <summary>
-        /// Offset of all orthogonally adjacent tiles enumerated in counter
-        /// clockwise order starting with 0 radians at (1, 0).
-        /// </summary>
-        private static readonly Vector2Int[] orthongoalAdj = new Vector2Int[]{
-            Vector2Int.right,
-            Vector2Int.up,
-            Vector2Int.left,
-            Vector2Int.down
-        };
-
-        /// <summary>
-        /// Offset of all full adjacent tiles (orthogonal + diagonals) enumerated in counter
-        /// clockwise order starting with 0 radians at (1, 0).
-        /// </summary>
-        private static readonly Vector2Int[] fullAdj = new Vector2Int[]{
-            Vector2Int.right,
-            Vector2Int.right + Vector2Int.up,
-            Vector2Int.up,
-            Vector2Int.left + Vector2Int.up,
-            Vector2Int.left,
-            Vector2Int.left + Vector2Int.down,
-            Vector2Int.down,
-            Vector2Int.right + Vector2Int.down,
-        };
-
         /// <summary>
         /// Width of the tile map in squares.
         /// </summary>
@@ -100,10 +64,10 @@ namespace nickmaltbie.TileMap.Square
             switch (adjacencyType)
             {
                 case Adjacency.Full:
-                    return fullAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+                    return SquareCoord.fullAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
                 case Adjacency.Orthogonal:
                 default:
-                    return orthongoalAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+                    return SquareCoord.orthongoalAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
             }
         }
 

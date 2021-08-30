@@ -1,4 +1,3 @@
-
 using nickmaltbie.TileMap.Common;
 using UnityEngine;
 
@@ -28,6 +27,8 @@ namespace nickmaltbie.TileMap.Square
         /// Create a square grid with a given tile map.
         /// </summary>
         /// <param name="tileMap">Tile map that this world grid represents.</param>
+        /// <param name="tileSize">Size of each tile, the length of each edge in the square.</param>
+        /// <param name="basePosition">Base position of the square grid.</param>
         public SquareWorldGrid(ITileMap<Vector2Int, V> tileMap, float tileSize, Transform basePosition)
         {
             this.squareTileMap = tileMap;
@@ -40,7 +41,7 @@ namespace nickmaltbie.TileMap.Square
 
         /// <inheritdoc/>
         public Vector3 GetWorldPosition(Vector2Int loc) =>
-            basePosition.TransformVector(new Vector3(loc.x, 0, loc.y) * tileSize);
+            basePosition.position + basePosition.TransformVector(new Vector3(loc.x, 0, loc.y) * tileSize);
 
         /// <inheritdoc/>
         public Quaternion GetWorldRotation(Vector2Int loc) => basePosition.rotation;

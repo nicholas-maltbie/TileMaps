@@ -62,6 +62,6 @@ namespace nickmaltbie.TileMap.Square
             Left + Down,
             Down,
             Right + Down,
-        };       
+        };
     }
 }

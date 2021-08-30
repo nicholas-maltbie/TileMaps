@@ -34,38 +34,37 @@ namespace nickmaltbie.TileMap.Pathfinding
             HashSet<V> searched = new HashSet<V>();
 
             // Queue of edges between two locations in the graph.
-            Queue<(Path<V>, V)> queue = new Queue<(Path<V>, V)>();
+            Queue<Path<V>> queue = new Queue<Path<V>>();
 
             // Initialize queue with first element.
-            queue.Enqueue((null, source));
+            queue.Enqueue(new Path<V>(source));
 
             // While there are still tiles to search.
             while (queue.Count > 0)
             {
                 // dequeue front of the stack.
-                (Path<V> previousPath, V node) = queue.Dequeue();
+                Path<V> pathToNode = queue.Dequeue();
 
                 // Check if we found the destination
-                if (node.Equals(dest))
+                if (pathToNode.Node.Equals(dest))
                 {
                     // Compute full path to this node and mark path as found.
-                    path = new Path<V>(node, previousPath).FullPath().ToList<V>();
+                    path = pathToNode.FullPath().ToList();
                     return true;
                 }
 
                 // If the end has already been searched, continue to next edge in queue;
                 // otherwise add it to the queue.
-                if (searched.Contains(node))
+                if (searched.Contains(pathToNode.Node))
                 {
                     continue;
                 }
                 else
                 {
-                    searched.Add(node);
+                    searched.Add(pathToNode.Node);
                 }
 
-                Path<V> pathToNode = new Path<V>(node, previousPath);
-                foreach (V neighbor in tileMap.GetNeighbors(node))
+                foreach (V neighbor in tileMap.GetNeighbors(pathToNode.Node))
                 {
                     // if the neighbor is not already searched, add it to the queue
                     if (searched.Contains(neighbor))
@@ -75,7 +74,7 @@ namespace nickmaltbie.TileMap.Pathfinding
                     else
                     {
                         // Add a new edge from the previous node to the neighbor
-                        queue.Enqueue((pathToNode, neighbor));
+                        queue.Enqueue(new Path<V>(neighbor, pathToNode));
                     }
                 }
             }

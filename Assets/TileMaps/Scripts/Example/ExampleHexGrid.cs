@@ -1,4 +1,5 @@
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using nickmaltbie.TileMap.Common;
@@ -124,7 +125,11 @@ namespace nickmaltbie.TileMap.Example
                         selected2 = selected;
                         ColorTile(selected, Color.yellow);
 
-                        worldGrid.GetTileMap().FindPathBFS(selected1, selected2, out path);
+                        Func<Path<Vector2Int>, float> pathWeight = (Path<Vector2Int> path) =>
+                            path.Length();
+                            // path.Length() + Vector2Int.Distance(path.Node, selected2);
+
+                        worldGrid.GetTileMap().FindPathAStar(selected1, selected2, pathWeight, out path);
                         path.Where(loc => loc != selected1 && loc != selected2)
                             .ToList()
                             .ForEach(loc => ColorTile(loc, Color.red));

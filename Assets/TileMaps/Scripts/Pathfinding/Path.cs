@@ -51,14 +51,11 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// </summary>
         public int Length()
         {
-            int length = 1;
-            Path<V> previous = this.previous;
-            while (previous != null)
+            if (previous != null)
             {
-                length += 1;
-                previous = previous.previous;
+                return 1 + previous.Length();
             }
-            return length;
+            return 1;
         }
 
         /// <summary>

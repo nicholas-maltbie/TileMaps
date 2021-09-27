@@ -332,6 +332,7 @@ MonoBehaviour:
   height: 16
   hexRadius: 1
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
+  searchMode: 2
 --- !u!4 &1355282004
 Transform:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ namespace nickmaltbie.TileMap.Pathfinding
             V dest,
             Func<Path<V>, W> GetWeight,
             out List<V> path)
-            where W : IComparable<W>
+            where W : IComparable
         {
             // Base case if either source or dest are not in the tile map.
             if (!tileMap.IsInMap(source) || !tileMap.IsInMap(dest))

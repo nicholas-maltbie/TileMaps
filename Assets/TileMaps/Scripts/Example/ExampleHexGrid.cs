@@ -9,9 +9,23 @@ using UnityEngine;
 
 namespace nickmaltbie.TileMap.Example
 {
+    /// <summary>
+    /// Coordinate of a hex referenced back to the grid it belongs to.
+    /// </summary>
     public class Coord : MonoBehaviour
     {
         public Vector2Int coord;
+    }
+
+    /// <summary>
+    /// Path modes that can be used when pathfinding in this grid.
+    /// </summary>
+    public enum PathMode
+    {
+        DepthFirstSearch,
+        BreadthFirstSearch,
+        AStar,
+        HillClimbing
     }
 
     /// <summary>
@@ -46,6 +60,13 @@ namespace nickmaltbie.TileMap.Example
         [Tooltip("Prefab to spawn within each square in the grid.")]
         [SerializeField]
         private GameObject tilePrefab;
+
+        /// <summary>
+        /// Type of mode for searching for the 
+        /// </summary>
+        [Tooltip("Path finding mode to use when searching for path.")]
+        [SerializeField]
+        private PathMode searchMode = PathMode.AStar;
 
         /// <summary>
         /// World grid containing spawned prefabs.
@@ -125,11 +146,28 @@ namespace nickmaltbie.TileMap.Example
                         selected2 = selected;
                         ColorTile(selected, Color.yellow);
 
-                        Func<Path<Vector2Int>, float> pathWeight = (Path<Vector2Int> path) =>
-                            path.Length();
-                            // path.Length() + Vector2Int.Distance(path.Node, selected2);
+                        switch (searchMode)
+                        {
+                            case PathMode.DepthFirstSearch:
+                                worldGrid.GetTileMap().FindPathDFS(selected1, selected2, out path);
+                                break;
+                            case PathMode.BreadthFirstSearch:
+                                worldGrid.GetTileMap().FindPathBFS(selected1, selected2, out path);
+                                break;
+                            case PathMode.HillClimbing:
+                                Func<Path<Vector2Int>, float> pathWeightHillClimbing = (Path<Vector2Int> path) =>
+                                    Vector2Int.Distance(path.Node, selected2);
+                                worldGrid.GetTileMap().FindPathAStar(selected1, selected2, pathWeightHillClimbing, out path);
+                                break;
+                            case PathMode.AStar:
+                                // Func<Path<Vector2Int>, Tuple<int, float>> pathWeightAStar = (Path<Vector2Int> path) =>
+                                //     new Tuple<int, float>(path.Length(), Vector2Int.Distance(path.Node, selected2));
+                                Func<Path<Vector2Int>, float> pathWeightAStar = (Path<Vector2Int> path) =>
+                                    path.Length() + Vector2Int.Distance(path.Node, selected2);
+                                worldGrid.GetTileMap().FindPathAStar(selected1, selected2, pathWeightAStar, out path);
+                                break;
+                        }
 
-                        worldGrid.GetTileMap().FindPathAStar(selected1, selected2, pathWeight, out path);
                         path.Where(loc => loc != selected1 && loc != selected2)
                             .ToList()
                             .ForEach(loc => ColorTile(loc, Color.red));

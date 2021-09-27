@@ -12,7 +12,7 @@ namespace nickmaltbie.TileMap.Common
     /// </summary>
     /// <typeparam name="K">Key used to sort elements, must implement IComparable<K>.</typeparam>
     /// <typeparam name="V">Type of data stored in the heap.</typeparam>
-    public class Heap<K, V> where K : IComparable<K>
+    public class Heap<K, V> where K : IComparable
     {
         /// <summary>
         /// Values stored in this heap.
@@ -168,7 +168,7 @@ namespace nickmaltbie.TileMap.Common
             bool pushDown = true;
             while (pushDown)
             {
-                int minIndex = index;
+                int minIndex = nodeIndex;
                 (K minKey, V minValue) = this.values[nodeIndex];
 
                 foreach (int childNode in this.GetChildrenAsEnumerable(nodeIndex))
@@ -183,6 +183,7 @@ namespace nickmaltbie.TileMap.Common
                     {
                         minIndex = childNode;
                         minValue = childValue;
+                        minKey = childKey;
                     }
                 }
 

@@ -29,7 +29,7 @@ namespace nickmaltbie.TileMap.Common
         /// </summary>
         public Heap() : this(10)
         {
-            
+
         }
 
         /// <summary>

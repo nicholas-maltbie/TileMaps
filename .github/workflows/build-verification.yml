@@ -6,7 +6,7 @@ on:
     branches: [main]
 
 env:
-  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2020_3 }}
+  UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2021_1 }}
 
 jobs:
   buildForSomePlatforms:
@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         unityVersion:
-          - 2020.3.16f1
+          - 2021.1.19f1
         platform:
           - StandaloneWindows64 # Build a Windows standalone.
     steps:

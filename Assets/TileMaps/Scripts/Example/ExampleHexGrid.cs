@@ -30,13 +30,16 @@ namespace nickmaltbie.TileMap.Example
         [SerializeField]
         private float hexRadius = 1.0f;
 
-        protected override IWorldGrid<Vector2Int, GameObject> CreateGridMap()
+        protected override (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
+            CreateGridMap()
         {
-            ITileMap<Vector2Int, GameObject> tileMap = new HexTileMap<GameObject>(
+            IBlockableTileMap<Vector2Int, GameObject> tileMap = new HexTileMap<GameObject>(
                 this.width, this.height);
 
-            return new HexWorldGrid<GameObject>(
-                tileMap, this.hexRadius, base.transform);
+            return (
+                new HexWorldGrid<GameObject>(tileMap, this.hexRadius, base.transform),
+                tileMap
+            );
         }
     }
 }

@@ -37,13 +37,15 @@ namespace nickmaltbie.TileMap.Example
         [SerializeField]
         private Adjacency adjacency = Adjacency.Orthogonal;
 
-        protected override IWorldGrid<Vector2Int, GameObject> CreateGridMap()
+        protected override (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
+            CreateGridMap()
         {
-            ITileMap<Vector2Int, GameObject> tileMap = new SquareTileMap<GameObject>(
+            IBlockableTileMap<Vector2Int, GameObject> tileMap = new SquareTileMap<GameObject>(
                 this.width, this.height, this.adjacency);
 
-            return new SquareWorldGrid<GameObject>(
-                tileMap, this.tileSize, base.transform);
+            return (new SquareWorldGrid<GameObject>(tileMap, this.tileSize, base.transform),
+                tileMap
+            );
         }
 
     }

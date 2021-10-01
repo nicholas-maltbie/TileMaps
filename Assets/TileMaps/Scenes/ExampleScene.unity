@@ -309,8 +309,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1355282004}
   - component: {fileID: 1355282003}
+  - component: {fileID: 1355282005}
   m_Layer: 0
-  m_Name: HexGrid
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -347,3 +348,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1355282005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355282002}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9296cf48ef9f46b41a10d4d4267b1031, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  searchMode: 2
+  tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
+  width: 30
+  height: 24
+  tileSize: 1
+  adjacency: 0

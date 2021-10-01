@@ -67,7 +67,7 @@ namespace nickmaltbie.TileMap.Example
 
         public GameObject TilePrefab => this.tilePrefab;
 
-        public void Start()
+        public void OnEnable()
         {
             this.worldGrid = CreateGridMap();
             foreach (Vector2Int pos in this.worldGrid.GetTileMap())
@@ -82,6 +82,14 @@ namespace nickmaltbie.TileMap.Example
                         this.worldGrid.GetWorldRotation(pos).eulerAngles);
                 spawned.AddComponent<Coord>().coord = pos;
                 this.worldGrid.GetTileMap()[pos] = spawned;
+            }
+        }
+
+        public void OnDisable()
+        {
+            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
+            {
+                GameObject.Destroy(this.worldGrid.GetTileMap()[pos]);
             }
         }
 

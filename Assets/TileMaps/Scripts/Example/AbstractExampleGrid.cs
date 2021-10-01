@@ -130,7 +130,7 @@ namespace nickmaltbie.TileMap.Example
             }
 
             Vector2Int selected = coord.coord;
-            
+
             if (Input.GetButtonDown("Fire2"))
             {
                 // toggle blocked state

@@ -53,6 +53,18 @@ namespace nickmaltbie.TileMap.Hexagon
         }
 
         /// <inheritdoc/>
+        public IEnumerator<Vector2Int> GetEnumerator()
+        {
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < height; y++)
+                {
+                    yield return new Vector2Int(x, y);
+                }
+            }
+        }
+
+        /// <inheritdoc/>
         public int GetNeighborCount(Vector2Int loc)
         {
             return GetNeighbors(loc).Count();

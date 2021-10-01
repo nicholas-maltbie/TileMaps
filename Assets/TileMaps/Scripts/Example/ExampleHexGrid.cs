@@ -1,10 +1,5 @@
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Hexagon;
-using nickmaltbie.TileMap.Pathfinding;
 using UnityEngine;
 
 namespace nickmaltbie.TileMap.Example

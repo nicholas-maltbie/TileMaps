@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,16 +70,19 @@ namespace nickmaltbie.TileMap.Example
         public void Start()
         {
             this.worldGrid = CreateGridMap();
-
-            foreach (Coord coord in GetComponentsInChildren<Coord>())
+            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
             {
-                this.worldGrid.GetTileMap()[coord.coord] = coord.gameObject;
-            }
-        }
+                GameObject spawned = GameObject.Instantiate(this.TilePrefab) as GameObject;
+                spawned.transform.SetParent(this.transform);
 
-        public void SetupGridMap()
-        {
-            this.worldGrid = CreateGridMap();
+                spawned.name = $"({pos.x}, {pos.y})";
+                spawned.transform.position = this.worldGrid.GetWorldPosition(pos);
+                spawned.transform.rotation = Quaternion.Euler(
+                        this.tilePrefab.transform.rotation.eulerAngles +
+                        this.worldGrid.GetWorldRotation(pos).eulerAngles);
+                spawned.AddComponent<Coord>().coord = pos;
+                this.worldGrid.GetTileMap()[pos] = spawned;
+            }
         }
 
         protected abstract IWorldGrid<Vector2Int, GameObject> CreateGridMap();

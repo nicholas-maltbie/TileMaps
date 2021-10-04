@@ -48,7 +48,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
             if (!tileMap.IsInMap(source) || !tileMap.IsInMap(dest))
             {
                 // Return empty list and no path found.
-                yield return new PathfindingStep<K>{ stepType = StepType.EndPath };
+                yield return new PathfindingStep<K> { stepType = StepType.EndPath };
                 yield break;
             }
 
@@ -111,13 +111,6 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                     };
                     searched.Add(pathToNode.Node);
                 }
-                yield return new PathfindingStep<K>
-                {
-                    pathOrder = pathOrder,
-                    currentPath = pathToNode,
-                    stepType = StepType.AddNode,
-                    pathFound = false,
-                };
 
                 foreach (K neighbor in tileMap.GetNeighbors(pathToNode.Node))
                 {
@@ -133,6 +126,13 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                         pathOrder.AddPath(neighborPath);
                     }
                 }
+                yield return new PathfindingStep<K>
+                {
+                    pathOrder = pathOrder,
+                    currentPath = pathToNode,
+                    stepType = StepType.AddNode,
+                    pathFound = false,
+                };
             }
             // Return empty list and no path found.
             yield return new PathfindingStep<K>

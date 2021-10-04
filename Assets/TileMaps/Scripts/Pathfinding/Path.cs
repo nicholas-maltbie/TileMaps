@@ -26,6 +26,11 @@ namespace nickmaltbie.TileMap.Pathfinding
         public V Node => node;
 
         /// <summary>
+        /// Get the path previous to this node.
+        /// </summary>
+        public Path<V> Previous => previous;
+
+        /// <summary>
         /// Create a path that consists of just a single node that has no previous path.
         /// </summary>
         /// <param name="node">Single node within the path.</param>

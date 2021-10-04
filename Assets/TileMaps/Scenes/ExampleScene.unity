@@ -330,6 +330,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
+  stepDelay: 0.25
+  finalPathDelay: 0.05
+  arrowOffset: 0.5
+  pathArrowColor: {r: 1, g: 0.6, b: 0, a: 1}
+  selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
+  defaultTileColor: {r: 1, g: 1, b: 1, a: 1}
+  searchedTileColor: {r: 0, g: 1, b: 0, a: 1}
+  pathTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  blockedTileColor: {r: 0, g: 0, b: 1, a: 1}
+  arrowPrefab: {fileID: 3003423559459847268, guid: fff395ae90617e74e9048f453c684ed6, type: 3}
   width: 16
   height: 16
   hexRadius: 1
@@ -378,6 +388,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
+  stepDelay: 0.25
+  finalPathDelay: 0.05
+  arrowOffset: 0.5
+  pathArrowColor: {r: 1, g: 0, b: 1, a: 1}
+  selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
+  defaultTileColor: {r: 1, g: 1, b: 1, a: 1}
+  searchedTileColor: {r: 0, g: 1, b: 0, a: 1}
+  pathTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  blockedTileColor: {r: 0, g: 0, b: 1, a: 1}
+  arrowPrefab: {fileID: 0}
   width: 30
   height: 24
   tileSize: 1

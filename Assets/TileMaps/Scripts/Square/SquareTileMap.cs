@@ -70,10 +70,16 @@ namespace nickmaltbie.TileMap.Square
             switch (adjacencyType)
             {
                 case Adjacency.Full:
-                    return SquareCoord.fullAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+                    return SquareCoord.fullAdj
+                        .Select(adj => loc + adj)
+                        .Where(loc => IsInMap(loc))
+                        .Where(loc => !IsBlocked(loc));
                 case Adjacency.Orthogonal:
                 default:
-                    return SquareCoord.orthongoalAdj.Select(adj => loc + adj).Where(loc => IsInMap(loc));
+                    return SquareCoord.orthongoalAdj
+                        .Select(adj => loc + adj)
+                        .Where(loc => IsInMap(loc))
+                        .Where(loc => !IsBlocked(loc));
             }
         }
 

@@ -87,6 +87,10 @@ namespace nickmaltbie.TileMap.Example
 
         public Color blockedTileColor = Color.blue;
 
+        public float priorityDecay = 0.95f;
+
+        public Gradient priorityGradient;
+
         /// <summary>
         /// Arrow to spawn between hexes
         /// </summary>
@@ -94,6 +98,8 @@ namespace nickmaltbie.TileMap.Example
         public GameObject arrowPrefab;
 
         private HashSet<Vector2Int> searched = new HashSet<Vector2Int>();
+
+        private Dictionary<Vector2Int, float> tileWeights = new Dictionary<Vector2Int, float>();
 
         private Dictionary<(Vector2Int, Vector2Int), GameObject> arrows =
             new Dictionary<(Vector2Int, Vector2Int), GameObject>();
@@ -246,6 +252,13 @@ namespace nickmaltbie.TileMap.Example
                         UpdateTileColor(loc);
                     }
 
+                    var weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
+                    this.tileWeights.Clear();
+                    foreach(Vector2Int loc in weightsToClear)
+                    {
+                        UpdateTileColor(loc);
+                    }
+
                     // Start new path
                     selected1 = selected;
                     UpdateTileColor(selected);
@@ -259,6 +272,21 @@ namespace nickmaltbie.TileMap.Example
                 }
 
                 toggle = (toggle + 1) % 2;
+            }
+        }
+
+        public void UpdatePathWeight(PathfindingStep<Vector2Int> step)
+        {
+            float weight = 1.0f;
+            foreach (Path<Vector2Int> path in step.pathOrder.EnumerateElements())
+            {
+                tileWeights[path.Node] = weight;
+                // Skip elements that are in the searched group
+                if (!searched.Contains(path.Node))
+                {
+                    weight *= priorityDecay;
+                }
+                UpdateTileColor(path.Node);
             }
         }
 
@@ -276,13 +304,16 @@ namespace nickmaltbie.TileMap.Example
                 {
                     case StepType.StartPath:
                         UpdateTileColor(step.currentPath.Node);
+                        UpdatePathWeight(step);
                         break;
                     case StepType.AddNode:
                         if (step.currentPath.Previous != null)
                         {
                             CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
+                            UpdatePathWeight(step);
                             yield return new WaitForSeconds(stepDelay);
                         }
+
                         break;
                     case StepType.EndPath:
                         if (step.pathFound)
@@ -290,6 +321,7 @@ namespace nickmaltbie.TileMap.Example
                             this.searched.Add(step.currentPath.Node);
                             CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             UpdateTileColor(step.currentPath.Node);
+                            UpdatePathWeight(step);
 
                             // Animate path
                             this.path = step.currentPath.FullPath().ToList();
@@ -312,10 +344,12 @@ namespace nickmaltbie.TileMap.Example
                     case StepType.MarkSearched:
                         this.searched.Add(step.currentPath.Node);
                         UpdateTileColor(step.currentPath.Node);
+                        UpdatePathWeight(step);
                         break;
                     case StepType.SkipSearched:
                         if (DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
+                            UpdatePathWeight(step);
                             yield return new WaitForSeconds(stepDelay);
                         }
                         break;
@@ -387,6 +421,10 @@ namespace nickmaltbie.TileMap.Example
             if (this.searched.Contains(loc))
             {
                 return searchedTileColor;
+            }
+            if (this.tileWeights.ContainsKey(loc))
+            {
+                return priorityGradient.Evaluate(this.tileWeights[loc]);
             }
             return defaultTileColor;
         }

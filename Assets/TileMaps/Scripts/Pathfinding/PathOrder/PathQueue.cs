@@ -42,6 +42,17 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         }
 
         /// <inheritdoc/>
+        public IEnumerable<Path<V>> EnumerateElements()
+        {
+            IEnumerator<Path<V>> paths = this.queue.GetEnumerator();
+            while (paths.MoveNext())
+            {
+                yield return paths.Current;
+            }
+            yield break;
+        }
+
+        /// <inheritdoc/>
         public int Count => this.queue.Count;
     }
 }

@@ -17,6 +17,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
 
     public struct PathfindingStep<V>
     {
+        public IPathOrder<V> pathOrder;
         public Path<V> currentPath;
         public bool pathFound;
         public StepType stepType;
@@ -61,6 +62,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
             // Mark as starting path
             yield return new PathfindingStep<K>
             {
+                pathOrder = pathOrder,
                 currentPath = sourcePath,
                 stepType = StepType.StartPath
             };
@@ -77,6 +79,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                     // Compute full path to this node and mark path as found.
                     yield return new PathfindingStep<K>
                     {
+                        pathOrder = pathOrder,
                         currentPath = pathToNode,
                         stepType = StepType.EndPath,
                         pathFound = true,
@@ -90,6 +93,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 {
                     yield return new PathfindingStep<K>
                     {
+                        pathOrder = pathOrder,
                         currentPath = pathToNode,
                         stepType = StepType.SkipSearched,
                         pathFound = false,
@@ -100,6 +104,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 {
                     yield return new PathfindingStep<K>
                     {
+                        pathOrder = pathOrder,
                         currentPath = pathToNode,
                         stepType = StepType.MarkSearched,
                         pathFound = false,
@@ -108,6 +113,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 }
                 yield return new PathfindingStep<K>
                 {
+                    pathOrder = pathOrder,
                     currentPath = pathToNode,
                     stepType = StepType.AddNode,
                     pathFound = false,
@@ -131,6 +137,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
             // Return empty list and no path found.
             yield return new PathfindingStep<K>
             {
+                pathOrder = pathOrder,
                 stepType = StepType.EndPath,
                 pathFound = false,
             };

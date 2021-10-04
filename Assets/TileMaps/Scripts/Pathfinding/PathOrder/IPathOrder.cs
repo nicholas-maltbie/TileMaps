@@ -35,5 +35,12 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         /// Get the number of elements stored in this current path collection.
         /// </summary>
         int Count { get; }
+
+        /// <summary>
+        /// Enumerate the elements in this path in some given order. This intended as a debug operation and may not
+        /// always result in the fully correct order of elements. 
+        /// </summary>
+        /// <returns>The enumerated values within this path order.</returns>
+        IEnumerable<Path<V>> EnumerateElements();
     }
 }

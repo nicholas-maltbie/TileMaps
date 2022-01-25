@@ -1,5 +1,21 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
-using System;
 using System.Collections.Generic;
 
 namespace nickmaltbie.TileMap.Pathfinding.PathOrder
@@ -20,39 +36,40 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         /// </summary>
         public PathQueue()
         {
-            this.queue = new Queue<Path<V>>();
+            queue = new Queue<Path<V>>();
         }
 
         /// <inheritdoc/>
         public void AddPath(Path<V> path)
         {
-            this.queue.Enqueue(path);
+            queue.Enqueue(path);
         }
 
         /// <inheritdoc/>
         public Path<V> Peek()
         {
-            return this.queue.Peek();
+            return queue.Peek();
         }
 
         /// <inheritdoc/>
         public Path<V> Pop()
         {
-            return this.queue.Dequeue();
+            return queue.Dequeue();
         }
 
         /// <inheritdoc/>
         public IEnumerable<Path<V>> EnumerateElements()
         {
-            IEnumerator<Path<V>> paths = this.queue.GetEnumerator();
+            IEnumerator<Path<V>> paths = queue.GetEnumerator();
             while (paths.MoveNext())
             {
                 yield return paths.Current;
             }
+
             yield break;
         }
 
         /// <inheritdoc/>
-        public int Count => this.queue.Count;
+        public int Count => queue.Count;
     }
 }

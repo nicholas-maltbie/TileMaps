@@ -1,7 +1,23 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using nickmaltbie.TileMap.Common;
 
 namespace nickmaltbie.TileMap.Pathfinding.PathOrder
@@ -38,31 +54,31 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         public PathPriorityQueue(Func<Path<V>, W> GetWeight, int initialCapacity)
         {
             this.GetWeight = GetWeight;
-            this.pQueue = new Heap<W, Path<V>>(initialCapacity);
+            pQueue = new Heap<W, Path<V>>(initialCapacity);
         }
 
         /// <inheritdoc/>
         public void AddPath(Path<V> path)
         {
-            this.pQueue.Add(GetWeight(path), path);
+            pQueue.Add(GetWeight(path), path);
         }
 
         /// <inheritdoc/>
         public Path<V> Peek()
         {
-            return this.pQueue.Peek();
+            return pQueue.Peek();
         }
 
         /// <inheritdoc/>
         public Path<V> Pop()
         {
-            return this.pQueue.Pop();
+            return pQueue.Pop();
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Path<V>> EnumerateElements() => this.pQueue.EnumerateElements();
+        public IEnumerable<Path<V>> EnumerateElements() => pQueue.EnumerateElements();
 
         /// <inheritdoc/>
-        public int Count => this.pQueue.Count;
+        public int Count => pQueue.Count;
     }
 }

@@ -43,7 +43,8 @@ else
     # Edit your project files here
     echo "Formatting files..."
     dotnet tool restore # This handles cache. If there's no restore needed it will not download anything.
-    dotnet format . --folder --include "$INCLUDE_STRING" --exclude "Assets/Mirror" "Assets/SteamAudio" "Library"
+    dotnet format --fix-style warn --verbosity normal TileMaps.sln --include "$INCLUDE_STRING" --exclude "$EXCLUDE_STRING" --check
+    dotnet format --fix-whitespace --verbosity normal TileMaps.sln --include "$INCLUDE_STRING" --exclude "$EXCLUDE_STRING" --check
     # Restage files
     echo "Restaging files: $INCLUDE_STRING"
     echo ${INCLUDE_STRING} | xargs -t -l git add

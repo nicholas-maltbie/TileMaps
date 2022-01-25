@@ -1,10 +1,27 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Pathfinding;
-using nickmaltbie.TileMap.Pathfinding.PathOrder;
 using nickmaltbie.TileMap.Pathfinding.Visualization;
 using UnityEngine;
 
@@ -104,9 +121,9 @@ namespace nickmaltbie.TileMap.Example
         private Dictionary<(Vector2Int, Vector2Int), GameObject> arrows =
             new Dictionary<(Vector2Int, Vector2Int), GameObject>();
 
-        public IWorldGrid<Vector2Int, GameObject> WorldGrid => this.worldGrid;
+        public IWorldGrid<Vector2Int, GameObject> WorldGrid => worldGrid;
 
-        public GameObject TilePrefab => this.tilePrefab;
+        public GameObject TilePrefab => tilePrefab;
 
         public GameObject CreateArrow(Vector2Int start, Vector2Int end)
         {
@@ -120,15 +137,15 @@ namespace nickmaltbie.TileMap.Example
                 return null;
             }
 
-            Vector3 startPos = this.worldGrid.GetWorldPosition(start);
-            Vector3 endPos = this.worldGrid.GetWorldPosition(end);
+            Vector3 startPos = worldGrid.GetWorldPosition(start);
+            Vector3 endPos = worldGrid.GetWorldPosition(end);
             Vector3 dir = startPos - endPos;
 
-            GameObject arrow = GameObject.Instantiate(
+            var arrow = GameObject.Instantiate(
                 arrowPrefab,
                 (startPos + endPos) / 2 + Vector3.up * arrowOffset,
                 Quaternion.FromToRotation(Vector3.forward, dir),
-                this.transform);
+                transform);
 
             arrows[(start, end)] = arrow;
 
@@ -145,32 +162,33 @@ namespace nickmaltbie.TileMap.Example
                 GameObject.Destroy(arrow);
                 return true;
             }
+
             return false;
         }
 
         public void OnEnable()
         {
             (worldGrid, tileMap) = CreateGridMap();
-            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
+            foreach (Vector2Int pos in worldGrid.GetTileMap())
             {
-                GameObject spawned = GameObject.Instantiate(this.TilePrefab) as GameObject;
-                spawned.transform.SetParent(this.transform);
+                var spawned = GameObject.Instantiate(TilePrefab) as GameObject;
+                spawned.transform.SetParent(transform);
 
                 spawned.name = $"({pos.x}, {pos.y})";
-                spawned.transform.position = this.worldGrid.GetWorldPosition(pos);
+                spawned.transform.position = worldGrid.GetWorldPosition(pos);
                 spawned.transform.rotation = Quaternion.Euler(
-                        this.tilePrefab.transform.rotation.eulerAngles +
-                        this.worldGrid.GetWorldRotation(pos).eulerAngles);
+                        tilePrefab.transform.rotation.eulerAngles +
+                        worldGrid.GetWorldRotation(pos).eulerAngles);
                 spawned.AddComponent<Coord>().coord = pos;
-                this.worldGrid.GetTileMap()[pos] = spawned;
+                worldGrid.GetTileMap()[pos] = spawned;
             }
         }
 
         public void OnDisable()
         {
-            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
+            foreach (Vector2Int pos in worldGrid.GetTileMap())
             {
-                GameObject.Destroy(this.worldGrid.GetTileMap()[pos]);
+                GameObject.Destroy(worldGrid.GetTileMap()[pos]);
             }
         }
 
@@ -190,11 +208,11 @@ namespace nickmaltbie.TileMap.Example
             }
 
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (!Physics.Raycast(ray, out hit, Mathf.Infinity))
+            if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
                 return;
             }
+
             if (hit.collider == null)
             {
                 return;
@@ -223,6 +241,7 @@ namespace nickmaltbie.TileMap.Example
                 // Update color
                 UpdateTileColor(selected);
             }
+
             if (Input.GetButtonDown("Fire1"))
             {
                 if (tileMap.IsBlocked(selected))
@@ -232,28 +251,29 @@ namespace nickmaltbie.TileMap.Example
 
                 if (toggle == 0)
                 {
-                    this.StopAllCoroutines();
+                    StopAllCoroutines();
 
                     // Clear out previous  path
                     selected1 = null;
                     selected2 = null;
                     List<Vector2Int> savedPath = path;
-                    this.path = null;
+                    path = null;
                     // savedPath.ForEach(loc => UpdateTileColor(loc));
-                    foreach (var key in arrows)
+                    foreach (KeyValuePair<(Vector2Int, Vector2Int), GameObject> key in arrows)
                     {
                         GameObject.Destroy(key.Value);
                     }
+
                     arrows.Clear();
-                    var toClear = this.searched.ToList();
-                    this.searched.Clear();
+                    var toClear = searched.ToList();
+                    searched.Clear();
                     foreach (Vector2Int loc in toClear)
                     {
                         UpdateTileColor(loc);
                     }
 
-                    var weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
-                    this.tileWeights.Clear();
+                    IEnumerable<Vector2Int> weightsToClear = tileWeights.ToList().Select(e => e.Key);
+                    tileWeights.Clear();
                     foreach (Vector2Int loc in weightsToClear)
                     {
                         UpdateTileColor(loc);
@@ -286,19 +306,20 @@ namespace nickmaltbie.TileMap.Example
                 {
                     weight *= priorityDecay;
                 }
+
                 UpdateTileColor(path.Node);
             }
         }
 
         public IEnumerator DrawPathVisualization(IEnumerable<PathfindingStep<Vector2Int>> steps)
         {
-            this.searched.Clear();
-            this.searched.Add(selected1.Value);
-            this.searched.Add(selected2.Value);
-            var stepEnumerator = steps.GetEnumerator();
+            searched.Clear();
+            searched.Add(selected1.Value);
+            searched.Add(selected2.Value);
+            IEnumerator<PathfindingStep<Vector2Int>> stepEnumerator = steps.GetEnumerator();
             while (stepEnumerator.MoveNext())
             {
-                var step = stepEnumerator.Current;
+                PathfindingStep<Vector2Int> step = stepEnumerator.Current;
 
                 switch (step.stepType)
                 {
@@ -318,21 +339,22 @@ namespace nickmaltbie.TileMap.Example
                     case StepType.EndPath:
                         if (step.pathFound)
                         {
-                            this.searched.Add(step.currentPath.Node);
+                            searched.Add(step.currentPath.Node);
                             CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             UpdateTileColor(step.currentPath.Node);
                             UpdatePathWeight(step);
 
                             // Animate path
-                            this.path = step.currentPath.FullPath().ToList();
-                            for (int i = 1; i < this.path.Count; i++)
+                            path = step.currentPath.FullPath().ToList();
+                            for (int i = 1; i < path.Count; i++)
                             {
                                 UpdateTileColor(path[i]);
-                                GameObject arrow = this.arrows[(path[i], path[i - 1])];
+                                GameObject arrow = arrows[(path[i], path[i - 1])];
                                 foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
                                 {
-                                    mr.material.SetColor("_Color", this.pathArrowColor);
+                                    mr.material.SetColor("_Color", pathArrowColor);
                                 }
+
                                 yield return new WaitForSeconds(finalPathDelay);
                             }
                         }
@@ -340,9 +362,10 @@ namespace nickmaltbie.TileMap.Example
                         {
 
                         }
+
                         break;
                     case StepType.MarkSearched:
-                        this.searched.Add(step.currentPath.Node);
+                        searched.Add(step.currentPath.Node);
                         UpdateTileColor(step.currentPath.Node);
                         UpdatePathWeight(step);
                         break;
@@ -352,9 +375,9 @@ namespace nickmaltbie.TileMap.Example
                             UpdatePathWeight(step);
                             yield return new WaitForSeconds(stepDelay);
                         }
+
                         break;
                 }
-
             }
         }
 
@@ -410,25 +433,30 @@ namespace nickmaltbie.TileMap.Example
             {
                 return blockedTileColor;
             }
+
             if (loc == selected1 || loc == selected2)
             {
                 return selectedTileColor;
             }
+
             if (path != null && path.Contains(loc))
             {
                 return pathTileColor;
             }
-            if (this.searched.Contains(loc))
+
+            if (searched.Contains(loc))
             {
                 return searchedTileColor;
             }
-            if (this.tileWeights.ContainsKey(loc))
+
+            if (tileWeights.ContainsKey(loc))
             {
-                return priorityGradient.Evaluate(this.tileWeights[loc]);
+                return priorityGradient.Evaluate(tileWeights[loc]);
             }
+
             return defaultTileColor;
         }
 
-        private GameObject GetTile(Vector2Int loc) => this.worldGrid.GetTileMap()[loc];
+        private GameObject GetTile(Vector2Int loc) => worldGrid.GetTileMap()[loc];
     }
 }

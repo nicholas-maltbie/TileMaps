@@ -1,6 +1,23 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System.Collections.Generic;
 using System.Linq;
-using nickmaltbie.TileMap.Common;
 
 namespace nickmaltbie.TileMap.Pathfinding
 {
@@ -36,7 +53,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <param name="node">Single node within the path.</param>
         public Path(V node)
         {
-            this.previous = null;
+            previous = null;
             this.node = node;
         }
 
@@ -63,6 +80,7 @@ namespace nickmaltbie.TileMap.Pathfinding
                 length += 1;
                 previous = previous.previous;
             }
+
             return length;
         }
 
@@ -72,7 +90,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <returns>Enumerable of all nodes in the path</returns>
         public IEnumerable<V> FullPath()
         {
-            Stack<V> stack = new Stack<V>();
+            var stack = new Stack<V>();
             stack.Push(node);
             Path<V> previous = this.previous;
             while (previous != null)
@@ -80,6 +98,7 @@ namespace nickmaltbie.TileMap.Pathfinding
                 stack.Push(previous.node);
                 previous = previous.previous;
             }
+
             return stack.AsEnumerable();
         }
     }

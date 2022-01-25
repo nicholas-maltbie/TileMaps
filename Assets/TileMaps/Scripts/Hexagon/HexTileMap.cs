@@ -1,6 +1,24 @@
-using nickmaltbie.TileMap.Common;
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System.Collections.Generic;
 using System.Linq;
+using nickmaltbie.TileMap.Common;
 using UnityEngine;
 
 namespace nickmaltbie.TileMap.Hexagon
@@ -41,8 +59,8 @@ namespace nickmaltbie.TileMap.Hexagon
         {
             this.width = width;
             this.height = height;
-            this.values = new V[width, height];
-            this.blocked = new HashSet<Vector2Int>();
+            values = new V[width, height];
+            blocked = new HashSet<Vector2Int>();
         }
 
         /// <inheritdoc/>
@@ -55,7 +73,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <inheritdoc/>
         public void Clear()
         {
-            this.values = new V[width, height];
+            values = new V[width, height];
         }
 
         /// <inheritdoc/>
@@ -80,8 +98,8 @@ namespace nickmaltbie.TileMap.Hexagon
         public IEnumerable<Vector2Int> GetNeighbors(Vector2Int loc)
         {
             return HexCoord.GetAdjacent(loc)
-                .Where(loc => this.IsInMap(loc))
-                .Where(loc => !this.IsBlocked(loc));
+                .Where(loc => IsInMap(loc))
+                .Where(loc => !IsBlocked(loc));
         }
 
         /// <inheritdoc/>
@@ -93,19 +111,19 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <inheritdoc/>
         public void Block(Vector2Int loc)
         {
-            this.blocked.Add(loc);
+            blocked.Add(loc);
         }
 
         /// <inheritdoc/>
         public void Unblock(Vector2Int loc)
         {
-            this.blocked.Remove(loc);
+            blocked.Remove(loc);
         }
 
         /// <inheritdoc/>
         public bool IsBlocked(Vector2Int loc)
         {
-            return this.blocked.Contains(loc);
+            return blocked.Contains(loc);
         }
     }
 }

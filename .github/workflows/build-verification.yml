@@ -2,23 +2,22 @@ name: Build Verification
 
 on:
   pull_request:
-  push:
-    branches: [main]
 
 env:
   UNITY_LICENSE: ${{ secrets.UNITY_LICENSE_2021_1 }}
 
 jobs:
   buildForSomePlatforms:
-    name: Build for ${{ matrix.platform }} on version ${{ matrix.unityVersion }}
+    name: Build for ${{ matrix.buildMethod }} on version ${{ matrix.unityVersion }}
     runs-on: Ubuntu-20.04
     strategy:
       fail-fast: false
       matrix:
         unityVersion:
           - 2021.1.19f1
-        platform:
-          - StandaloneWindows64 # Build a Windows standalone.
+        buildMethod:
+          - WebGL
+          - Win64
     steps:
       - uses: actions/checkout@v2
 
@@ -29,9 +28,9 @@ jobs:
         uses: actions/cache@v2
         with:
           path: Library
-          key: Library-${{ matrix.platform }}-${{ hashFiles('Packages/manifest.json') }}-v.1.0
+          key: Library-${{ matrix.buildMethod }}-${{ hashFiles('Packages/manifest.json') }}-v.1.0
           restore-keys: |
-            Library-${{ matrix.platform }}-
+            Library-${{ matrix.buildMethod }}-
 
       - name: Cache git lfs
         uses: actions/cache@v2
@@ -45,8 +44,8 @@ jobs:
       - name: Pull lfs data, if not cached
         run: git lfs pull
 
-      - uses: game-ci/unity-builder@v2.0-alpha-6
+      - uses: game-ci/unity-builder@v2.0-alpha-13
         with:
           projectPath: ${{ matrix.projectPath }}
           unityVersion: ${{ matrix.unityVersion }}
-          targetPlatform: ${{ matrix.platform }}
+          buildMethod: ScriptBatch.TestBuild_${{ matrix.buildMethod }}

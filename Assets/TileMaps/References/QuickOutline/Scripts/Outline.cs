@@ -105,6 +105,107 @@ namespace QuickOutline
         public const string OUTLINE_MASK_SHADER = "Custom/Outline Mask";
         public const string OUTLINE_FILL_SHADER = "Custom/Outline Fill";
 
+        private void Awake()
+        {
+
+            // Cache renderers
+            renderers = GetComponentsInChildren<Renderer>();
+
+            // Instantiate outline materials
+            outlineMaskMaterial = new Material(Shader.Find(OUTLINE_MASK_SHADER));
+            outlineFillMaterial = new Material(Shader.Find(OUTLINE_FILL_SHADER));
+
+            outlineMaskMaterial.name = "OutlineMask (Instance)";
+            outlineFillMaterial.name = "OutlineFill (Instance)";
+
+            // Retrieve or generate smooth normals
+            LoadSmoothNormals();
+
+            UpdateMaterialProperties();
+
+            // Apply material properties immediately
+            needsUpdate = true;
+        }
+
+        private void OnEnable()
+        {
+            foreach (Renderer renderer in renderers)
+            {
+
+                // Append outline shaders
+                var materials = renderer.sharedMaterials.ToList();
+
+                materials.Add(outlineMaskMaterial);
+                materials.Add(outlineFillMaterial);
+
+                renderer.materials = materials.ToArray();
+            }
+        }
+
+        private void OnValidate()
+        {
+
+            // Update material properties
+            needsUpdate = true;
+
+            // Clear cache when baking is disabled or corrupted
+            if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+            {
+                bakeKeys.Clear();
+                bakeValues.Clear();
+            }
+
+            // Generate smooth normals when baking is enabled
+            if (precomputeOutline && bakeKeys.Count == 0)
+            {
+                Bake();
+            }
+        }
+
+        private void Update()
+        {
+            if (needsUpdate)
+            {
+                needsUpdate = false;
+
+                UpdateMaterialProperties();
+            }
+        }
+
+        private void OnDisable()
+        {
+            foreach (Renderer renderer in renderers)
+            {
+
+                // Remove outline shaders
+                var materials = renderer.sharedMaterials.ToList();
+
+                int index = 0;
+                while (index < materials.Count)
+                {
+                    if (materials[index].shader.name == OUTLINE_FILL_SHADER ||
+                        materials[index].shader.name == OUTLINE_MASK_SHADER)
+                    {
+                        materials.RemoveAt(index);
+                    }
+                    else
+                    {
+                        index++;
+                    }
+                }
+
+                renderer.materials = materials.ToArray();
+            }
+        }
+
+        private void OnDestroy()
+        {
+
+            // Destroy material instances
+            Destroy(outlineMaskMaterial);
+            Destroy(outlineFillMaterial);
+        }
+
         private void Bake()
         {
 

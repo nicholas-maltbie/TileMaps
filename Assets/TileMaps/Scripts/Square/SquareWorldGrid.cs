@@ -49,19 +49,19 @@ namespace nickmaltbie.TileMap.Square
         /// <param name="basePosition">Base position of the square grid.</param>
         public SquareWorldGrid(ITileMap<Vector2Int, V> tileMap, float tileSize, Transform basePosition)
         {
-            squareTileMap = tileMap;
+            this.squareTileMap = tileMap;
             this.basePosition = basePosition;
             this.tileSize = tileSize;
         }
 
         /// <inheritdoc/>
-        public ITileMap<Vector2Int, V> GetTileMap() => squareTileMap;
+        public ITileMap<Vector2Int, V> GetTileMap() => this.squareTileMap;
 
         /// <inheritdoc/>
         public Vector3 GetWorldPosition(Vector2Int loc) =>
-            basePosition.position + basePosition.TransformVector(new Vector3(loc.x, 0, loc.y) * tileSize);
+            this.basePosition.position + this.basePosition.TransformVector(new Vector3(loc.x, 0, loc.y) * this.tileSize);
 
         /// <inheritdoc/>
-        public Quaternion GetWorldRotation(Vector2Int loc) => basePosition.rotation;
+        public Quaternion GetWorldRotation(Vector2Int loc) => this.basePosition.rotation;
     }
 }

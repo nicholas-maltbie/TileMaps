@@ -121,9 +121,9 @@ namespace nickmaltbie.TileMap.Example
         private Dictionary<(Vector2Int, Vector2Int), GameObject> arrows =
             new Dictionary<(Vector2Int, Vector2Int), GameObject>();
 
-        public IWorldGrid<Vector2Int, GameObject> WorldGrid => worldGrid;
+        public IWorldGrid<Vector2Int, GameObject> WorldGrid => this.worldGrid;
 
-        public GameObject TilePrefab => tilePrefab;
+        public GameObject TilePrefab => this.tilePrefab;
 
         public GameObject CreateArrow(Vector2Int start, Vector2Int end)
         {
@@ -132,32 +132,32 @@ namespace nickmaltbie.TileMap.Example
                 return null;
             }
 
-            if (arrows.ContainsKey((start, end)))
+            if (this.arrows.ContainsKey((start, end)))
             {
                 return null;
             }
 
-            Vector3 startPos = worldGrid.GetWorldPosition(start);
-            Vector3 endPos = worldGrid.GetWorldPosition(end);
+            Vector3 startPos = this.worldGrid.GetWorldPosition(start);
+            Vector3 endPos = this.worldGrid.GetWorldPosition(end);
             Vector3 dir = startPos - endPos;
 
             var arrow = GameObject.Instantiate(
-                arrowPrefab,
-                (startPos + endPos) / 2 + Vector3.up * arrowOffset,
+                this.arrowPrefab,
+                (startPos + endPos) / 2 + Vector3.up * this.arrowOffset,
                 Quaternion.FromToRotation(Vector3.forward, dir),
-                transform);
+                this.transform);
 
-            arrows[(start, end)] = arrow;
+            this.arrows[(start, end)] = arrow;
 
             return arrow;
         }
 
         public bool DeleteArrow(Vector2Int start, Vector2Int end)
         {
-            if (arrows.ContainsKey((start, end)))
+            if (this.arrows.ContainsKey((start, end)))
             {
-                GameObject arrow = arrows[(start, end)];
-                arrows.Remove((start, end));
+                GameObject arrow = this.arrows[(start, end)];
+                this.arrows.Remove((start, end));
 
                 GameObject.Destroy(arrow);
                 return true;
@@ -168,27 +168,27 @@ namespace nickmaltbie.TileMap.Example
 
         public void OnEnable()
         {
-            (worldGrid, tileMap) = CreateGridMap();
-            foreach (Vector2Int pos in worldGrid.GetTileMap())
+            (this.worldGrid, this.tileMap) = this.CreateGridMap();
+            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
             {
-                var spawned = GameObject.Instantiate(TilePrefab) as GameObject;
-                spawned.transform.SetParent(transform);
+                var spawned = GameObject.Instantiate(this.TilePrefab) as GameObject;
+                spawned.transform.SetParent(this.transform);
 
                 spawned.name = $"({pos.x}, {pos.y})";
-                spawned.transform.position = worldGrid.GetWorldPosition(pos);
+                spawned.transform.position = this.worldGrid.GetWorldPosition(pos);
                 spawned.transform.rotation = Quaternion.Euler(
-                        tilePrefab.transform.rotation.eulerAngles +
-                        worldGrid.GetWorldRotation(pos).eulerAngles);
+                        this.tilePrefab.transform.rotation.eulerAngles +
+                        this.worldGrid.GetWorldRotation(pos).eulerAngles);
                 spawned.AddComponent<Coord>().coord = pos;
-                worldGrid.GetTileMap()[pos] = spawned;
+                this.worldGrid.GetTileMap()[pos] = spawned;
             }
         }
 
         public void OnDisable()
         {
-            foreach (Vector2Int pos in worldGrid.GetTileMap())
+            foreach (Vector2Int pos in this.worldGrid.GetTileMap())
             {
-                GameObject.Destroy(worldGrid.GetTileMap()[pos]);
+                GameObject.Destroy(this.worldGrid.GetTileMap()[pos]);
             }
         }
 
@@ -197,7 +197,7 @@ namespace nickmaltbie.TileMap.Example
 
         private void ColorTile(Vector2Int loc, Color color)
         {
-            GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+            this.GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_Color", color);
         }
 
         public void Update()
@@ -229,69 +229,69 @@ namespace nickmaltbie.TileMap.Example
             if (Input.GetButtonDown("Fire2"))
             {
                 // toggle blocked state
-                if (tileMap.IsBlocked(selected))
+                if (this.tileMap.IsBlocked(selected))
                 {
-                    tileMap.Unblock(selected);
+                    this.tileMap.Unblock(selected);
                 }
                 else
                 {
-                    tileMap.Block(selected);
+                    this.tileMap.Block(selected);
                 }
 
                 // Update color
-                UpdateTileColor(selected);
+                this.UpdateTileColor(selected);
             }
 
             if (Input.GetButtonDown("Fire1"))
             {
-                if (tileMap.IsBlocked(selected))
+                if (this.tileMap.IsBlocked(selected))
                 {
                     return;
                 }
 
-                if (toggle == 0)
+                if (this.toggle == 0)
                 {
-                    StopAllCoroutines();
+                    this.StopAllCoroutines();
 
                     // Clear out previous  path
-                    selected1 = null;
-                    selected2 = null;
-                    List<Vector2Int> savedPath = path;
-                    path = null;
+                    this.selected1 = null;
+                    this.selected2 = null;
+                    List<Vector2Int> savedPath = this.path;
+                    this.path = null;
                     // savedPath.ForEach(loc => UpdateTileColor(loc));
-                    foreach (KeyValuePair<(Vector2Int, Vector2Int), GameObject> key in arrows)
+                    foreach (KeyValuePair<(Vector2Int, Vector2Int), GameObject> key in this.arrows)
                     {
                         GameObject.Destroy(key.Value);
                     }
 
-                    arrows.Clear();
-                    var toClear = searched.ToList();
-                    searched.Clear();
+                    this.arrows.Clear();
+                    var toClear = this.searched.ToList();
+                    this.searched.Clear();
                     foreach (Vector2Int loc in toClear)
                     {
-                        UpdateTileColor(loc);
+                        this.UpdateTileColor(loc);
                     }
 
-                    IEnumerable<Vector2Int> weightsToClear = tileWeights.ToList().Select(e => e.Key);
-                    tileWeights.Clear();
+                    IEnumerable<Vector2Int> weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
+                    this.tileWeights.Clear();
                     foreach (Vector2Int loc in weightsToClear)
                     {
-                        UpdateTileColor(loc);
+                        this.UpdateTileColor(loc);
                     }
 
                     // Start new path
-                    selected1 = selected;
-                    UpdateTileColor(selected);
+                    this.selected1 = selected;
+                    this.UpdateTileColor(selected);
                 }
-                else if (toggle == 1)
+                else if (this.toggle == 1)
                 {
-                    selected2 = selected;
-                    UpdateTileColor(selected);
+                    this.selected2 = selected;
+                    this.UpdateTileColor(selected);
 
-                    DrawPath();
+                    this.DrawPath();
                 }
 
-                toggle = (toggle + 1) % 2;
+                this.toggle = (this.toggle + 1) % 2;
             }
         }
 
@@ -300,22 +300,22 @@ namespace nickmaltbie.TileMap.Example
             float weight = 1.0f;
             foreach (Path<Vector2Int> path in step.pathOrder.EnumerateElements())
             {
-                tileWeights[path.Node] = weight;
+                this.tileWeights[path.Node] = weight;
                 // Skip elements that are in the searched group
-                if (!searched.Contains(path.Node))
+                if (!this.searched.Contains(path.Node))
                 {
-                    weight *= priorityDecay;
+                    weight *= this.priorityDecay;
                 }
 
-                UpdateTileColor(path.Node);
+                this.UpdateTileColor(path.Node);
             }
         }
 
         public IEnumerator DrawPathVisualization(IEnumerable<PathfindingStep<Vector2Int>> steps)
         {
-            searched.Clear();
-            searched.Add(selected1.Value);
-            searched.Add(selected2.Value);
+            this.searched.Clear();
+            this.searched.Add(this.selected1.Value);
+            this.searched.Add(this.selected2.Value);
             IEnumerator<PathfindingStep<Vector2Int>> stepEnumerator = steps.GetEnumerator();
             while (stepEnumerator.MoveNext())
             {
@@ -324,38 +324,38 @@ namespace nickmaltbie.TileMap.Example
                 switch (step.stepType)
                 {
                     case StepType.StartPath:
-                        UpdateTileColor(step.currentPath.Node);
-                        UpdatePathWeight(step);
+                        this.UpdateTileColor(step.currentPath.Node);
+                        this.UpdatePathWeight(step);
                         break;
                     case StepType.AddNode:
                         if (step.currentPath.Previous != null)
                         {
-                            CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
-                            UpdatePathWeight(step);
-                            yield return new WaitForSeconds(stepDelay);
+                            this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
+                            this.UpdatePathWeight(step);
+                            yield return new WaitForSeconds(this.stepDelay);
                         }
 
                         break;
                     case StepType.EndPath:
                         if (step.pathFound)
                         {
-                            searched.Add(step.currentPath.Node);
-                            CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
-                            UpdateTileColor(step.currentPath.Node);
-                            UpdatePathWeight(step);
+                            this.searched.Add(step.currentPath.Node);
+                            this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
+                            this.UpdateTileColor(step.currentPath.Node);
+                            this.UpdatePathWeight(step);
 
                             // Animate path
-                            path = step.currentPath.FullPath().ToList();
-                            for (int i = 1; i < path.Count; i++)
+                            this.path = step.currentPath.FullPath().ToList();
+                            for (int i = 1; i < this.path.Count; i++)
                             {
-                                UpdateTileColor(path[i]);
-                                GameObject arrow = arrows[(path[i], path[i - 1])];
+                                this.UpdateTileColor(this.path[i]);
+                                GameObject arrow = this.arrows[(this.path[i], this.path[i - 1])];
                                 foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
                                 {
-                                    mr.material.SetColor("_Color", pathArrowColor);
+                                    mr.material.SetColor("_Color", this.pathArrowColor);
                                 }
 
-                                yield return new WaitForSeconds(finalPathDelay);
+                                yield return new WaitForSeconds(this.finalPathDelay);
                             }
                         }
                         else
@@ -365,15 +365,15 @@ namespace nickmaltbie.TileMap.Example
 
                         break;
                     case StepType.MarkSearched:
-                        searched.Add(step.currentPath.Node);
-                        UpdateTileColor(step.currentPath.Node);
-                        UpdatePathWeight(step);
+                        this.searched.Add(step.currentPath.Node);
+                        this.UpdateTileColor(step.currentPath.Node);
+                        this.UpdatePathWeight(step);
                         break;
                     case StepType.SkipSearched:
-                        if (DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
+                        if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
-                            UpdatePathWeight(step);
-                            yield return new WaitForSeconds(stepDelay);
+                            this.UpdatePathWeight(step);
+                            yield return new WaitForSeconds(this.stepDelay);
                         }
 
                         break;
@@ -383,38 +383,38 @@ namespace nickmaltbie.TileMap.Example
 
         public void DrawPath()
         {
-            switch (searchMode)
+            switch (this.searchMode)
             {
                 case PathMode.DepthFirstSearch:
-                    StartCoroutine(DrawPathVisualization(
-                        WorldGrid.GetTileMap().VisualizePathDFS(
-                            selected1.Value,
-                            selected2.Value)));
+                    this.StartCoroutine(this.DrawPathVisualization(
+                        this.WorldGrid.GetTileMap().VisualizePathDFS(
+                            this.selected1.Value,
+                            this.selected2.Value)));
                     break;
                 case PathMode.BreadthFirstSearch:
-                    StartCoroutine(DrawPathVisualization(
-                        WorldGrid.GetTileMap().VisualizePathBFS(
-                            selected1.Value,
-                            selected2.Value)));
+                    this.StartCoroutine(this.DrawPathVisualization(
+                        this.WorldGrid.GetTileMap().VisualizePathBFS(
+                            this.selected1.Value,
+                            this.selected2.Value)));
                     break;
                 case PathMode.HillClimbing:
                     Func<Path<Vector2Int>, float> pathWeightHillClimbing = (Path<Vector2Int> path) =>
-                        Vector2Int.Distance(path.Node, selected2.Value);
-                    StartCoroutine(DrawPathVisualization(
-                        WorldGrid.GetTileMap().VisualizePathAStar(
-                            selected1.Value,
-                            selected2.Value,
+                        Vector2Int.Distance(path.Node, this.selected2.Value);
+                    this.StartCoroutine(this.DrawPathVisualization(
+                        this.WorldGrid.GetTileMap().VisualizePathAStar(
+                            this.selected1.Value,
+                            this.selected2.Value,
                             pathWeightHillClimbing)));
                     break;
                 case PathMode.AStar:
                     // Func<Path<Vector2Int>, Tuple<int, float>> pathWeightAStar = (Path<Vector2Int> path) =>
                     //     new Tuple<int, float>(path.Length(), Vector2Int.Distance(path.Node, selected2));
                     Func<Path<Vector2Int>, float> pathWeightAStar = (Path<Vector2Int> path) =>
-                        path.Length() + Vector2Int.Distance(path.Node, selected2.Value);
-                    StartCoroutine(DrawPathVisualization(
-                        WorldGrid.GetTileMap().VisualizePathAStar(
-                            selected1.Value,
-                            selected2.Value,
+                        path.Length() + Vector2Int.Distance(path.Node, this.selected2.Value);
+                    this.StartCoroutine(this.DrawPathVisualization(
+                        this.WorldGrid.GetTileMap().VisualizePathAStar(
+                            this.selected1.Value,
+                            this.selected2.Value,
                             pathWeightAStar)));
                     break;
             }
@@ -424,39 +424,39 @@ namespace nickmaltbie.TileMap.Example
 
         public void UpdateTileColor(Vector2Int loc)
         {
-            ColorTile(loc, GetTileColor(loc));
+            this.ColorTile(loc, this.GetTileColor(loc));
         }
 
         public Color GetTileColor(Vector2Int loc)
         {
-            if (tileMap.IsBlocked(loc))
+            if (this.tileMap.IsBlocked(loc))
             {
-                return blockedTileColor;
+                return this.blockedTileColor;
             }
 
-            if (loc == selected1 || loc == selected2)
+            if (loc == this.selected1 || loc == this.selected2)
             {
-                return selectedTileColor;
+                return this.selectedTileColor;
             }
 
-            if (path != null && path.Contains(loc))
+            if (this.path != null && this.path.Contains(loc))
             {
-                return pathTileColor;
+                return this.pathTileColor;
             }
 
-            if (searched.Contains(loc))
+            if (this.searched.Contains(loc))
             {
-                return searchedTileColor;
+                return this.searchedTileColor;
             }
 
-            if (tileWeights.ContainsKey(loc))
+            if (this.tileWeights.ContainsKey(loc))
             {
-                return priorityGradient.Evaluate(tileWeights[loc]);
+                return this.priorityGradient.Evaluate(this.tileWeights[loc]);
             }
 
-            return defaultTileColor;
+            return this.defaultTileColor;
         }
 
-        private GameObject GetTile(Vector2Int loc) => worldGrid.GetTileMap()[loc];
+        private GameObject GetTile(Vector2Int loc) => this.worldGrid.GetTileMap()[loc];
     }
 }

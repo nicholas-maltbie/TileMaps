@@ -39,7 +39,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <summary>
         /// Distance between the centers of two hexes.
         /// </summary>
-        private float DistanceBetweenCenter => 2 * distanceToEdge;
+        private float DistanceBetweenCenter => 2 * this.distanceToEdge;
 
         /// <summary>
         /// Radius of each hexagon (distance from center to a vertex).
@@ -64,16 +64,16 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <param name="basePosition">Base position of the square grid.</param>
         public HexWorldGrid(ITileMap<Vector2Int, V> tileMap, float hexRadius, Transform basePosition)
         {
-            hexTileMap = tileMap;
+            this.hexTileMap = tileMap;
             this.basePosition = basePosition;
             this.hexRadius = hexRadius;
 
             // Compute distance from center of hex to any edge
-            distanceToEdge = cos30 * hexRadius;
+            this.distanceToEdge = cos30 * hexRadius;
         }
 
         /// <inheritdoc/>
-        public ITileMap<Vector2Int, V> GetTileMap() => hexTileMap;
+        public ITileMap<Vector2Int, V> GetTileMap() => this.hexTileMap;
 
         /// <inheritdoc/>
         public Vector3 GetWorldPosition(Vector2Int loc)
@@ -82,15 +82,15 @@ namespace nickmaltbie.TileMap.Hexagon
 
             // Offset hexes within a row by twice the distance to an edge
             // Offset even and odd rows by the distance to an edge of a hex in the grid
-            float offsetX = DistanceBetweenCenter * loc.x + (evenRow ? 0 : distanceToEdge);
+            float offsetX = this.DistanceBetweenCenter * loc.x + (evenRow ? 0 : this.distanceToEdge);
 
             // Offset hexes in consecutive rows by 1.5 times the hexagon radius
-            float offsetY = (hexRadius * 1.5f) * loc.y;
+            float offsetY = (this.hexRadius * 1.5f) * loc.y;
 
-            return basePosition.position + basePosition.TransformPoint(offsetX, 0, offsetY);
+            return this.basePosition.position + this.basePosition.TransformPoint(offsetX, 0, offsetY);
         }
 
         /// <inheritdoc/>
-        public Quaternion GetWorldRotation(Vector2Int loc) => basePosition.rotation;
+        public Quaternion GetWorldRotation(Vector2Int loc) => this.basePosition.rotation;
     }
 }

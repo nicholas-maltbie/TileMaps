@@ -52,10 +52,10 @@ namespace nickmaltbie.TileMap.Example
             CreateGridMap()
         {
             IBlockableTileMap<Vector2Int, GameObject> tileMap = new HexTileMap<GameObject>(
-                width, height);
+                this.width, this.height);
 
             return (
-                new HexWorldGrid<GameObject>(tileMap, hexRadius, base.transform),
+                new HexWorldGrid<GameObject>(tileMap, this.hexRadius, base.transform),
                 tileMap
             );
         }

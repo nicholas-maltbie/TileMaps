@@ -36,34 +36,34 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         /// </summary>
         public PathStack()
         {
-            stack = new Stack<Path<V>>();
+            this.stack = new Stack<Path<V>>();
         }
 
         /// <inheritdoc/>
         public void AddPath(Path<V> path)
         {
-            stack.Push(path);
+            this.stack.Push(path);
         }
 
         /// <inheritdoc/>
         public Path<V> Peek()
         {
-            return stack.Peek();
+            return this.stack.Peek();
         }
 
         /// <inheritdoc/>
         public Path<V> Pop()
         {
-            return stack.Pop();
+            return this.stack.Pop();
         }
 
         /// <inheritdoc/>
-        public int Count => stack.Count;
+        public int Count => this.stack.Count;
 
         /// <inheritdoc/>
         public IEnumerable<Path<V>> EnumerateElements()
         {
-            IEnumerator<Path<V>> paths = stack.GetEnumerator();
+            IEnumerator<Path<V>> paths = this.stack.GetEnumerator();
             while (paths.MoveNext())
             {
                 yield return paths.Current;

@@ -41,31 +41,31 @@ namespace QuickOutline
 
         public Mode OutlineMode
         {
-            get => outlineMode;
+            get => this.outlineMode;
             set
             {
-                outlineMode = value;
-                needsUpdate = true;
+                this.outlineMode = value;
+                this.needsUpdate = true;
             }
         }
 
         public Color OutlineColor
         {
-            get => outlineColor;
+            get => this.outlineColor;
             set
             {
-                outlineColor = value;
-                needsUpdate = true;
+                this.outlineColor = value;
+                this.needsUpdate = true;
             }
         }
 
         public float OutlineWidth
         {
-            get => outlineWidth;
+            get => this.outlineWidth;
             set
             {
-                outlineWidth = value;
-                needsUpdate = true;
+                this.outlineWidth = value;
+                this.needsUpdate = true;
             }
         }
 
@@ -109,34 +109,34 @@ namespace QuickOutline
         {
 
             // Cache renderers
-            renderers = GetComponentsInChildren<Renderer>();
+            this.renderers = this.GetComponentsInChildren<Renderer>();
 
             // Instantiate outline materials
-            outlineMaskMaterial = new Material(Shader.Find(OUTLINE_MASK_SHADER));
-            outlineFillMaterial = new Material(Shader.Find(OUTLINE_FILL_SHADER));
+            this.outlineMaskMaterial = new Material(Shader.Find(OUTLINE_MASK_SHADER));
+            this.outlineFillMaterial = new Material(Shader.Find(OUTLINE_FILL_SHADER));
 
-            outlineMaskMaterial.name = "OutlineMask (Instance)";
-            outlineFillMaterial.name = "OutlineFill (Instance)";
+            this.outlineMaskMaterial.name = "OutlineMask (Instance)";
+            this.outlineFillMaterial.name = "OutlineFill (Instance)";
 
             // Retrieve or generate smooth normals
-            LoadSmoothNormals();
+            this.LoadSmoothNormals();
 
-            UpdateMaterialProperties();
+            this.UpdateMaterialProperties();
 
             // Apply material properties immediately
-            needsUpdate = true;
+            this.needsUpdate = true;
         }
 
         private void OnEnable()
         {
-            foreach (Renderer renderer in renderers)
+            foreach (Renderer renderer in this.renderers)
             {
 
                 // Append outline shaders
                 var materials = renderer.sharedMaterials.ToList();
 
-                materials.Add(outlineMaskMaterial);
-                materials.Add(outlineFillMaterial);
+                materials.Add(this.outlineMaskMaterial);
+                materials.Add(this.outlineFillMaterial);
 
                 renderer.materials = materials.ToArray();
             }
@@ -146,35 +146,35 @@ namespace QuickOutline
         {
 
             // Update material properties
-            needsUpdate = true;
+            this.needsUpdate = true;
 
             // Clear cache when baking is disabled or corrupted
-            if (!precomputeOutline && bakeKeys.Count != 0 || bakeKeys.Count != bakeValues.Count)
+            if (!this.precomputeOutline && this.bakeKeys.Count != 0 || this.bakeKeys.Count != this.bakeValues.Count)
             {
-                bakeKeys.Clear();
-                bakeValues.Clear();
+                this.bakeKeys.Clear();
+                this.bakeValues.Clear();
             }
 
             // Generate smooth normals when baking is enabled
-            if (precomputeOutline && bakeKeys.Count == 0)
+            if (this.precomputeOutline && this.bakeKeys.Count == 0)
             {
-                Bake();
+                this.Bake();
             }
         }
 
         private void Update()
         {
-            if (needsUpdate)
+            if (this.needsUpdate)
             {
-                needsUpdate = false;
+                this.needsUpdate = false;
 
-                UpdateMaterialProperties();
+                this.UpdateMaterialProperties();
             }
         }
 
         private void OnDisable()
         {
-            foreach (Renderer renderer in renderers)
+            foreach (Renderer renderer in this.renderers)
             {
 
                 // Remove outline shaders
@@ -202,8 +202,8 @@ namespace QuickOutline
         {
 
             // Destroy material instances
-            Destroy(outlineMaskMaterial);
-            Destroy(outlineFillMaterial);
+            Destroy(this.outlineMaskMaterial);
+            Destroy(this.outlineFillMaterial);
         }
 
         private void Bake()
@@ -212,7 +212,7 @@ namespace QuickOutline
             // Generate smooth normals for each mesh
             var bakedMeshes = new HashSet<Mesh>();
 
-            foreach (MeshFilter meshFilter in GetComponentsInChildren<MeshFilter>())
+            foreach (MeshFilter meshFilter in this.GetComponentsInChildren<MeshFilter>())
             {
 
                 // Skip duplicates
@@ -222,10 +222,10 @@ namespace QuickOutline
                 }
 
                 // Serialize smooth normals
-                List<Vector3> smoothNormals = SmoothNormals(meshFilter.sharedMesh);
+                List<Vector3> smoothNormals = this.SmoothNormals(meshFilter.sharedMesh);
 
-                bakeKeys.Add(meshFilter.sharedMesh);
-                bakeValues.Add(new ListVector3() { data = smoothNormals });
+                this.bakeKeys.Add(meshFilter.sharedMesh);
+                this.bakeValues.Add(new ListVector3() { data = smoothNormals });
             }
         }
 
@@ -233,7 +233,7 @@ namespace QuickOutline
         {
 
             // Retrieve or generate smooth normals
-            foreach (MeshFilter meshFilter in GetComponentsInChildren<MeshFilter>())
+            foreach (MeshFilter meshFilter in this.GetComponentsInChildren<MeshFilter>())
             {
 
                 // Skip if smooth normals have already been adopted
@@ -243,15 +243,15 @@ namespace QuickOutline
                 }
 
                 // Retrieve or generate smooth normals
-                int index = bakeKeys.IndexOf(meshFilter.sharedMesh);
-                List<Vector3> smoothNormals = (index >= 0) ? bakeValues[index].data : SmoothNormals(meshFilter.sharedMesh);
+                int index = this.bakeKeys.IndexOf(meshFilter.sharedMesh);
+                List<Vector3> smoothNormals = (index >= 0) ? this.bakeValues[index].data : this.SmoothNormals(meshFilter.sharedMesh);
 
                 // Store smooth normals in UV3
                 meshFilter.sharedMesh.SetUVs(3, smoothNormals);
             }
 
             // Clear UV3 on skinned mesh renderers
-            foreach (SkinnedMeshRenderer skinnedMeshRenderer in GetComponentsInChildren<SkinnedMeshRenderer>())
+            foreach (SkinnedMeshRenderer skinnedMeshRenderer in this.GetComponentsInChildren<SkinnedMeshRenderer>())
             {
                 if (registeredMeshes.Add(skinnedMeshRenderer.sharedMesh))
                 {
@@ -303,39 +303,39 @@ namespace QuickOutline
         {
 
             // Apply properties according to mode
-            outlineFillMaterial.SetColor("_OutlineColor", outlineColor);
-            outlineMaskMaterial.SetColor("_OutlineColor", outlineColor);
+            this.outlineFillMaterial.SetColor("_OutlineColor", this.outlineColor);
+            this.outlineMaskMaterial.SetColor("_OutlineColor", this.outlineColor);
 
-            switch (outlineMode)
+            switch (this.outlineMode)
             {
                 case Mode.OutlineAll:
-                    outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                    outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                    outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                    this.outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                    this.outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                    this.outlineFillMaterial.SetFloat("_OutlineWidth", this.outlineWidth);
                     break;
 
                 case Mode.OutlineVisible:
-                    outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                    outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                    outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                    this.outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                    this.outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                    this.outlineFillMaterial.SetFloat("_OutlineWidth", this.outlineWidth);
                     break;
 
                 case Mode.OutlineHidden:
-                    outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                    outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-                    outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                    this.outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                    this.outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
+                    this.outlineFillMaterial.SetFloat("_OutlineWidth", this.outlineWidth);
                     break;
 
                 case Mode.OutlineAndSilhouette:
-                    outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                    outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
-                    outlineFillMaterial.SetFloat("_OutlineWidth", outlineWidth);
+                    this.outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                    this.outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Always);
+                    this.outlineFillMaterial.SetFloat("_OutlineWidth", this.outlineWidth);
                     break;
 
                 case Mode.SilhouetteOnly:
-                    outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
-                    outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
-                    outlineFillMaterial.SetFloat("_OutlineWidth", 0f);
+                    this.outlineMaskMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.LessEqual);
+                    this.outlineFillMaterial.SetFloat("_ZTest", (float)UnityEngine.Rendering.CompareFunction.Greater);
+                    this.outlineFillMaterial.SetFloat("_OutlineWidth", 0f);
                     break;
             }
         }

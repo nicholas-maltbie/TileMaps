@@ -56,8 +56,8 @@ namespace nickmaltbie.TileMap.Common
         /// <param name="initialCapacity">Starting capacity of the heap (can grow larger in future).</param>
         public Heap(int initialCapacity)
         {
-            values = new (K, V)[initialCapacity];
-            Count = 0;
+            this.values = new (K, V)[initialCapacity];
+            this.Count = 0;
         }
 
         /// <summary>
@@ -67,9 +67,9 @@ namespace nickmaltbie.TileMap.Common
         /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</returns>
         public V Peek()
         {
-            if (Count > 0)
+            if (this.Count > 0)
             {
-                (_, V value) = values[0];
+                (_, V value) = this.values[0];
                 return value;
             }
             else
@@ -86,23 +86,23 @@ namespace nickmaltbie.TileMap.Common
         public void Add(K key, V value)
         {
             // Check if heap is at capacity
-            if (values.Length == Count)
+            if (this.values.Length == this.Count)
             {
-                int newCapacity = values.Length * 2;
+                int newCapacity = this.values.Length * 2;
                 if (newCapacity <= 0)
                 {
                     newCapacity = 1;
                 }
                 // If so, double capacity
                 var doubled = new (K, V)[newCapacity];
-                System.Array.Copy(values, doubled, values.Length);
-                values = doubled;
+                System.Array.Copy(this.values, doubled, this.values.Length);
+                this.values = doubled;
             }
 
             // Add element to end of heap, and push up
-            values[Count] = (key, value);
-            Count++;
-            PushUp(Count - 1);
+            this.values[this.Count] = (key, value);
+            this.Count++;
+            this.PushUp(this.Count - 1);
         }
 
         /// <summary>
@@ -113,19 +113,19 @@ namespace nickmaltbie.TileMap.Common
         /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</returns>
         public V Pop()
         {
-            V elem = Peek();
-            Count--;
+            V elem = this.Peek();
+            this.Count--;
 
             // If there are elements in the heap, ensure the heap is valid.
-            if (Count > 0)
+            if (this.Count > 0)
             {
                 // Take the element at the end of the heap, insert it at the root, and push it down
-                (K, V) end = values[Count];
-                values[0] = end;
-                PushDown(0);
+                (K, V) end = this.values[this.Count];
+                this.values[0] = end;
+                this.PushDown(0);
 
                 // Clear out the data stored at the end (at least replace with default)
-                values[Count] = (default(K), default(V));
+                this.values[this.Count] = (default(K), default(V));
             }
 
             return elem;
@@ -158,7 +158,7 @@ namespace nickmaltbie.TileMap.Common
         /// <returns>Returns an enumerable of the left and right child values for a given node</returns>
         private IEnumerable<int> GetChildrenAsEnumerable(int index)
         {
-            (int left, int right) = GetChildren(index);
+            (int left, int right) = this.GetChildren(index);
             yield return left;
             yield return right;
             yield break;
@@ -171,7 +171,7 @@ namespace nickmaltbie.TileMap.Common
         /// <returns>True if there is a node in the heap with this given index, false otherwise.</returns>
         private bool IsInHeap(int index)
         {
-            return index >= 0 && index < Count;
+            return index >= 0 && index < this.Count;
         }
 
         /// <summary>
@@ -187,16 +187,16 @@ namespace nickmaltbie.TileMap.Common
             while (pushDown)
             {
                 int minIndex = nodeIndex;
-                (K minKey, V minValue) = values[nodeIndex];
+                (K minKey, V minValue) = this.values[nodeIndex];
 
-                foreach (int childNode in GetChildrenAsEnumerable(nodeIndex))
+                foreach (int childNode in this.GetChildrenAsEnumerable(nodeIndex))
                 {
-                    if (!IsInHeap(childNode))
+                    if (!this.IsInHeap(childNode))
                     {
                         continue;
                     }
 
-                    (K childKey, V childValue) = values[childNode];
+                    (K childKey, V childValue) = this.values[childNode];
                     if (childKey.CompareTo(minKey) < 0)
                     {
                         minIndex = childNode;
@@ -207,8 +207,8 @@ namespace nickmaltbie.TileMap.Common
 
                 if (minIndex != nodeIndex)
                 {
-                    values[minIndex] = values[nodeIndex];
-                    values[nodeIndex] = (minKey, minValue);
+                    this.values[minIndex] = this.values[nodeIndex];
+                    this.values[nodeIndex] = (minKey, minValue);
                 }
                 else
                 {
@@ -237,14 +237,14 @@ namespace nickmaltbie.TileMap.Common
                     return;
                 }
 
-                int parentIndex = GetParent(nodeIndex);
-                (K nodeKey, V nodeValue) = values[nodeIndex];
-                (K parentKey, V parentValue) = values[parentIndex];
+                int parentIndex = this.GetParent(nodeIndex);
+                (K nodeKey, V nodeValue) = this.values[nodeIndex];
+                (K parentKey, V parentValue) = this.values[parentIndex];
 
                 if (nodeKey.CompareTo(parentKey) < 0)
                 {
-                    values[parentIndex] = (nodeKey, nodeValue);
-                    values[nodeIndex] = (parentKey, parentValue);
+                    this.values[parentIndex] = (nodeKey, nodeValue);
+                    this.values[nodeIndex] = (parentKey, parentValue);
                 }
                 else
                 {
@@ -259,6 +259,6 @@ namespace nickmaltbie.TileMap.Common
         /// Enumerates the elements in the heap in a partially sorted order in which they are stored.
         /// </summary>
         /// <returns>An enumerable list of elements stored in the heap in a partially sorted order.</returns>
-        public IEnumerable<V> EnumerateElements() => Enumerable.Range(0, Count).Select(i => values[i].Item2);
+        public IEnumerable<V> EnumerateElements() => Enumerable.Range(0, this.Count).Select(i => this.values[i].Item2);
     }
 }

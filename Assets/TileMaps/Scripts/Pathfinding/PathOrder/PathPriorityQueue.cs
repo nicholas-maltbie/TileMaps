@@ -54,31 +54,31 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         public PathPriorityQueue(Func<Path<V>, W> GetWeight, int initialCapacity)
         {
             this.GetWeight = GetWeight;
-            pQueue = new Heap<W, Path<V>>(initialCapacity);
+            this.pQueue = new Heap<W, Path<V>>(initialCapacity);
         }
 
         /// <inheritdoc/>
         public void AddPath(Path<V> path)
         {
-            pQueue.Add(GetWeight(path), path);
+            this.pQueue.Add(this.GetWeight(path), path);
         }
 
         /// <inheritdoc/>
         public Path<V> Peek()
         {
-            return pQueue.Peek();
+            return this.pQueue.Peek();
         }
 
         /// <inheritdoc/>
         public Path<V> Pop()
         {
-            return pQueue.Pop();
+            return this.pQueue.Pop();
         }
 
         /// <inheritdoc/>
-        public IEnumerable<Path<V>> EnumerateElements() => pQueue.EnumerateElements();
+        public IEnumerable<Path<V>> EnumerateElements() => this.pQueue.EnumerateElements();
 
         /// <inheritdoc/>
-        public int Count => pQueue.Count;
+        public int Count => this.pQueue.Count;
     }
 }

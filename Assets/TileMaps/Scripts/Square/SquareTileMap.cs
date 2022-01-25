@@ -64,61 +64,61 @@ namespace nickmaltbie.TileMap.Square
         {
             this.width = width;
             this.height = height;
-            values = new V[width, height];
+            this.values = new V[width, height];
             this.adjacencyType = adjacencyType;
-            blocked = new HashSet<Vector2Int>();
+            this.blocked = new HashSet<Vector2Int>();
         }
 
         /// <inheritdoc/>
         public V this[Vector2Int loc]
         {
-            get => values[loc.x, loc.y];
-            set => values[loc.x, loc.y] = value;
+            get => this.values[loc.x, loc.y];
+            set => this.values[loc.x, loc.y] = value;
         }
 
         /// <inheritdoc/>
         public int GetNeighborCount(Vector2Int loc)
         {
-            return GetNeighbors(loc).Count();
+            return this.GetNeighbors(loc).Count();
         }
 
         /// <inheritdoc/>
         public IEnumerable<Vector2Int> GetNeighbors(Vector2Int loc)
         {
-            switch (adjacencyType)
+            switch (this.adjacencyType)
             {
                 case Adjacency.Full:
                     return SquareCoord.fullAdj
                         .Select(adj => loc + adj)
-                        .Where(loc => IsInMap(loc))
-                        .Where(loc => !IsBlocked(loc));
+                        .Where(loc => this.IsInMap(loc))
+                        .Where(loc => !this.IsBlocked(loc));
                 case Adjacency.Orthogonal:
                 default:
                     return SquareCoord.orthongoalAdj
                         .Select(adj => loc + adj)
-                        .Where(loc => IsInMap(loc))
-                        .Where(loc => !IsBlocked(loc));
+                        .Where(loc => this.IsInMap(loc))
+                        .Where(loc => !this.IsBlocked(loc));
             }
         }
 
         /// <inheritdoc/>
         public bool IsInMap(Vector2Int loc)
         {
-            return loc.x >= 0 && loc.x < width && loc.y >= 0 && loc.y < height;
+            return loc.x >= 0 && loc.x < this.width && loc.y >= 0 && loc.y < this.height;
         }
 
         /// <inheritdoc/>
         public void Clear()
         {
-            values = new V[width, height];
+            this.values = new V[this.width, this.height];
         }
 
         /// <inheritdoc/>
         public IEnumerator<Vector2Int> GetEnumerator()
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < this.width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < this.height; y++)
                 {
                     yield return new Vector2Int(x, y);
                 }
@@ -128,19 +128,19 @@ namespace nickmaltbie.TileMap.Square
         /// <inheritdoc/>
         public void Block(Vector2Int loc)
         {
-            blocked.Add(loc);
+            this.blocked.Add(loc);
         }
 
         /// <inheritdoc/>
         public void Unblock(Vector2Int loc)
         {
-            blocked.Remove(loc);
+            this.blocked.Remove(loc);
         }
 
         /// <inheritdoc/>
         public bool IsBlocked(Vector2Int loc)
         {
-            return blocked.Contains(loc);
+            return this.blocked.Contains(loc);
         }
     }
 }

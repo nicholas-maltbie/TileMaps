@@ -59,10 +59,10 @@ namespace nickmaltbie.TileMap.Example
             CreateGridMap()
         {
             IBlockableTileMap<Vector2Int, GameObject> tileMap = new SquareTileMap<GameObject>(
-                width, height, adjacency);
+                this.width, this.height, this.adjacency);
 
             return (
-                new SquareWorldGrid<GameObject>(tileMap, tileSize, base.transform),
+                new SquareWorldGrid<GameObject>(tileMap, this.tileSize, base.transform),
                 tileMap
             );
         }

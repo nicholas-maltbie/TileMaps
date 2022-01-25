@@ -40,12 +40,12 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <summary>
         /// Get the node stored at this step in the path.
         /// </summary>
-        public V Node => node;
+        public V Node => this.node;
 
         /// <summary>
         /// Get the path previous to this node.
         /// </summary>
-        public Path<V> Previous => previous;
+        public Path<V> Previous => this.previous;
 
         /// <summary>
         /// Create a path that consists of just a single node that has no previous path.
@@ -53,7 +53,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <param name="node">Single node within the path.</param>
         public Path(V node)
         {
-            previous = null;
+            this.previous = null;
             this.node = node;
         }
 
@@ -91,7 +91,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         public IEnumerable<V> FullPath()
         {
             var stack = new Stack<V>();
-            stack.Push(node);
+            stack.Push(this.node);
             Path<V> previous = this.previous;
             while (previous != null)
             {

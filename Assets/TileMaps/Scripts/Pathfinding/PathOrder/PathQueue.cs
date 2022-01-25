@@ -36,31 +36,31 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         /// </summary>
         public PathQueue()
         {
-            queue = new Queue<Path<V>>();
+            this.queue = new Queue<Path<V>>();
         }
 
         /// <inheritdoc/>
         public void AddPath(Path<V> path)
         {
-            queue.Enqueue(path);
+            this.queue.Enqueue(path);
         }
 
         /// <inheritdoc/>
         public Path<V> Peek()
         {
-            return queue.Peek();
+            return this.queue.Peek();
         }
 
         /// <inheritdoc/>
         public Path<V> Pop()
         {
-            return queue.Dequeue();
+            return this.queue.Dequeue();
         }
 
         /// <inheritdoc/>
         public IEnumerable<Path<V>> EnumerateElements()
         {
-            IEnumerator<Path<V>> paths = queue.GetEnumerator();
+            IEnumerator<Path<V>> paths = this.queue.GetEnumerator();
             while (paths.MoveNext())
             {
                 yield return paths.Current;
@@ -70,6 +70,6 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         }
 
         /// <inheritdoc/>
-        public int Count => queue.Count;
+        public int Count => this.queue.Count;
     }
 }

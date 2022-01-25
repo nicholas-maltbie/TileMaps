@@ -1,3 +1,21 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using nickmaltbie.TileMap.Common;
 using UnityEngine;
 
@@ -21,7 +39,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <summary>
         /// Distance between the centers of two hexes.
         /// </summary>
-        private float DistanceBetweenCenter => 2 * distanceToEdge;
+        private float DistanceBetweenCenter => 2 * this.distanceToEdge;
 
         /// <summary>
         /// Radius of each hexagon (distance from center to a vertex).
@@ -55,7 +73,7 @@ namespace nickmaltbie.TileMap.Hexagon
         }
 
         /// <inheritdoc/>
-        public ITileMap<Vector2Int, V> GetTileMap() => hexTileMap;
+        public ITileMap<Vector2Int, V> GetTileMap() => this.hexTileMap;
 
         /// <inheritdoc/>
         public Vector3 GetWorldPosition(Vector2Int loc)
@@ -64,15 +82,15 @@ namespace nickmaltbie.TileMap.Hexagon
 
             // Offset hexes within a row by twice the distance to an edge
             // Offset even and odd rows by the distance to an edge of a hex in the grid
-            float offsetX = DistanceBetweenCenter * loc.x + (evenRow ? 0 : distanceToEdge);
+            float offsetX = this.DistanceBetweenCenter * loc.x + (evenRow ? 0 : this.distanceToEdge);
 
             // Offset hexes in consecutive rows by 1.5 times the hexagon radius
-            float offsetY = (hexRadius * 1.5f) * loc.y;
+            float offsetY = (this.hexRadius * 1.5f) * loc.y;
 
-            return basePosition.position + basePosition.TransformPoint(offsetX, 0, offsetY);
+            return this.basePosition.position + this.basePosition.TransformPoint(offsetX, 0, offsetY);
         }
 
         /// <inheritdoc/>
-        public Quaternion GetWorldRotation(Vector2Int loc) => basePosition.rotation;
+        public Quaternion GetWorldRotation(Vector2Int loc) => this.basePosition.rotation;
     }
 }

@@ -1,6 +1,24 @@
-using nickmaltbie.TileMap.Common;
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System.Collections.Generic;
 using System.Linq;
+using nickmaltbie.TileMap.Common;
 using UnityEngine;
 
 namespace nickmaltbie.TileMap.Hexagon
@@ -48,22 +66,22 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <inheritdoc/>
         public V this[Vector2Int loc]
         {
-            get => values[loc.x, loc.y];
-            set => values[loc.x, loc.y] = value;
+            get => this.values[loc.x, loc.y];
+            set => this.values[loc.x, loc.y] = value;
         }
 
         /// <inheritdoc/>
         public void Clear()
         {
-            this.values = new V[width, height];
+            this.values = new V[this.width, this.height];
         }
 
         /// <inheritdoc/>
         public IEnumerator<Vector2Int> GetEnumerator()
         {
-            for (int x = 0; x < width; x++)
+            for (int x = 0; x < this.width; x++)
             {
-                for (int y = 0; y < height; y++)
+                for (int y = 0; y < this.height; y++)
                 {
                     yield return new Vector2Int(x, y);
                 }
@@ -73,7 +91,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <inheritdoc/>
         public int GetNeighborCount(Vector2Int loc)
         {
-            return GetNeighbors(loc).Count();
+            return this.GetNeighbors(loc).Count();
         }
 
         /// <inheritdoc/>
@@ -87,7 +105,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <inheritdoc/>
         public bool IsInMap(Vector2Int loc)
         {
-            return loc.x >= 0 && loc.x < width && loc.y >= 0 && loc.y < height;
+            return loc.x >= 0 && loc.x < this.width && loc.y >= 0 && loc.y < this.height;
         }
 
         /// <inheritdoc/>

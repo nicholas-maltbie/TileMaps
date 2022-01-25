@@ -92,6 +92,6 @@ jobs:
         env:
           REPO: self
           BRANCH: gh-pages
-          FOLDER: ./Builds/OpenKCC-WebGL
+          FOLDER: ./Builds/TileMaps-WebGL
           SQUASH_HISTORY: true
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace nickmaltbie.TileMap.Common
 {
@@ -235,5 +236,11 @@ namespace nickmaltbie.TileMap.Common
                 nodeIndex = parentIndex;
             }
         }
+
+        /// <summary>
+        /// Enumerates the elements in the heap in a partially sorted order in which they are stored.
+        /// </summary>
+        /// <returns>An enumerable list of elements stored in the heap in a partially sorted order.</returns>
+        public IEnumerable<V> EnumerateElements() => Enumerable.Range(0, Count).Select(i => this.values[i].Item2);
     }
 }

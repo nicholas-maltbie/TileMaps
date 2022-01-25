@@ -43,7 +43,8 @@ namespace nickmaltbie.TileMap.Example
             IBlockableTileMap<Vector2Int, GameObject> tileMap = new SquareTileMap<GameObject>(
                 this.width, this.height, this.adjacency);
 
-            return (new SquareWorldGrid<GameObject>(tileMap, this.tileSize, base.transform),
+            return (
+                new SquareWorldGrid<GameObject>(tileMap, this.tileSize, base.transform),
                 tileMap
             );
         }

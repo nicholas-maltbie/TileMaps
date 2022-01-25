@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using nickmaltbie.TileMap.Common;
 
 namespace nickmaltbie.TileMap.Pathfinding.PathOrder
@@ -57,6 +58,9 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         {
             return this.pQueue.Pop();
         }
+
+        /// <inheritdoc/>
+        public IEnumerable<Path<V>> EnumerateElements() => this.pQueue.EnumerateElements();
 
         /// <inheritdoc/>
         public int Count => this.pQueue.Count;

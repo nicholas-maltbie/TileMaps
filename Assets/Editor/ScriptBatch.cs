@@ -1,3 +1,21 @@
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System.IO;
 using UnityEditor;
 using UnityEditor.Build;
@@ -32,7 +50,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
     /// <summary>
     /// Callback order for resolving this script during build.
     /// </summary>
-    public int callbackOrder { get { return 0; } }
+    public int callbackOrder => 0;
 
     /// <summary>
     /// Gets the list of scenes in the project.
@@ -140,7 +158,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
     {
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.IL2CPP);
 
-        BuildPlayerOptions options = new BuildPlayerOptions
+        var options = new BuildPlayerOptions
         {
             scenes = GameScenes,
             locationPathName = Path.Combine(
@@ -165,7 +183,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
         PlayerSettings.WebGL.template = "PROJECT:Better2020";
         PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
         PlayerSettings.WebGL.decompressionFallback = true;
-        BuildPlayerOptions options = new BuildPlayerOptions
+        var options = new BuildPlayerOptions
         {
             scenes = GameScenes,
             locationPathName = Path.Combine(BuildDirectory, $"{Constants.ProjectName}-WebGL"),
@@ -191,7 +209,7 @@ public class ScriptBatch : IPostprocessBuildWithReport, IPreprocessBuildWithRepo
     {
         PlayerSettings.SetScriptingBackend(BuildTargetGroup.Standalone, ScriptingImplementation.Mono2x);
 
-        BuildPlayerOptions options = new BuildPlayerOptions
+        var options = new BuildPlayerOptions
         {
             scenes = GameScenes,
             locationPathName = Path.Combine(

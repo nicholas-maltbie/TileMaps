@@ -240,7 +240,7 @@ namespace nickmaltbie.TileMap.Example
                     List<Vector2Int> savedPath = path;
                     this.path = null;
                     // savedPath.ForEach(loc => UpdateTileColor(loc));
-                    foreach(var key in arrows)
+                    foreach (var key in arrows)
                     {
                         GameObject.Destroy(key.Value);
                     }
@@ -254,7 +254,7 @@ namespace nickmaltbie.TileMap.Example
 
                     var weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
                     this.tileWeights.Clear();
-                    foreach(Vector2Int loc in weightsToClear)
+                    foreach (Vector2Int loc in weightsToClear)
                     {
                         UpdateTileColor(loc);
                     }

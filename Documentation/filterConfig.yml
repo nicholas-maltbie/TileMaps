@@ -1,0 +1,7 @@
+apiRules:
+- include:
+    uidRegex: ^nickmaltbie\.TileMap
+    type: Namespace
+- include:
+    uidRegex: ^nickmaltbie\.TileMap\.*
+    type: Namespace

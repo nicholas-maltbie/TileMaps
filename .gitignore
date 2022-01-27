@@ -91,3 +91,10 @@ CodeCoverage
 
 # Ignore package settings
 /ProjectSettings/Packages
+
+# DocFX ignores
+obj
+obj/*
+**/obj
+**/obj/*
+_site

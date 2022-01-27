@@ -28,7 +28,7 @@ namespace nickmaltbie.TileMap.Common
     /// is an implementation of the min heap structure via an array. The array can be specified size when starting up
     /// but will grow if more elements are added.
     /// </summary>
-    /// <typeparam name="K">Key used to sort elements, must implement IComparable<K>.</typeparam>
+    /// <typeparam name="K">Key used to sort elements, must implement IComparable K.</typeparam>
     /// <typeparam name="V">Type of data stored in the heap.</typeparam>
     public class Heap<K, V> where K : IComparable
     {
@@ -64,7 +64,7 @@ namespace nickmaltbie.TileMap.Common
         /// Look at the first element stored in the heap.
         /// </summary>
         /// <returns>The value with the smallest key value stored at the base of the heap.</returns>
-        /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</returns>
+        /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</exception>
         public V Peek()
         {
             if (this.Count > 0)
@@ -110,7 +110,7 @@ namespace nickmaltbie.TileMap.Common
         /// valid structure. This will take at most log_2(n) time where n is the size of the heap. 
         /// </summary>
         /// <returns>The element stored at the base of the heap.</returns>
-        /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</returns>
+        /// <exception cref="IndexOutOfRangeException">If the heap does not have any elements stored.</exception>
         public V Pop()
         {
             V elem = this.Peek();

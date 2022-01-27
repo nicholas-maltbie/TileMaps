@@ -38,14 +38,14 @@ namespace nickmaltbie.TileMap.Pathfinding.PathOrder
         /// Peek at the next path to check without removing it from the collection.
         /// </summary>
         /// <returns>The path that is stored at the front of the collection.</returns>
-        /// <exception cref="IndexOutOfRangeException">If the collection is empty.</returns>
+        /// <exception cref="IndexOutOfRangeException">If the collection is empty.</exception>
         Path<V> Peek();
 
         /// <summary>
         /// Get the next path to check and remove it from the collection.
         /// </summary>
         /// <returns>The path that is stored at the front of the collection.</returns>
-        /// <exception cref="IndexOutOfRangeException">If the collection is empty.</returns>
+        /// <exception cref="IndexOutOfRangeException">If the collection is empty.</exception>
         Path<V> Pop();
 
         /// <summary>

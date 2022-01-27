@@ -92,6 +92,8 @@ namespace nickmaltbie.TileMap.Example
 
         public float arrowOffset = 0.5f;
 
+        public Color pathDefaultColor = Color.white;
+
         public Color pathArrowColor = Color.magenta;
 
         public Color selectedTileColor = Color.red;
@@ -147,6 +149,11 @@ namespace nickmaltbie.TileMap.Example
                 Quaternion.FromToRotation(Vector3.forward, dir),
                 this.transform);
 
+            foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
+            {
+                mr.material.SetColor("_BaseColor", this.pathDefaultColor);
+            }
+
             this.arrows[(start, end)] = arrow;
 
             return arrow;
@@ -181,6 +188,7 @@ namespace nickmaltbie.TileMap.Example
                         this.worldGrid.GetWorldRotation(pos).eulerAngles);
                 spawned.AddComponent<Coord>().coord = pos;
                 this.worldGrid.GetTileMap()[pos] = spawned;
+                this.UpdateTileColor(pos);
             }
         }
 
@@ -197,7 +205,7 @@ namespace nickmaltbie.TileMap.Example
 
         private void ColorTile(Vector2Int loc, Color color)
         {
-            this.GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_Color", color);
+            this.GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", color);
         }
 
         public void Update()
@@ -332,7 +340,10 @@ namespace nickmaltbie.TileMap.Example
                         {
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.UpdatePathWeight(step);
-                            yield return new WaitForSeconds(this.stepDelay);
+                            if (this.stepDelay > 0)
+                            {
+                                yield return new WaitForSeconds(this.stepDelay);
+                            }
                         }
 
                         break;
@@ -350,12 +361,16 @@ namespace nickmaltbie.TileMap.Example
                             {
                                 this.UpdateTileColor(this.path[i]);
                                 GameObject arrow = this.arrows[(this.path[i], this.path[i - 1])];
+                                arrow.transform.position += Vector3.up * 0.001f;
                                 foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
                                 {
-                                    mr.material.SetColor("_Color", this.pathArrowColor);
+                                    mr.material.SetColor("_BaseColor", this.pathArrowColor);
                                 }
 
-                                yield return new WaitForSeconds(this.finalPathDelay);
+                                if (this.stepDelay > 0)
+                                {
+                                    yield return new WaitForSeconds(this.stepDelay);
+                                }
                             }
                         }
                         else
@@ -373,7 +388,10 @@ namespace nickmaltbie.TileMap.Example
                         if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
                             this.UpdatePathWeight(step);
-                            yield return new WaitForSeconds(this.stepDelay);
+                            if (this.stepDelay > 0)
+                            {
+                                yield return new WaitForSeconds(this.stepDelay);
+                            }
                         }
 
                         break;

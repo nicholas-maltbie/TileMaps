@@ -3,6 +3,8 @@
 This project will generate various types of tile maps including square and hexagon maps and allow for spawning in game
 objects based off of these patterns. Includes various features such as path finding.
 
+The Tile Maps project is hosted on GitHub at [https://github.com/nicholas-maltbie/TileMaps](https://github.com/nicholas-maltbie/TileMaps)
+
 This library was developed as part of the Falling Parkour Project here -
 [https://github.com/nicholas-maltbie/FallingParkour](https://github.com/nicholas-maltbie/FallingParkour)
 

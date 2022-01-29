@@ -5,3 +5,6 @@ apiRules:
 - include:
     uidRegex: ^nickmaltbie\.TileMap\.*
     type: Namespace
+- exclude:
+    uidRegex: .*
+    type: Namespace

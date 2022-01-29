@@ -110,11 +110,11 @@ jobs:
       - name: Use README.md as index.md
         run: cp README.md Documentation/index.md
 
-      - name: Copy LICENSE.txt to website
-        run: cp LICENSE.txt Documentation/LICENSE.txt
-
       - name: Build
         run: docfx Documentation/docfx.json
+
+      - name: Copy LICENSE.txt to website
+        run: cp LICENSE.txt _site/LICENSE.txt
 
       # Checkout to the previously created gh-pages branch
       - name: Deploy

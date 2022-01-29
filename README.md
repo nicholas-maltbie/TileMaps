@@ -3,7 +3,11 @@
 This project will generate various types of tile maps including square and hexagon maps and allow for spawning in game
 objects based off of these patterns. Includes various features such as path finding.
 
-The Tile Maps project is hosted on GitHub at [https://github.com/nicholas-maltbie/TileMaps](https://github.com/nicholas-maltbie/TileMaps)
+The Tile Maps project is hosted on GitHub at
+[https://github.com/nicholas-maltbie/TileMaps](https://github.com/nicholas-maltbie/TileMaps)
+
+An interactive version demonstrating the TileMaps project is hosted at
+[https://nickmaltbie.com/TileMaps/](https://nickmaltbie.com/TileMaps/).
 
 # Development
 
@@ -25,8 +29,7 @@ git config --local core.hooksPath .githooks
 # Documentation
 
 Documentation on the project and scripting API is found at
-[https://github.com/nicholas-maltbie/TileMaps/docs](https://github.com/nicholas-maltbie/TileMaps/docs) as a pre build
-website for the latest version of the codebase.
+[https://nickmaltbie.com/TileMaps/docs/](https://nickmaltbie.com/TileMaps/docs/) for the latest version of the codebase.
 
 To view the documentation from a local build of the project install [DocFX](https://dotnet.github.io/docfx/), use the
 following command from the root of the repo.
@@ -37,8 +40,11 @@ docfx Documentation/docfx.json --serve
 The documentation for the project is stored in the folder `/Documentation` and can be modified and changed to update
 with the project.
 
-_This documentation project is inspired by the project by Norman Erwan from [https://github.com/NormandErwan/DocFxForUnity](https://github.com/NormandErwan/DocFxForUnity)_
+_This documentation project is inspired by the project by Norman Erwan's
+[DocFxForUnity](https://github.com/NormandErwan/DocFxForUnity)_
 
 # License
 
-This is an open source project licensed under a [MIT License](LICENSE.txt). Feel free to use a build of the project for your own work. If you see an error in the project or have any suggestions, write an issue or make a pull request, I'll happy include any suggestions or ideas into the project.
+This is an open source project licensed under a [MIT License](LICENSE.txt). Feel free to use a build of the project for
+your own work. If you see an error in the project or have any suggestions, write an issue or make a pull request, I'll
+happy include any suggestions or ideas into the project.

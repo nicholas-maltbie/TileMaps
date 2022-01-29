@@ -19,8 +19,8 @@
     ],
     "build": {
         "globalMetadata": {
-            "_appTitle": "Example Unity documentation",
-            "_appFooter": "Example Unity documentation",
+            "_appTitle": "Tile Maps Documentation",
+            "_appFooter": "Tile Maps Documentation",
             "_enableSearch": true
         },
         "content": [

@@ -90,6 +90,7 @@ jobs:
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
+          force_orphan: true
           publish_dir: Builds/TileMaps-WebGL
           github_token: ${{ secrets.GITHUB_TOKEN }}
 

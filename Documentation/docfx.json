@@ -27,7 +27,8 @@
             {
                 "files": [
                     "toc.yml",
-                    "index.md"
+                    "index.md",
+                    "LICENSE.txt"
                 ]
             },
             {

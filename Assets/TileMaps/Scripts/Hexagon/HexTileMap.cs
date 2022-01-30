@@ -119,7 +119,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// Gets all the locations within the grid
         /// </summary>
         /// <returns></returns>
-        IEnumerator<Vector2Int> GetLocations()
+        private IEnumerator<Vector2Int> GetLocations()
         {
             for (int x = 0; x < this.width; x++)
             {
@@ -136,7 +136,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <returns>An enumerator of the locations within the hexagon grid.</returns>
         IEnumerator<Vector2Int> IEnumerable<Vector2Int>.GetEnumerator()
         {
-            return GetLocations();
+            return this.GetLocations();
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace nickmaltbie.TileMap.Hexagon
         /// <returns>An enumerator of the locations within the hexagon grid.</returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetLocations();
+            return this.GetLocations();
         }
     }
 }

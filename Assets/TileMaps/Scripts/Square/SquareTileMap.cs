@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using nickmaltbie.TileMap.Common;
@@ -77,7 +78,7 @@ namespace nickmaltbie.TileMap.Square
         }
 
         /// <inheritdoc/>
-        public int GetNeighborCount(Vector2Int loc)
+        public int Degree(Vector2Int loc)
         {
             return this.GetNeighbors(loc).Count();
         }
@@ -90,19 +91,19 @@ namespace nickmaltbie.TileMap.Square
                 case Adjacency.Full:
                     return SquareCoord.fullAdj
                         .Select(adj => loc + adj)
-                        .Where(loc => this.IsInMap(loc))
+                        .Where(loc => this.Contains(loc))
                         .Where(loc => !this.IsBlocked(loc));
                 case Adjacency.Orthogonal:
                 default:
                     return SquareCoord.orthongoalAdj
                         .Select(adj => loc + adj)
-                        .Where(loc => this.IsInMap(loc))
+                        .Where(loc => this.Contains(loc))
                         .Where(loc => !this.IsBlocked(loc));
             }
         }
 
         /// <inheritdoc/>
-        public bool IsInMap(Vector2Int loc)
+        public bool Contains(Vector2Int loc)
         {
             return loc.x >= 0 && loc.x < this.width && loc.y >= 0 && loc.y < this.height;
         }
@@ -111,18 +112,6 @@ namespace nickmaltbie.TileMap.Square
         public void Clear()
         {
             this.values = new V[this.width, this.height];
-        }
-
-        /// <inheritdoc/>
-        public IEnumerator<Vector2Int> GetEnumerator()
-        {
-            for (int x = 0; x < this.width; x++)
-            {
-                for (int y = 0; y < this.height; y++)
-                {
-                    yield return new Vector2Int(x, y);
-                }
-            }
         }
 
         /// <inheritdoc/>
@@ -141,6 +130,35 @@ namespace nickmaltbie.TileMap.Square
         public bool IsBlocked(Vector2Int loc)
         {
             return this.blocked.Contains(loc);
+        }
+
+        public IEnumerator<Vector2Int> GetLocations()
+        {
+            for (int x = 0; x < this.width; x++)
+            {
+                for (int y = 0; y < this.height; y++)
+                {
+                    yield return new Vector2Int(x, y);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enumerates the square locations in the grid in an arbitrary order.
+        /// </summary>
+        /// <returns>An enumerator of the locations within the square grid.</returns>
+        public IEnumerator<Vector2Int> GetEnumerator()
+        {
+            return this.GetLocations();
+        }
+
+        /// <summary>
+        /// Enumerates the square locations in the grid in an arbitrary order.
+        /// </summary>
+        /// <returns>An enumerator of the locations within the square grid.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetLocations();
         }
     }
 }

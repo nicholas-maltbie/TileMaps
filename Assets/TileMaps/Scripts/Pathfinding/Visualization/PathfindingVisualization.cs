@@ -23,6 +23,9 @@ using nickmaltbie.TileMap.Pathfinding.PathOrder;
 
 namespace nickmaltbie.TileMap.Pathfinding.Visualization
 {
+    /// <summary>
+    /// Types of steps/iterations in the pathfinding algorithm.
+    /// </summary>
     public enum StepType
     {
         StartPath,
@@ -32,11 +35,29 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
         EndPath
     }
 
+    /// <summary>
+    /// Structure describing an individual step within a pathfinding search.
+    /// </summary>
     public struct PathfindingStep<V>
     {
+        /// <summary>
+        /// Order of all vertices to be searched next.
+        /// </summary>
         public IPathOrder<V> pathOrder;
+
+        /// <summary>
+        /// Current path that is being evaluated in this step.
+        /// </summary>
         public Path<V> currentPath;
+
+        /// <summary>
+        /// Has a path to the destination been found.
+        /// </summary>
         public bool pathFound;
+
+        /// <summary>
+        /// Type of step within the pathfinding algorithm.
+        /// </summary>
         public StepType stepType;
     }
 
@@ -48,36 +69,35 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
         /// <summary>
         /// Find and visualize path between two nodes in the graph using a given path collection.
         /// </summary>
-        /// <param name="tileMap">Tile map to find path within.</param>
+        /// <param name="graph">Tile map to find path within.</param>
         /// <param name="source">Starting position for path.</param>
         /// <param name="dest">Destination of path.</param>
         /// <param name="pathOrder">Path collection used to order paths when adding them to the list of possible
         /// paths.</param> 
-        /// <typeparam name="K">Type of coordinates within the graph.</typeparam>
-        /// <typeparam name="V">Values stored within the graph</typeparam>
-        private static IEnumerable<PathfindingStep<K>> VisualizePath<K, V>(
-            this ITileMap<K, V> tileMap,
-            K source,
-            K dest,
-            IPathOrder<K> pathOrder)
+        /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
+        private static IEnumerable<PathfindingStep<V>> VisualizePath<V>(
+            this IGraph<V> graph,
+            V source,
+            V dest,
+            IPathOrder<V> pathOrder)
         {
             // Base case if either source or dest are not in the tile map.
-            if (!tileMap.IsInMap(source) || !tileMap.IsInMap(dest))
+            if (!graph.Contains(source) || !graph.Contains(dest))
             {
                 // Return empty list and no path found.
-                yield return new PathfindingStep<K> { stepType = StepType.EndPath };
+                yield return new PathfindingStep<V> { stepType = StepType.EndPath };
                 yield break;
             }
 
             // Set of all elements that have already been searched.
-            var searched = new HashSet<K>();
+            var searched = new HashSet<V>();
 
             // Initialize queue with first element.
-            var sourcePath = new Path<K>(source);
+            var sourcePath = new Path<V>(source);
             pathOrder.AddPath(sourcePath);
 
             // Mark as starting path
-            yield return new PathfindingStep<K>
+            yield return new PathfindingStep<V>
             {
                 pathOrder = pathOrder,
                 currentPath = sourcePath,
@@ -88,13 +108,13 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
             while (pathOrder.Count > 0)
             {
                 // Pop front of the priority queue.
-                Path<K> pathToNode = pathOrder.Pop();
+                Path<V> pathToNode = pathOrder.Pop();
 
                 // Check if we found the destination
                 if (pathToNode.Node.Equals(dest))
                 {
                     // Compute full path to this node and mark path as found.
-                    yield return new PathfindingStep<K>
+                    yield return new PathfindingStep<V>
                     {
                         pathOrder = pathOrder,
                         currentPath = pathToNode,
@@ -108,7 +128,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 // otherwise add it to the queue.
                 if (searched.Contains(pathToNode.Node))
                 {
-                    yield return new PathfindingStep<K>
+                    yield return new PathfindingStep<V>
                     {
                         pathOrder = pathOrder,
                         currentPath = pathToNode,
@@ -119,7 +139,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 }
                 else
                 {
-                    yield return new PathfindingStep<K>
+                    yield return new PathfindingStep<V>
                     {
                         pathOrder = pathOrder,
                         currentPath = pathToNode,
@@ -129,7 +149,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                     searched.Add(pathToNode.Node);
                 }
 
-                foreach (K neighbor in tileMap.GetNeighbors(pathToNode.Node))
+                foreach (V neighbor in graph.GetNeighbors(pathToNode.Node))
                 {
                     // if the neighbor is not already searched, add it to the queue
                     if (searched.Contains(neighbor))
@@ -139,12 +159,12 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                     else
                     {
                         // Add a new edge from the previous node to the neighbor
-                        var neighborPath = new Path<K>(neighbor, pathToNode);
+                        var neighborPath = new Path<V>(neighbor, pathToNode);
                         pathOrder.AddPath(neighborPath);
                     }
                 }
 
-                yield return new PathfindingStep<K>
+                yield return new PathfindingStep<V>
                 {
                     pathOrder = pathOrder,
                     currentPath = pathToNode,
@@ -153,7 +173,7 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
                 };
             }
             // Return empty list and no path found.
-            yield return new PathfindingStep<K>
+            yield return new PathfindingStep<V>
             {
                 pathOrder = pathOrder,
                 stepType = StepType.EndPath,
@@ -161,30 +181,30 @@ namespace nickmaltbie.TileMap.Pathfinding.Visualization
             };
         }
 
-        public static IEnumerable<PathfindingStep<K>> VisualizePathAStar<K, V, W>(
-            this ITileMap<K, V> tileMap,
-            K source,
-            K dest,
-            Func<Path<K>, W> GetWeight)
+        public static IEnumerable<PathfindingStep<V>> VisualizePathAStar<V, W>(
+            this IGraph<V> tileMap,
+            V source,
+            V dest,
+            Func<Path<V>, W> GetWeight)
             where W : IComparable
         {
-            return VisualizePath<K, V>(tileMap, source, dest, new PathPriorityQueue<W, K>(GetWeight));
+            return VisualizePath<V>(tileMap, source, dest, new PathPriorityQueue<W, V>(GetWeight));
         }
 
-        public static IEnumerable<PathfindingStep<K>> VisualizePathDFS<V, K>(
-            this ITileMap<K, V> tileMap,
-            K source,
-            K dest)
+        public static IEnumerable<PathfindingStep<V>> VisualizePathDFS<V>(
+            this IGraph<V> tileMap,
+            V source,
+            V dest)
         {
-            return VisualizePath<K, V>(tileMap, source, dest, new PathStack<K>());
+            return VisualizePath<V>(tileMap, source, dest, new PathStack<V>());
         }
 
-        public static IEnumerable<PathfindingStep<K>> VisualizePathBFS<V, K>(
-            this ITileMap<K, V> tileMap,
-            K source,
-            K dest)
+        public static IEnumerable<PathfindingStep<V>> VisualizePathBFS<V>(
+            this IGraph<V> tileMap,
+            V source,
+            V dest)
         {
-            return VisualizePath<K, V>(tileMap, source, dest, new PathQueue<K>());
+            return VisualizePath<V>(tileMap, source, dest, new PathQueue<V>());
         }
     }
 }

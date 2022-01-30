@@ -306,14 +306,24 @@ namespace nickmaltbie.TileMap.Example
         public void UpdatePathWeight(PathfindingStep<Vector2Int> step)
         {
             float weight = 1.0f;
+            int count = 0;
+            var current = new HashSet<Vector2Int>();
             foreach (Path<Vector2Int> path in step.pathOrder.EnumerateElements())
             {
                 this.tileWeights[path.Node] = weight;
                 // Skip elements that are in the searched group
-                if (!this.searched.Contains(path.Node))
+                // Also skip elements already mentioned in this path order
+                bool skip = this.searched.Contains(path.Node) || current.Contains(path.Node);
+
+                if (skip)
                 {
-                    weight *= this.priorityDecay;
+                    continue;
                 }
+
+                current.Add(path.Node);
+                weight *= this.priorityDecay;
+
+                count++;
 
                 this.UpdateTileColor(path.Node);
             }
@@ -339,6 +349,7 @@ namespace nickmaltbie.TileMap.Example
                         if (step.currentPath.Previous != null)
                         {
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
+                            this.searched.Add(step.currentPath.Node);
                             this.UpdatePathWeight(step);
                             if (this.stepDelay > 0)
                             {

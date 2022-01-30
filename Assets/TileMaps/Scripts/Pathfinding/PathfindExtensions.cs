@@ -32,7 +32,7 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <summary>
         /// Find a path between two nodes in the graph using a given path collection.
         /// </summary>
-        /// <param name="tileMap">Tile map to find path within.</param>
+        /// <param name="graph">Graph to find path within.</param>
         /// <param name="source">Starting position for path.</param>
         /// <param name="dest">Destination of path.</param>
         /// <param name="path">Path found between source and dest in the graph. If a path cannot be found between the
@@ -40,17 +40,16 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <param name="pathOrder">Path collection used to order paths when adding them to the list of possible
         /// paths.</param> 
         /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
-        /// <typeparam name="K">Values stored within the graph</typeparam>
         /// <returns>True if a path can be found between the source and destination, false otherwise.</returns>
-        private static bool FindPath<V, K>(
-            this ITileMap<V, K> tileMap,
+        private static bool FindPath<V>(
+            this IGraph<V> graph,
             V source,
             V dest,
             IPathOrder<V> pathOrder,
             out List<V> path)
         {
             // Base case if either source or dest are not in the tile map.
-            if (!tileMap.IsInMap(source) || !tileMap.IsInMap(dest))
+            if (!graph.Contains(source) || !graph.Contains(dest))
             {
                 // Return empty list and no path found.
                 path = new List<V>();
@@ -89,7 +88,7 @@ namespace nickmaltbie.TileMap.Pathfinding
                     searched.Add(pathToNode.Node);
                 }
 
-                foreach (V neighbor in tileMap.GetNeighbors(pathToNode.Node))
+                foreach (V neighbor in graph.GetNeighbors(pathToNode.Node))
                 {
                     // if the neighbor is not already searched, add it to the queue
                     if (searched.Contains(neighbor))
@@ -112,47 +111,45 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <summary>
         /// Find a path between two nodes in the graph using A Star Algorithm.
         /// </summary>
-        /// <param name="tileMap">Tile map to find path within.</param>
+        /// <param name="graph">Graph to find path within.</param>
         /// <param name="source">Starting position for path.</param>
         /// <param name="dest">Destination of path.</param>
         /// <param name="path">Path found between source and dest in the graph. If a path cannot be found between the
         /// two points, this will be an empty list with no elements.</param>
         /// <param name="GetWeight">Get the weight of a given path.</param>
         /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
-        /// <typeparam name="K">Values stored within the graph</typeparam>
         /// <typeparam name="W">Type of value used to store weight of paths. Must be comparable to W.</typeparam>
         /// <returns>True if a path can be found between the source and destination, false otherwise.</returns>
-        public static bool FindPathAStar<V, K, W>(
-            this ITileMap<V, K> tileMap,
+        public static bool FindPathAStar<V, W>(
+            this IGraph<V> graph,
             V source,
             V dest,
             Func<Path<V>, W> GetWeight,
             out List<V> path)
             where W : IComparable
         {
-            return FindPath(tileMap, source, dest, new PathPriorityQueue<W, V>(GetWeight), out path);
+            return FindPath(graph, source, dest, new PathPriorityQueue<W, V>(GetWeight), out path);
         }
 
         /// <summary>
         /// Find a path between two nodes in the graph using depth first search.
         /// </summary>
-        /// <param name="tileMap">Tile map to find path within.</param>
+        /// <param name="graph">Graph to find path within.</param>
         /// <param name="source">Starting position for path.</param>
         /// <param name="dest">Destination of path.</param>
         /// <param name="path">Path found between source and dest in the graph. If a path cannot be found between the
         /// two points, this will be an empty list with no elements.</param>
         /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
-        /// <typeparam name="K">Values stored within the graph</typeparam>
         /// <returns>True if a path can be found between the source and destination, false otherwise.</returns>
-        public static bool FindPathDFS<V, K>(this ITileMap<V, K> tileMap, V source, V dest, out List<V> path)
+        public static bool FindPathDFS<V>(this IGraph<V> graph, V source, V dest, out List<V> path)
         {
-            return FindPath(tileMap, source, dest, new PathStack<V>(), out path);
+            return FindPath(graph, source, dest, new PathStack<V>(), out path);
         }
 
         /// <summary>
         /// Find a path between two nodes in the graph using breadth first search.
         /// </summary>
-        /// <param name="tileMap">Tile map to find path within.</param>
+        /// <param name="graph">Graph to find path within.</param>
         /// <param name="source">Starting position for path.</param>
         /// <param name="dest">Destination of path.</param>
         /// <param name="path">Path found between source and dest in the graph. If a path cannot be found between the
@@ -160,9 +157,9 @@ namespace nickmaltbie.TileMap.Pathfinding
         /// <typeparam name="V">Type of coordinates within the graph.</typeparam>
         /// <typeparam name="K">Values stored within the graph</typeparam>
         /// <returns>True if a path can be found between the source and destination, false otherwise.</returns>
-        public static bool FindPathBFS<V, K>(this ITileMap<V, K> tileMap, V source, V dest, out List<V> path)
+        public static bool FindPathBFS<V>(this IGraph<V> graph, V source, V dest, out List<V> path)
         {
-            return FindPath(tileMap, source, dest, new PathQueue<V>(), out path);
+            return FindPath(graph, source, dest, new PathQueue<V>(), out path);
         }
     }
 }

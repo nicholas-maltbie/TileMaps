@@ -16,6 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using nickmaltbie.TileMap.Common;
@@ -77,35 +78,11 @@ namespace nickmaltbie.TileMap.Hexagon
         }
 
         /// <inheritdoc/>
-        public IEnumerator<Vector2Int> GetEnumerator()
-        {
-            for (int x = 0; x < this.width; x++)
-            {
-                for (int y = 0; y < this.height; y++)
-                {
-                    yield return new Vector2Int(x, y);
-                }
-            }
-        }
-
-        /// <inheritdoc/>
-        public int GetNeighborCount(Vector2Int loc)
-        {
-            return this.GetNeighbors(loc).Count();
-        }
-
-        /// <inheritdoc/>
         public IEnumerable<Vector2Int> GetNeighbors(Vector2Int loc)
         {
             return HexCoord.GetAdjacent(loc)
-                .Where(loc => this.IsInMap(loc))
+                .Where(loc => this.Contains(loc))
                 .Where(loc => !this.IsBlocked(loc));
-        }
-
-        /// <inheritdoc/>
-        public bool IsInMap(Vector2Int loc)
-        {
-            return loc.x >= 0 && loc.x < this.width && loc.y >= 0 && loc.y < this.height;
         }
 
         /// <inheritdoc/>
@@ -124,6 +101,51 @@ namespace nickmaltbie.TileMap.Hexagon
         public bool IsBlocked(Vector2Int loc)
         {
             return this.blocked.Contains(loc);
+        }
+
+        /// <inheritdoc/>
+        public int Degree(Vector2Int vertex)
+        {
+            return this.GetNeighbors(vertex).Count();
+        }
+
+        /// <inheritdoc/>
+        public bool Contains(Vector2Int vertex)
+        {
+            return vertex.x >= 0 && vertex.x < this.width && vertex.y >= 0 && vertex.y < this.height;
+        }
+
+        /// <summary>
+        /// Gets all the locations within the grid
+        /// </summary>
+        /// <returns></returns>
+        private IEnumerator<Vector2Int> GetLocations()
+        {
+            for (int x = 0; x < this.width; x++)
+            {
+                for (int y = 0; y < this.height; y++)
+                {
+                    yield return new Vector2Int(x, y);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enumerates the hexagon locations in the grid in an arbitrary order.
+        /// </summary>
+        /// <returns>An enumerator of the locations within the hexagon grid.</returns>
+        IEnumerator<Vector2Int> IEnumerable<Vector2Int>.GetEnumerator()
+        {
+            return this.GetLocations();
+        }
+
+        /// <summary>
+        /// Enumerates the hexagon locations in the grid in an arbitrary order.
+        /// </summary>
+        /// <returns>An enumerator of the locations within the hexagon grid.</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetLocations();
         }
     }
 }

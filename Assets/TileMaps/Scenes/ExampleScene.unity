@@ -309,6 +309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1355282004}
   - component: {fileID: 1355282003}
+  - component: {fileID: 1355282005}
   m_Layer: 0
   m_Name: Hex Grid
   m_TagString: Untagged
@@ -328,11 +329,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2618820d69650f546b4a9f44e727a3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorPosition: {fileID: 8612821695751886078, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  blockPressed: {fileID: 2297275367463140902, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  selectPressed: {fileID: 39478654124391070, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
   stepDelay: 0.25
   finalPathDelay: 0.05
   arrowOffset: 0.5
+  pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   pathArrowColor: {r: 1, g: 0.6, b: 0, a: 1}
   selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
   defaultTileColor: {r: 1, g: 1, b: 1, a: 1}
@@ -387,6 +392,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1355282005
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1355282002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: 0}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: 
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &1441164293
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,11 +451,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9296cf48ef9f46b41a10d4d4267b1031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cursorPosition: {fileID: 0}
+  blockPressed: {fileID: 0}
+  selectPressed: {fileID: 0}
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
   stepDelay: 0.15
   finalPathDelay: 0.025
   arrowOffset: 0.5
+  pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   pathArrowColor: {r: 1, g: 0, b: 1, a: 1}
   selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
   defaultTileColor: {r: 1, g: 1, b: 1, a: 1}

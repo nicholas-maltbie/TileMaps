@@ -24,6 +24,7 @@ using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Pathfinding;
 using nickmaltbie.TileMap.Pathfinding.Visualization;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace nickmaltbie.TileMap.Example
 {
@@ -43,6 +44,24 @@ namespace nickmaltbie.TileMap.Example
     /// </summary>
     public abstract class AbstractExampleGrid : MonoBehaviour
     {
+        /// <summary>
+        /// Input action reference for finding the current player cursor position.
+        /// </summary>
+        [SerializeField]
+        private InputActionReference cursorPosition;
+
+        /// <summary>
+        /// Input action reference for if the block action is selected.
+        /// </summary>
+        [SerializeField]
+        private InputActionReference blockPressed;
+
+        /// <summary>
+        /// Input action reference for if the select action is selected.
+        /// </summary>
+        [SerializeField]
+        private InputActionReference selectPressed;
+
         /// <summary>
         /// Type of mode for searching for the 
         /// </summary>
@@ -87,27 +106,64 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         protected List<Vector2Int> path = new List<Vector2Int>();
 
+        /// <summary>
+        /// Step delay between updates of pathfinding rendering.
+        /// </summary>
         public float stepDelay = 0.25f;
+
+        /// <summary>
+        /// Delay for rendering the final path.
+        /// </summary>
         public float finalPathDelay = 0.05f;
 
+        /// <summary>
+        /// Vertical offset between the board and arrows drawn.
+        /// </summary>
         public float arrowOffset = 0.5f;
 
+        /// <summary>
+        /// Default color of path elements.
+        /// </summary>
         public Color pathDefaultColor = Color.white;
 
+        /// <summary>
+        /// Color of path arrows when highlighted.
+        /// </summary>
         public Color pathArrowColor = Color.magenta;
 
+        /// <summary>
+        /// Color of a tile when it is selected as start or end of path.
+        /// </summary>
         public Color selectedTileColor = Color.red;
 
+        /// <summary>
+        /// Default color of tile in the board.
+        /// </summary>
         public Color defaultTileColor = Color.white;
 
+        /// <summary>
+        /// Default color of a tile that has been marked as "searched".
+        /// </summary>
         public Color searchedTileColor = Color.green;
 
+        /// <summary>
+        /// Color of a tile when it is added to the final path.
+        /// </summary>
         public Color pathTileColor = Color.yellow;
 
+        /// <summary>
+        /// Color of a tile when it is marked as blocked.
+        /// </summary>
         public Color blockedTileColor = Color.blue;
 
+        /// <summary>
+        /// Decay of color when displaying priority of next tile to select.
+        /// </summary>
         public float priorityDecay = 0.95f;
 
+        /// <summary>
+        /// Gradient of colors to select from when displaying priority.
+        /// </summary>
         public Gradient priorityGradient;
 
         /// <summary>
@@ -116,27 +172,48 @@ namespace nickmaltbie.TileMap.Example
         [SerializeField]
         public GameObject arrowPrefab;
 
+        /// <summary>
+        /// Set of all locations that have been marked as "searched".
+        /// </summary>
         private HashSet<Vector2Int> searched = new HashSet<Vector2Int>();
 
+        /// <summary>
+        /// Weights associated with each tile for rendering on the screen.
+        /// </summary>
         private Dictionary<Vector2Int, float> tileWeights = new Dictionary<Vector2Int, float>();
 
+        /// <summary>
+        /// Arrows that have been created at locations within the grid
+        /// </summary>
         private Dictionary<(Vector2Int, Vector2Int), GameObject> arrows =
             new Dictionary<(Vector2Int, Vector2Int), GameObject>();
 
+        /// <summary>
+        /// World grid associated with this example.
+        /// </summary>
         public IWorldGrid<Vector2Int, GameObject> WorldGrid => this.worldGrid;
 
+        /// <summary>
+        /// Tile map prefab object for creating hexes.
+        /// </summary>
         public GameObject TilePrefab => this.tilePrefab;
 
+        /// <summary>
+        /// Create an arrow on the screen for highlighting the path
+        /// </summary>
+        /// <param name="start">Source position of the arrow.</param>
+        /// <param name="end">Destination position of the arrow.</param>
+        /// <returns>Game object representing the created arrow.</returns>
         public GameObject CreateArrow(Vector2Int start, Vector2Int end)
         {
-            if (start == null || end == null)
+            if (start == null || end == null || start == end)
             {
                 return null;
             }
 
             if (this.arrows.ContainsKey((start, end)))
             {
-                return null;
+                return this.arrows[(start, end)];
             }
 
             Vector3 startPos = this.worldGrid.GetWorldPosition(start);
@@ -159,6 +236,12 @@ namespace nickmaltbie.TileMap.Example
             return arrow;
         }
 
+        /// <summary>
+        /// Delete an arrow for a given location in the grid.
+        /// </summary>
+        /// <param name="start">Source position of the arrow.</param>
+        /// <param name="end">Destination position of the arrow.</param>
+        /// <returns>True if an arrow was removed form that position, false otherwise.</returns>
         public bool DeleteArrow(Vector2Int start, Vector2Int end)
         {
             if (this.arrows.ContainsKey((start, end)))
@@ -173,8 +256,37 @@ namespace nickmaltbie.TileMap.Example
             return false;
         }
 
+        /// <summary>
+        /// Setup basic actions for the game.
+        /// </summary>
+        public void Start()
+        {
+            // Setup block action when player activates block action
+            this.blockPressed.action.performed += _ => this.DoOnValidPres(this.BlockTile);
+
+            // Setup select action when player activates select action
+            this.selectPressed.action.performed += _ => this.DoOnValidPres(this.SelectTile);
+        }
+
+        /// <summary>
+        /// Do an action if a valid tile is pressed.
+        /// </summary>
+        /// <param name="action">Action to perform for a given tile if the tile pressed is valid.</param>
+        public void DoOnValidPres(Action<Vector2Int> action)
+        {
+            Vector2Int? selected = this.GetSelectedPosition();
+            if (selected != null)
+            {
+                action(selected.Value);
+            }
+        }
+
+        /// <summary>
+        /// Setup the example grid upon enabling.
+        /// </summary>
         public void OnEnable()
         {
+            // spawn hexes at each position in the world with labeled information.
             (this.worldGrid, this.tileMap) = this.CreateGridMap();
             foreach (Vector2Int pos in this.worldGrid.GetTileMap())
             {
@@ -190,8 +302,16 @@ namespace nickmaltbie.TileMap.Example
                 this.worldGrid.GetTileMap()[pos] = spawned;
                 this.UpdateTileColor(pos);
             }
+
+            // Ensure actions are enabled
+            this.blockPressed.action.Enable();
+            this.selectPressed.action.Enable();
+            this.cursorPosition.action.Enable();
         }
 
+        /// <summary>
+        /// Cleanup the tile map when this object is disabled.
+        /// </summary>
         public void OnDisable()
         {
             foreach (Vector2Int pos in this.worldGrid.GetTileMap())
@@ -200,6 +320,10 @@ namespace nickmaltbie.TileMap.Example
             }
         }
 
+        /// <summary>
+        /// Function to create a world grid
+        /// </summary>
+        /// <returns>The created world grid and associated blockable tile map for that grid.</returns>
         protected abstract (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
             CreateGridMap();
 
@@ -208,99 +332,113 @@ namespace nickmaltbie.TileMap.Example
             this.GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", color);
         }
 
-        public void Update()
+        public void BlockTile(Vector2Int location)
         {
-            if (!(Input.GetButtonDown("Fire1") || Input.GetButtonDown("Fire2")))
+            // Don't block a searched tile or selected tile
+            if (this.searched.Contains(location) || this.tileWeights.ContainsKey(location))
             {
                 return;
             }
 
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            // toggle blocked state
+            if (this.tileMap.IsBlocked(location))
+            {
+                this.tileMap.Unblock(location);
+            }
+            else
+            {
+                this.tileMap.Block(location);
+            }
+
+            // Update color
+            this.UpdateTileColor(location);
+        }
+
+        /// <summary>
+        /// Get the currently selected position based on the cursor position.
+        /// </summary>
+        /// <returns>Returns the position of the selected element or null if no valid element is clicked.</returns>
+        public Vector2Int? GetSelectedPosition()
+        {
+            Vector2 mousePosition = this.cursorPosition.action.ReadValue<Vector2>();
+
+            Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
             {
-                return;
+                return null;
             }
 
             if (hit.collider == null)
             {
-                return;
+                return null;
             }
 
             Coord coord = hit.collider.gameObject.GetComponent<Coord>();
             if (coord == null)
             {
+                return null;
+            }
+
+            return coord.coord;
+        }
+
+        /// <summary>
+        /// Resets any visuals drawn on the board currently.
+        /// </summary>
+        public void ResetBoard()
+        {
+            this.StopAllCoroutines();
+
+            // Clear out previous  path
+            this.selected1 = null;
+            this.selected2 = null;
+            List<Vector2Int> savedPath = this.path;
+            this.path = null;
+            // savedPath.ForEach(loc => UpdateTileColor(loc));
+            foreach (KeyValuePair<(Vector2Int, Vector2Int), GameObject> key in this.arrows)
+            {
+                GameObject.Destroy(key.Value);
+            }
+
+            this.arrows.Clear();
+            var toClear = this.searched.ToList();
+            this.searched.Clear();
+            foreach (Vector2Int loc in toClear)
+            {
+                this.UpdateTileColor(loc);
+            }
+
+            IEnumerable<Vector2Int> weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
+            this.tileWeights.Clear();
+            foreach (Vector2Int loc in weightsToClear)
+            {
+                this.UpdateTileColor(loc);
+            }
+        }
+
+        public void SelectTile(Vector2Int location)
+        {
+            if (this.tileMap.IsBlocked(location))
+            {
                 return;
             }
 
-            Vector2Int selected = coord.coord;
-
-            if (Input.GetButtonDown("Fire2"))
+            if (this.toggle == 0)
             {
-                // toggle blocked state
-                if (this.tileMap.IsBlocked(selected))
-                {
-                    this.tileMap.Unblock(selected);
-                }
-                else
-                {
-                    this.tileMap.Block(selected);
-                }
+                this.ResetBoard();
+                // Start new path
+                this.selected1 = location;
+                this.UpdateTileColor(location);
+            }
+            else if (this.toggle == 1)
+            {
+                this.selected2 = location;
+                this.UpdateTileColor(location);
 
-                // Update color
-                this.UpdateTileColor(selected);
+                this.DrawPath();
             }
 
-            if (Input.GetButtonDown("Fire1"))
-            {
-                if (this.tileMap.IsBlocked(selected))
-                {
-                    return;
-                }
-
-                if (this.toggle == 0)
-                {
-                    this.StopAllCoroutines();
-
-                    // Clear out previous  path
-                    this.selected1 = null;
-                    this.selected2 = null;
-                    List<Vector2Int> savedPath = this.path;
-                    this.path = null;
-                    // savedPath.ForEach(loc => UpdateTileColor(loc));
-                    foreach (KeyValuePair<(Vector2Int, Vector2Int), GameObject> key in this.arrows)
-                    {
-                        GameObject.Destroy(key.Value);
-                    }
-
-                    this.arrows.Clear();
-                    var toClear = this.searched.ToList();
-                    this.searched.Clear();
-                    foreach (Vector2Int loc in toClear)
-                    {
-                        this.UpdateTileColor(loc);
-                    }
-
-                    IEnumerable<Vector2Int> weightsToClear = this.tileWeights.ToList().Select(e => e.Key);
-                    this.tileWeights.Clear();
-                    foreach (Vector2Int loc in weightsToClear)
-                    {
-                        this.UpdateTileColor(loc);
-                    }
-
-                    // Start new path
-                    this.selected1 = selected;
-                    this.UpdateTileColor(selected);
-                }
-                else if (this.toggle == 1)
-                {
-                    this.selected2 = selected;
-                    this.UpdateTileColor(selected);
-
-                    this.DrawPath();
-                }
-
-                this.toggle = (this.toggle + 1) % 2;
-            }
+            this.toggle = (this.toggle + 1) % 2;
         }
 
         public void UpdatePathWeight(PathfindingStep<Vector2Int> step)
@@ -329,6 +467,11 @@ namespace nickmaltbie.TileMap.Example
             }
         }
 
+        /// <summary>
+        /// A coroutine to start drawing a path visualization on the screen for a given set of steps.
+        /// </summary>
+        /// <param name="steps">Steps associated with the path visualization.</param>
+        /// <returns>IEnumerator representing the delays between each step of the path rendering.</returns>
         public IEnumerator DrawPathVisualization(IEnumerable<PathfindingStep<Vector2Int>> steps)
         {
             this.searched.Clear();
@@ -361,6 +504,11 @@ namespace nickmaltbie.TileMap.Example
                     case StepType.EndPath:
                         if (step.pathFound)
                         {
+                            if (step.currentPath == null || step.currentPath.Previous == null)
+                            {
+                                break;
+                            }
+
                             this.searched.Add(step.currentPath.Node);
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.UpdateTileColor(step.currentPath.Node);
@@ -378,9 +526,9 @@ namespace nickmaltbie.TileMap.Example
                                     mr.material.SetColor("_BaseColor", this.pathArrowColor);
                                 }
 
-                                if (this.stepDelay > 0)
+                                if (this.finalPathDelay > 0)
                                 {
-                                    yield return new WaitForSeconds(this.stepDelay);
+                                    yield return new WaitForSeconds(this.finalPathDelay);
                                 }
                             }
                         }
@@ -410,6 +558,9 @@ namespace nickmaltbie.TileMap.Example
             }
         }
 
+        /// <summary>
+        /// Draw the path based on the search mode selected for this demonstration.
+        /// </summary>
         public void DrawPath()
         {
             switch (this.searchMode)
@@ -451,11 +602,20 @@ namespace nickmaltbie.TileMap.Example
             // path.ForEach(loc => UpdateTileColor(loc));
         }
 
+        /// <summary>
+        /// Update the color of a tile within the grid.
+        /// </summary>
+        /// <param name="loc">Location to update within the grid.</param>
         public void UpdateTileColor(Vector2Int loc)
         {
             this.ColorTile(loc, this.GetTileColor(loc));
         }
 
+        /// <summary>
+        /// Get the color of a tile within the grid.
+        /// </summary>
+        /// <param name="loc">Location of a tile within the grid.</param>
+        /// <returns>The color that a tile should be based on its current state.</returns>
         public Color GetTileColor(Vector2Int loc)
         {
             if (this.tileMap.IsBlocked(loc))
@@ -486,6 +646,11 @@ namespace nickmaltbie.TileMap.Example
             return this.defaultTileColor;
         }
 
+        /// <summary>
+        /// Gets the game object that represents a tile for an associated location within the grid.
+        /// </summary>
+        /// <param name="loc">Location within the grid.</param>
+        /// <returns>Tile object at the associated location in the grid.</returns>
         private GameObject GetTile(Vector2Int loc) => this.worldGrid.GetTileMap()[loc];
     }
 }

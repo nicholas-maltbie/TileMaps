@@ -8,4 +8,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/TileMaps/Scenes/ExampleScene.unity
     guid: 0b956a54552cab34eb78966bbcd2bce7
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 81f9ee5b38a959c4cb431c87b1b45196, type: 2}

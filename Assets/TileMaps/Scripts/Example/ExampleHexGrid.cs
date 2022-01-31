@@ -48,6 +48,7 @@ namespace nickmaltbie.TileMap.Example
         [SerializeField]
         private float hexRadius = 1.0f;
 
+        /// <inheritdoc/>
         protected override (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
             CreateGridMap()
         {

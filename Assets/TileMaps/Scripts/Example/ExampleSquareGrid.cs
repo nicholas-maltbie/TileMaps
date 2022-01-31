@@ -55,6 +55,7 @@ namespace nickmaltbie.TileMap.Example
         [SerializeField]
         private Adjacency adjacency = Adjacency.Orthogonal;
 
+        /// <inheritdoc/>
         protected override (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
             CreateGridMap()
         {

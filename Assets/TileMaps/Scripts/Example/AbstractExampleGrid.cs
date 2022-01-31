@@ -206,7 +206,7 @@ namespace nickmaltbie.TileMap.Example
         /// <returns>Game object representing the created arrow.</returns>
         public GameObject CreateArrow(Vector2Int start, Vector2Int end)
         {
-            if (start == null || end == null)
+            if (start == null || end == null || start == end)
             {
                 return null;
             }
@@ -262,10 +262,10 @@ namespace nickmaltbie.TileMap.Example
         public void Start()
         {
             // Setup block action when player activates block action
-            blockPressed.action.performed += _ => this.DoOnValidPres(this.BlockTile);
+            this.blockPressed.action.performed += _ => this.DoOnValidPres(this.BlockTile);
 
             // Setup select action when player activates select action
-            selectPressed.action.performed += _ => this.DoOnValidPres(this.SelectTile);
+            this.selectPressed.action.performed += _ => this.DoOnValidPres(this.SelectTile);
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ namespace nickmaltbie.TileMap.Example
         /// <param name="action">Action to perform for a given tile if the tile pressed is valid.</param>
         public void DoOnValidPres(Action<Vector2Int> action)
         {
-            Vector2Int? selected = GetSelectedPosition();
+            Vector2Int? selected = this.GetSelectedPosition();
             if (selected != null)
             {
                 action(selected.Value);
@@ -304,9 +304,9 @@ namespace nickmaltbie.TileMap.Example
             }
 
             // Ensure actions are enabled
-            blockPressed.action.Enable();
-            selectPressed.action.Enable();
-            cursorPosition.action.Enable();
+            this.blockPressed.action.Enable();
+            this.selectPressed.action.Enable();
+            this.cursorPosition.action.Enable();
         }
 
         /// <summary>
@@ -334,6 +334,12 @@ namespace nickmaltbie.TileMap.Example
 
         public void BlockTile(Vector2Int location)
         {
+            // Don't block a searched tile or selected tile
+            if (this.searched.Contains(location) || this.tileWeights.ContainsKey(location))
+            {
+                return;
+            }
+
             // toggle blocked state
             if (this.tileMap.IsBlocked(location))
             {
@@ -354,7 +360,7 @@ namespace nickmaltbie.TileMap.Example
         /// <returns>Returns the position of the selected element or null if no valid element is clicked.</returns>
         public Vector2Int? GetSelectedPosition()
         {
-            Vector2 mousePosition = cursorPosition.action.ReadValue<Vector2>();
+            Vector2 mousePosition = this.cursorPosition.action.ReadValue<Vector2>();
 
             Ray ray = Camera.main.ScreenPointToRay(mousePosition);
             if (!Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
@@ -409,7 +415,7 @@ namespace nickmaltbie.TileMap.Example
                 this.UpdateTileColor(loc);
             }
         }
-        
+
         public void SelectTile(Vector2Int location)
         {
             if (this.tileMap.IsBlocked(location))
@@ -419,7 +425,7 @@ namespace nickmaltbie.TileMap.Example
 
             if (this.toggle == 0)
             {
-                ResetBoard();
+                this.ResetBoard();
                 // Start new path
                 this.selected1 = location;
                 this.UpdateTileColor(location);
@@ -498,6 +504,11 @@ namespace nickmaltbie.TileMap.Example
                     case StepType.EndPath:
                         if (step.pathFound)
                         {
+                            if (step.currentPath == null || step.currentPath.Previous == null)
+                            {
+                                break;
+                            }
+
                             this.searched.Add(step.currentPath.Node);
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.UpdateTileColor(step.currentPath.Node);

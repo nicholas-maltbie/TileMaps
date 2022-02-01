@@ -123,17 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &488198205 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6623657609640478871, guid: 9810f751b9a6f3a41b7698badcc6b1f2, type: 3}
-  m_PrefabInstance: {fileID: 4485808998913395295}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +438,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
   m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 488198205}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -558,7 +547,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
   m_NotificationBehavior: 3
-  m_UIInputModule: {fileID: 488198205}
+  m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
       m_Calls: []
@@ -599,6 +588,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 1335641477740667070, guid: 9810f751b9a6f3a41b7698badcc6b1f2, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 963194227}
     - target: {fileID: 4198621346667254445, guid: 9810f751b9a6f3a41b7698badcc6b1f2, type: 3}
       propertyPath: m_Pivot.x
       value: 0

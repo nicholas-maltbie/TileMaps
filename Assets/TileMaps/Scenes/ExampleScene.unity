@@ -379,7 +379,6 @@ MonoBehaviour:
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
   stepDelay: 0.25
-  finalPathDelay: 0.05
   arrowOffset: 0.5
   pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   pathArrowColor: {r: 1, g: 0.6, b: 0, a: 1}
@@ -502,7 +501,6 @@ MonoBehaviour:
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
   stepDelay: 0.15
-  finalPathDelay: 0.025
   arrowOffset: 0.5
   pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
   pathArrowColor: {r: 1, g: 0, b: 1, a: 1}
@@ -597,10 +595,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1889939422, guid: 9810f751b9a6f3a41b7698badcc6b1f2, type: 3}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 963194227}
     - target: {fileID: 576314974741431287, guid: 9810f751b9a6f3a41b7698badcc6b1f2, type: 3}
       propertyPath: m_Name
       value: UIManager

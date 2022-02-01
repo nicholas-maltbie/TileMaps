@@ -222,6 +222,11 @@ namespace nickmaltbie.TileMap.Example
         }
 
         /// <summary>
+        /// Do we allow the player to input actions.
+        /// </summary>
+        public bool AllowInputs { get; set; }
+
+        /// <summary>
         /// Event that is invoked whenever the play mode changes.
         /// </summary>
         public EventHandler<PathfindingAnimationState> OnPlayModeChange;
@@ -335,6 +340,11 @@ namespace nickmaltbie.TileMap.Example
         /// <param name="action">Action to perform for a given tile if the tile pressed is valid.</param>
         public void DoOnValidPres(Action<Vector2Int> action)
         {
+            if (!AllowInputs)
+            {
+                return;
+            }
+
             Vector2Int? selected = this.GetSelectedPosition();
             if (selected != null)
             {

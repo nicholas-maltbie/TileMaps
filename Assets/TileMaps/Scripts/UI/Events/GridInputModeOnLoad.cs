@@ -16,10 +16,8 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using System.Linq;
 using nickmaltbie.TileMap.Example;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace nickmaltbie.TileSet.UI.Events
 {
@@ -35,9 +33,9 @@ namespace nickmaltbie.TileSet.UI.Events
 
         public void OnScreenLoaded()
         {
-            foreach(var grid in GameObject.FindObjectsOfType<AbstractExampleGrid>())
+            foreach (AbstractExampleGrid grid in GameObject.FindObjectsOfType<AbstractExampleGrid>())
             {
-                grid.AllowInputs = enabledState;
+                grid.AllowInputs = this.enabledState;
             }
         }
 

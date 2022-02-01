@@ -52,7 +52,6 @@ namespace nickmaltbie.TileSet.UI.Text
         private Dictionary<int, bool> usedLinks = new Dictionary<int, bool>();
         private int hoveredLinkIndex = -1;
         private int pressedLinkIndex = -1;
-        private Camera mainCamera;
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -151,39 +150,6 @@ namespace nickmaltbie.TileSet.UI.Text
 
             this.textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
             return oldVertexColors;
-        }
-
-        private void ResetLinkColor(int linkIndex, List<Color32[]> startColors)
-        {
-            TMP_LinkInfo linkInfo = this.textMeshPro.textInfo.linkInfo[linkIndex];
-            int underlineIndex = -1;
-            for (int i = 0; i < linkInfo.linkTextLength; i++)
-            {
-                int characterIndex = linkInfo.linkTextfirstCharacterIndex + i;
-                TMP_CharacterInfo charInfo = this.textMeshPro.textInfo.characterInfo[characterIndex];
-                int meshIndex = charInfo.materialReferenceIndex;
-                int vertexIndex = charInfo.vertexIndex;
-
-                Color32[] vertexColors = this.textMeshPro.textInfo.meshInfo[meshIndex].colors32;
-                if (charInfo.isVisible)
-                {
-                    vertexColors[vertexIndex + 0] = startColors[i][0];
-                    vertexColors[vertexIndex + 1] = startColors[i][1];
-                    vertexColors[vertexIndex + 2] = startColors[i][2];
-                    vertexColors[vertexIndex + 3] = startColors[i][3];
-                }
-
-                if (charInfo.isVisible && charInfo.underlineVertexIndex > 0 && charInfo.underlineVertexIndex != underlineIndex && charInfo.underlineVertexIndex < vertexColors.Length)
-                {
-                    underlineIndex = charInfo.underlineVertexIndex;
-                    for (int j = 0; j < 12; j++)
-                    {
-                        vertexColors[underlineIndex + j] = startColors[i][0];
-                    }
-                }
-            }
-
-            this.textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
         }
     }
 }

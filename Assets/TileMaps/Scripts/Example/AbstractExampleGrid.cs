@@ -20,7 +20,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Pathfinding;
 using nickmaltbie.TileMap.Pathfinding.Visualization;
@@ -213,11 +212,11 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         public PathfindingAnimationState CurrentMode
         {
-            get => _currentMode;
+            get => this._currentMode;
             set
             {
-                _currentMode = value;
-                OnPlayModeChange?.Invoke(this, value);
+                this._currentMode = value;
+                this.OnPlayModeChange?.Invoke(this, value);
             }
         }
 
@@ -241,7 +240,7 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         public void PathfindingStep()
         {
-            stepCount = 1;
+            this.stepCount = 1;
         }
 
         /// <summary>
@@ -249,7 +248,7 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         public void TogglePlay()
         {
-            this.CurrentMode = (PathfindingAnimationState) (1 - CurrentMode);
+            this.CurrentMode = (PathfindingAnimationState)(1 - this.CurrentMode);
         }
 
         /// <summary>
@@ -258,7 +257,7 @@ namespace nickmaltbie.TileMap.Example
         public void ResetBlocked()
         {
             this.tileMap.ResetBlocks();
-            foreach (var loc in this.tileMap)
+            foreach (Vector2Int loc in this.tileMap)
             {
                 this.UpdateTileColor(loc);
             }
@@ -340,7 +339,7 @@ namespace nickmaltbie.TileMap.Example
         /// <param name="action">Action to perform for a given tile if the tile pressed is valid.</param>
         public void DoOnValidPres(Action<Vector2Int> action)
         {
-            if (!AllowInputs)
+            if (!this.AllowInputs)
             {
                 return;
             }
@@ -407,7 +406,7 @@ namespace nickmaltbie.TileMap.Example
         {
             // Don't block a searched tile or selected tile
             if (this.searched.Contains(location) ||
-                this.tileWeights.ContainsKey(location) || 
+                this.tileWeights.ContainsKey(location) ||
                 this.selected1 == location ||
                 this.selected2 == location)
             {
@@ -492,10 +491,10 @@ namespace nickmaltbie.TileMap.Example
         public void ClearPath()
         {
             this.StopAllCoroutines();
-            ResetProgress();
+            this.ResetProgress();
 
-            var temp1 = this.selected1;
-            var temp2 = this.selected2;
+            Vector2Int? temp1 = this.selected1;
+            Vector2Int? temp2 = this.selected2;
 
             // Clear out previous  path
             this.selected1 = null;
@@ -505,6 +504,7 @@ namespace nickmaltbie.TileMap.Example
             {
                 this.UpdateTileColor(temp1.Value);
             }
+
             if (temp2 != null)
             {
                 this.UpdateTileColor(temp2.Value);
@@ -524,8 +524,8 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         public void ResetBoard()
         {
-            ClearPath();
-            ClearBlockedTiles();
+            this.ClearPath();
+            this.ClearBlockedTiles();
         }
 
         public void SelectTile(Vector2Int location)
@@ -594,8 +594,8 @@ namespace nickmaltbie.TileMap.Example
             {
                 // Or if paused, wait until step once is pressed.
                 yield return new WaitUntil(
-                    () => this.CurrentMode == PathfindingAnimationState.Playing || stepCount > 0);
-                stepCount = 0;
+                    () => this.CurrentMode == PathfindingAnimationState.Playing || this.stepCount > 0);
+                this.stepCount = 0;
             }
             else if (this.stepDelay > 0)
             {
@@ -624,10 +624,11 @@ namespace nickmaltbie.TileMap.Example
                         this.UpdateTileColor(step.currentPath.Node);
                         this.UpdatePathWeight(step);
                         this.stepCount = 0;
-                        if (CurrentMode != PathfindingAnimationState.Playing)
+                        if (this.CurrentMode != PathfindingAnimationState.Playing)
                         {
-                            yield return WaitStep();
+                            yield return this.WaitStep();
                         }
+
                         break;
                     case StepType.AddNode:
                         if (step.currentPath.Previous != null)
@@ -635,7 +636,7 @@ namespace nickmaltbie.TileMap.Example
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.searched.Add(step.currentPath.Node);
                             this.UpdatePathWeight(step);
-                            yield return WaitStep();
+                            yield return this.WaitStep();
                         }
 
                         break;
@@ -664,7 +665,7 @@ namespace nickmaltbie.TileMap.Example
                                     mr.material.SetColor("_BaseColor", this.pathArrowColor);
                                 }
 
-                                yield return WaitStep();
+                                yield return this.WaitStep();
                             }
                         }
                         else
@@ -682,7 +683,7 @@ namespace nickmaltbie.TileMap.Example
                         if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
                             this.UpdatePathWeight(step);
-                            yield return WaitStep();
+                            yield return this.WaitStep();
                         }
 
                         break;

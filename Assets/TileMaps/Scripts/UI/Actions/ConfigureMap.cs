@@ -1,4 +1,4 @@
-// Copyright (C) 2022 Nicholas Maltbie
+﻿// Copyright (C) 2022 Nicholas Maltbie
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
 // associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -90,53 +90,53 @@ namespace nickmaltbie.TileSet.UI.Actions
         public void Awake()
         {
             // Setup mode Dropdown
-            modeDropdown.ClearOptions();
-            modeDropdown.AddOptions(Enum.GetNames(typeof(PathMode)).ToList<string>());
-            modeDropdown.onValueChanged.AddListener(
-                selected => ApplyOperationToMaps(
-                    gridMap => gridMap.searchMode = (PathMode) Enum.Parse(
-                        typeof(PathMode), modeDropdown.options[selected].text)));
-            modeDropdown.value = 0;
-            GetGrid().searchMode = (PathMode) Enum.Parse(typeof(PathMode), modeDropdown.options[0].text);
-            
+            this.modeDropdown.ClearOptions();
+            this.modeDropdown.AddOptions(Enum.GetNames(typeof(PathMode)).ToList<string>());
+            this.modeDropdown.onValueChanged.AddListener(
+                selected => this.ApplyOperationToMaps(
+                    gridMap => gridMap.searchMode = (PathMode)Enum.Parse(
+                        typeof(PathMode), this.modeDropdown.options[selected].text)));
+            this.modeDropdown.value = 0;
+            this.GetGrid().searchMode = (PathMode)Enum.Parse(typeof(PathMode), this.modeDropdown.options[0].text);
+
             // Setup action buttons
-            stepButton?.onClick.AddListener(() => ApplyOperationToMaps(
+            this.stepButton?.onClick.AddListener(() => this.ApplyOperationToMaps(
                 gridMap =>
                 {
                     gridMap.CurrentMode = PathfindingAnimationState.Paused;
                     gridMap.PathfindingStep();
                 }));
-            togglePlay?.onClick.AddListener(() => ApplyOperationToMaps(
+            this.togglePlay?.onClick.AddListener(() => this.ApplyOperationToMaps(
                 gridMap => gridMap.TogglePlay()));
             foreach (AbstractExampleGrid exampleGrid in GameObject.FindObjectsOfType<AbstractExampleGrid>())
             {
-                exampleGrid.OnPlayModeChange += (_, playMode) => 
+                exampleGrid.OnPlayModeChange += (_, playMode) =>
                 {
                     switch (playMode)
                     {
                         case PathfindingAnimationState.Playing:
-                            animationSprite.sprite = pauseSprite;
+                            this.animationSprite.sprite = this.pauseSprite;
                             break;
                         case PathfindingAnimationState.Paused:
-                            animationSprite.sprite = playSprite;
+                            this.animationSprite.sprite = this.playSprite;
                             break;
                     }
                 };
                 exampleGrid.CurrentMode = PathfindingAnimationState.Playing;
             }
 
-            resetBlockedButton?.onClick.AddListener(() => ApplyOperationToMaps(
+            this.resetBlockedButton?.onClick.AddListener(() => this.ApplyOperationToMaps(
                 gridMap => gridMap.ResetBlocked()));
-            clearPathButton?.onClick.AddListener(() => ApplyOperationToMaps(
+            this.clearPathButton?.onClick.AddListener(() => this.ApplyOperationToMaps(
                 gridMap => gridMap.ClearPath()));
-            
+
             // Setup sliders
-            pathfindingDelay.onValueChanged.AddListener(value => ApplyOperationToMaps(
+            this.pathfindingDelay.onValueChanged.AddListener(value => this.ApplyOperationToMaps(
                 gridMap => gridMap.stepDelay = value));
             // finalPathDelay.onValueChanged.AddListener(value => ApplyOperationToMaps(
             //     gridMap => gridMap.finalPathDelay = value));
-            pathfindingDelay.value = pathfindingDelay.value;
-            finalPathDelay.value = finalPathDelay.value;
+            this.pathfindingDelay.value = this.pathfindingDelay.value;
+            this.finalPathDelay.value = this.finalPathDelay.value;
         }
 
         public AbstractExampleGrid GetGrid()
@@ -148,6 +148,7 @@ namespace nickmaltbie.TileSet.UI.Actions
                     return exampleGrid;
                 }
             }
+
             return null;
         }
 
@@ -157,7 +158,7 @@ namespace nickmaltbie.TileSet.UI.Actions
         /// <param name="gridAction">Action to apply to an abstract example grid.</param>
         public void ApplyOperationToMaps(Action<AbstractExampleGrid> gridAction)
         {
-            gridAction(GetGrid());
+            gridAction(this.GetGrid());
         }
     }
 }

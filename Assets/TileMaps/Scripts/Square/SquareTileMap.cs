@@ -132,6 +132,10 @@ namespace nickmaltbie.TileMap.Square
             return this.blocked.Contains(loc);
         }
 
+        /// <summary>
+        /// Get the locations in the square tile map in an arbitrary order.
+        /// </summary>
+        /// <returns>Enumerator of the locations in the map.</returns>
         public IEnumerator<Vector2Int> GetLocations()
         {
             for (int x = 0; x < this.width; x++)
@@ -159,6 +163,12 @@ namespace nickmaltbie.TileMap.Square
         IEnumerator IEnumerable.GetEnumerator()
         {
             return this.GetLocations();
+        }
+
+        /// <inheritdoc/>
+        public void ResetBlocks()
+        {
+            this.blocked.Clear();
         }
     }
 }

@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Pathfinding;
 using nickmaltbie.TileMap.Pathfinding.Visualization;
@@ -33,10 +34,19 @@ namespace nickmaltbie.TileMap.Example
     /// </summary>
     public enum PathMode
     {
+        AStar,
         DepthFirstSearch,
         BreadthFirstSearch,
-        AStar,
         HillClimbing
+    }
+
+    /// <summary>
+    /// Current mode of the pathfinding.
+    /// </summary>
+    public enum PathfindingAnimationState
+    {
+        Playing,
+        Paused
     }
 
     /// <summary>
@@ -110,11 +120,6 @@ namespace nickmaltbie.TileMap.Example
         /// Step delay between updates of pathfinding rendering.
         /// </summary>
         public float stepDelay = 0.25f;
-
-        /// <summary>
-        /// Delay for rendering the final path.
-        /// </summary>
-        public float finalPathDelay = 0.05f;
 
         /// <summary>
         /// Vertical offset between the board and arrows drawn.
@@ -197,6 +202,62 @@ namespace nickmaltbie.TileMap.Example
         /// Tile map prefab object for creating hexes.
         /// </summary>
         public GameObject TilePrefab => this.tilePrefab;
+
+        /// <summary>
+        /// Current play mode selected.
+        /// </summary>
+        private PathfindingAnimationState _currentMode;
+
+        /// <summary>
+        /// Current mode of pathfinding animation.
+        /// </summary>
+        public PathfindingAnimationState CurrentMode
+        {
+            get => _currentMode;
+            set
+            {
+                _currentMode = value;
+                OnPlayModeChange?.Invoke(this, value);
+            }
+        }
+
+        /// <summary>
+        /// Event that is invoked whenever the play mode changes.
+        /// </summary>
+        public EventHandler<PathfindingAnimationState> OnPlayModeChange;
+
+        /// <summary>
+        /// Number of queued steps.
+        /// </summary>
+        private int stepCount;
+
+        /// <summary>
+        /// Perform one step of the pathfinding animation.
+        /// </summary>
+        public void PathfindingStep()
+        {
+            stepCount = 1;
+        }
+
+        /// <summary>
+        /// Toggle the current animation pathfinding state.
+        /// </summary>
+        public void TogglePlay()
+        {
+            this.CurrentMode = (PathfindingAnimationState) (1 - CurrentMode);
+        }
+
+        /// <summary>
+        /// Reset the blocked tiles.
+        /// </summary>
+        public void ResetBlocked()
+        {
+            this.tileMap.ResetBlocks();
+            foreach (var loc in this.tileMap)
+            {
+                this.UpdateTileColor(loc);
+            }
+        }
 
         /// <summary>
         /// Create an arrow on the screen for highlighting the path
@@ -335,7 +396,10 @@ namespace nickmaltbie.TileMap.Example
         public void BlockTile(Vector2Int location)
         {
             // Don't block a searched tile or selected tile
-            if (this.searched.Contains(location) || this.tileWeights.ContainsKey(location))
+            if (this.searched.Contains(location) ||
+                this.tileWeights.ContainsKey(location) || 
+                this.selected1 == location ||
+                this.selected2 == location)
             {
                 return;
             }
@@ -383,15 +447,11 @@ namespace nickmaltbie.TileMap.Example
         }
 
         /// <summary>
-        /// Resets any visuals drawn on the board currently.
+        /// Reset the pathfinding progress.
         /// </summary>
-        public void ResetBoard()
+        public void ResetProgress()
         {
             this.StopAllCoroutines();
-
-            // Clear out previous  path
-            this.selected1 = null;
-            this.selected2 = null;
             List<Vector2Int> savedPath = this.path;
             this.path = null;
             // savedPath.ForEach(loc => UpdateTileColor(loc));
@@ -416,6 +476,48 @@ namespace nickmaltbie.TileMap.Example
             }
         }
 
+        /// <summary>
+        /// Reset the path the player is currently animating/working on.
+        /// </summary>
+        public void ClearPath()
+        {
+            this.StopAllCoroutines();
+            ResetProgress();
+
+            var temp1 = this.selected1;
+            var temp2 = this.selected2;
+
+            // Clear out previous  path
+            this.selected1 = null;
+            this.selected2 = null;
+
+            if (temp1 != null)
+            {
+                this.UpdateTileColor(temp1.Value);
+            }
+            if (temp2 != null)
+            {
+                this.UpdateTileColor(temp2.Value);
+            }
+        }
+
+        /// <summary>
+        /// clear out any blocked tile in the map.
+        /// </summary>
+        public void ClearBlockedTiles()
+        {
+            this.tileMap.ResetBlocks();
+        }
+
+        /// <summary>
+        /// Resets any visuals drawn on the board currently.
+        /// </summary>
+        public void ResetBoard()
+        {
+            ClearPath();
+            ClearBlockedTiles();
+        }
+
         public void SelectTile(Vector2Int location)
         {
             if (this.tileMap.IsBlocked(location))
@@ -425,7 +527,7 @@ namespace nickmaltbie.TileMap.Example
 
             if (this.toggle == 0)
             {
-                this.ResetBoard();
+                this.ClearPath();
                 // Start new path
                 this.selected1 = location;
                 this.UpdateTileColor(location);
@@ -441,6 +543,10 @@ namespace nickmaltbie.TileMap.Example
             this.toggle = (this.toggle + 1) % 2;
         }
 
+        /// <summary>
+        /// Update the path weight from a given pathfinding step.
+        /// </summary>
+        /// <param name="step">Pathfinding step.</param>
         public void UpdatePathWeight(PathfindingStep<Vector2Int> step)
         {
             float weight = 1.0f;
@@ -468,6 +574,26 @@ namespace nickmaltbie.TileMap.Example
         }
 
         /// <summary>
+        /// Wait for the next step in the sequence to be ready.
+        /// </summary>
+        /// <returns>Enumerator which indicates when the next step is ready.</returns>
+        public IEnumerator WaitStep()
+        {
+            // Wait until in playmode or advance if step button is pressed
+            if (this.CurrentMode != PathfindingAnimationState.Playing)
+            {
+                // Or if paused, wait until step once is pressed.
+                yield return new WaitUntil(
+                    () => this.CurrentMode == PathfindingAnimationState.Playing || stepCount > 0);
+                stepCount = 0;
+            }
+            else if (this.stepDelay > 0)
+            {
+                yield return new WaitForSeconds(this.stepDelay);
+            }
+        }
+
+        /// <summary>
         /// A coroutine to start drawing a path visualization on the screen for a given set of steps.
         /// </summary>
         /// <param name="steps">Steps associated with the path visualization.</param>
@@ -487,6 +613,11 @@ namespace nickmaltbie.TileMap.Example
                     case StepType.StartPath:
                         this.UpdateTileColor(step.currentPath.Node);
                         this.UpdatePathWeight(step);
+                        this.stepCount = 0;
+                        if (CurrentMode != PathfindingAnimationState.Playing)
+                        {
+                            yield return WaitStep();
+                        }
                         break;
                     case StepType.AddNode:
                         if (step.currentPath.Previous != null)
@@ -494,10 +625,7 @@ namespace nickmaltbie.TileMap.Example
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.searched.Add(step.currentPath.Node);
                             this.UpdatePathWeight(step);
-                            if (this.stepDelay > 0)
-                            {
-                                yield return new WaitForSeconds(this.stepDelay);
-                            }
+                            yield return WaitStep();
                         }
 
                         break;
@@ -526,10 +654,7 @@ namespace nickmaltbie.TileMap.Example
                                     mr.material.SetColor("_BaseColor", this.pathArrowColor);
                                 }
 
-                                if (this.finalPathDelay > 0)
-                                {
-                                    yield return new WaitForSeconds(this.finalPathDelay);
-                                }
+                                yield return WaitStep();
                             }
                         }
                         else
@@ -547,10 +672,7 @@ namespace nickmaltbie.TileMap.Example
                         if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
                             this.UpdatePathWeight(step);
-                            if (this.stepDelay > 0)
-                            {
-                                yield return new WaitForSeconds(this.stepDelay);
-                            }
+                            yield return WaitStep();
                         }
 
                         break;
@@ -578,8 +700,8 @@ namespace nickmaltbie.TileMap.Example
                             this.selected2.Value)));
                     break;
                 case PathMode.HillClimbing:
-                    Func<Path<Vector2Int>, float> pathWeightHillClimbing = (Path<Vector2Int> path) =>
-                        Vector2Int.Distance(path.Node, this.selected2.Value);
+                    Func<Path<Vector2Int>, (int, float)> pathWeightHillClimbing = (Path<Vector2Int> path) =>
+                        (-path.Length(), Vector2Int.Distance(path.Node, this.selected2.Value));
                     this.StartCoroutine(this.DrawPathVisualization(
                         this.WorldGrid.GetTileMap().VisualizePathAStar(
                             this.selected1.Value,

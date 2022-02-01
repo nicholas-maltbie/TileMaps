@@ -44,5 +44,10 @@ namespace nickmaltbie.TileMap.Common
         /// <param name="loc">Location within the tile map to check.</param>
         /// <returns>True if the tile is blocked, false otherwise.</returns>
         bool IsBlocked(K loc);
+
+        /// <summary>
+        /// Reset any blocked tile in the grid.
+        /// </summary>
+        void ResetBlocks();
     }
 }

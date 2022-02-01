@@ -147,5 +147,11 @@ namespace nickmaltbie.TileMap.Hexagon
         {
             return this.GetLocations();
         }
+
+        /// <inheritdoc/>
+        public void ResetBlocks()
+        {
+            this.blocked.Clear();
+        }
     }
 }

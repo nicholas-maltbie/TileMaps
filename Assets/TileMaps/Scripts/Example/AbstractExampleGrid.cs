@@ -194,20 +194,20 @@ namespace nickmaltbie.TileMap.Example
         /// Get the mode selected for the primary button action.
         /// </summary>
         /// <returns>Current mode selected for primary button</returns>
-        public BoardAction PrimaryAction => primaryAction;
+        public BoardAction PrimaryAction => this.primaryAction;
 
         /// <summary>
         /// Get the mode selected for the primary button action.
         /// </summary>
         /// <returns>Current mode selected for primary button</returns>
-        public BoardAction SecondaryAction => (BoardAction) (1 - PrimaryAction);
+        public BoardAction SecondaryAction => (BoardAction)(1 - this.PrimaryAction);
 
         /// <summary>
         /// Toggle primary and secondary actions.
         /// </summary>
         public void ToggleAction()
         {
-            primaryAction = SecondaryAction;
+            this.primaryAction = this.SecondaryAction;
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace nickmaltbie.TileMap.Example
             // Setup block action when player activates block action
             this.primaryPressed.action.performed += _ =>
             {
-                if (PrimaryAction == BoardAction.SelectPath)
+                if (this.PrimaryAction == BoardAction.SelectPath)
                 {
                     this.DoOnValidPres(this.SelectTile);
                 }
@@ -382,9 +382,9 @@ namespace nickmaltbie.TileMap.Example
             };
 
             // Setup select action when player activates select action
-            this.secondaryPressed.action.performed += _ => 
+            this.secondaryPressed.action.performed += _ =>
             {
-                if (SecondaryAction == BoardAction.SelectPath)
+                if (this.SecondaryAction == BoardAction.SelectPath)
                 {
                     this.DoOnValidPres(this.SelectTile);
                 }

@@ -363,8 +363,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorPosition: {fileID: 8612821695751886078, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
-  blockPressed: {fileID: 2297275367463140902, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
-  selectPressed: {fileID: 39478654124391070, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  primaryPressed: {fileID: 39478654124391070, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  secondaryPressed: {fileID: 2297275367463140902, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
   stepDelay: 0.25
@@ -485,8 +485,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cursorPosition: {fileID: 0}
-  blockPressed: {fileID: 0}
-  selectPressed: {fileID: 0}
+  primaryPressed: {fileID: 0}
+  secondaryPressed: {fileID: 0}
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
   stepDelay: 0.15

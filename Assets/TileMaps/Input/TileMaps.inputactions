@@ -6,20 +6,20 @@
             "id": "00172d64-ca90-414e-9647-d9655725a656",
             "actions": [
                 {
-                    "name": "Select",
+                    "name": "Primary",
                     "type": "Button",
                     "id": "89492f29-30c3-4282-a379-3bced16898dd",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
-                    "name": "Block",
+                    "name": "Secondary",
                     "type": "Button",
                     "id": "bbc001db-89d7-4243-96d3-3494638f5591",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
                 },
                 {
                     "name": "Position",
@@ -38,7 +38,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Select",
+                    "action": "Primary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -49,7 +49,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Block",
+                    "action": "Secondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

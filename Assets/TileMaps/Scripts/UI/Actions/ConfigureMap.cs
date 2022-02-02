@@ -24,6 +24,7 @@ using UnityEngine.UI;
 
 namespace nickmaltbie.TileSet.UI.Actions
 {
+
     /// <summary>
     /// Manage controls to configure the map pathfinding.
     /// </summary>
@@ -43,6 +44,11 @@ namespace nickmaltbie.TileSet.UI.Actions
         /// Button to toggle animation.
         /// </summary>
         public Button togglePlay;
+
+        /// <summary>
+        /// Toggle main pointer action between block and pathfinding.
+        /// </summary>
+        public Dropdown mainActionDropdown;
 
         /// <summary>
         /// Reset the blocked tiles.
@@ -98,6 +104,17 @@ namespace nickmaltbie.TileSet.UI.Actions
                         typeof(PathMode), this.modeDropdown.options[selected].text)));
             this.modeDropdown.value = 0;
             this.GetGrid().searchMode = (PathMode)Enum.Parse(typeof(PathMode), this.modeDropdown.options[0].text);
+
+            // Setup blocking toggle
+            this.mainActionDropdown.ClearOptions();
+            this.mainActionDropdown.AddOptions(Enum.GetNames(typeof(BoardAction)).ToList<string>());
+            this.mainActionDropdown.onValueChanged.AddListener(
+                selected => this.ApplyOperationToMaps(
+                    gridMap => gridMap.SetPrimaryAction((BoardAction)Enum.Parse(
+                        typeof(BoardAction), this.mainActionDropdown.options[selected].text))));
+            this.mainActionDropdown.value = 0;
+            this.GetGrid().SetPrimaryAction((BoardAction)
+                Enum.Parse(typeof(BoardAction), this.mainActionDropdown.options[0].text));
 
             // Setup action buttons
             this.stepButton?.onClick.AddListener(() => this.ApplyOperationToMaps(

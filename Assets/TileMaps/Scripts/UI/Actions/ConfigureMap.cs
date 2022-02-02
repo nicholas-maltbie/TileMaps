@@ -24,6 +24,7 @@ using UnityEngine.UI;
 
 namespace nickmaltbie.TileSet.UI.Actions
 {
+
     /// <summary>
     /// Manage controls to configure the map pathfinding.
     /// </summary>
@@ -43,6 +44,11 @@ namespace nickmaltbie.TileSet.UI.Actions
         /// Button to toggle animation.
         /// </summary>
         public Button togglePlay;
+
+        /// <summary>
+        /// Toggle main pointer action between block and pathfinding.
+        /// </summary>
+        public Toggle mainActionToggle;
 
         /// <summary>
         /// Reset the blocked tiles.
@@ -98,6 +104,12 @@ namespace nickmaltbie.TileSet.UI.Actions
                         typeof(PathMode), this.modeDropdown.options[selected].text)));
             this.modeDropdown.value = 0;
             this.GetGrid().searchMode = (PathMode)Enum.Parse(typeof(PathMode), this.modeDropdown.options[0].text);
+
+            // Setup blocking toggle
+            this.mainActionToggle.onValueChanged.AddListener(
+                selected => this.ApplyOperationToMaps(
+                    gridMap => gridMap.ToggleAction()));
+            this.mainActionToggle.isOn = false;
 
             // Setup action buttons
             this.stepButton?.onClick.AddListener(() => this.ApplyOperationToMaps(

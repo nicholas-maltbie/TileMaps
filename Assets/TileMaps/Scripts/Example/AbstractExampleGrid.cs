@@ -29,6 +29,15 @@ using UnityEngine.InputSystem;
 namespace nickmaltbie.TileMap.Example
 {
     /// <summary>
+    /// Action for main click to toggle between blocking tiles on the map or selecting for pathfinding.
+    /// </summary>
+    public enum BoardAction
+    {
+        Select,
+        Block
+    }
+
+    /// <summary>
     /// Path modes that can be used when pathfinding in this grid.
     /// </summary>
     public enum PathMode
@@ -60,16 +69,16 @@ namespace nickmaltbie.TileMap.Example
         private InputActionReference cursorPosition;
 
         /// <summary>
-        /// Input action reference for if the block action is selected.
+        /// Input action reference for if the primary action is selected.
         /// </summary>
         [SerializeField]
-        private InputActionReference blockPressed;
+        private InputActionReference primaryPressed;
 
         /// <summary>
-        /// Input action reference for if the select action is selected.
+        /// Input action reference for if the secondary action is selected.
         /// </summary>
         [SerializeField]
-        private InputActionReference selectPressed;
+        private InputActionReference secondaryPressed;
 
         /// <summary>
         /// Type of mode for searching for the 
@@ -175,6 +184,31 @@ namespace nickmaltbie.TileMap.Example
         /// </summary>
         [SerializeField]
         public GameObject arrowPrefab;
+
+        /// <summary>
+        /// Action associated with primary action.
+        /// </summary>
+        private BoardAction primaryAction = BoardAction.Select;
+
+        /// <summary>
+        /// Get the mode selected for the primary button action.
+        /// </summary>
+        /// <returns>Current mode selected for primary button</returns>
+        public BoardAction PrimaryAction => primaryAction;
+
+        /// <summary>
+        /// Get the mode selected for the primary button action.
+        /// </summary>
+        /// <returns>Current mode selected for primary button</returns>
+        public BoardAction SecondaryAction => (BoardAction) (1 - PrimaryAction);
+
+        /// <summary>
+        /// Toggle primary and secondary actions.
+        /// </summary>
+        public void ToggleAction()
+        {
+            primaryAction = SecondaryAction;
+        }
 
         /// <summary>
         /// Set of all locations that have been marked as "searched".
@@ -327,10 +361,30 @@ namespace nickmaltbie.TileMap.Example
         public void Start()
         {
             // Setup block action when player activates block action
-            this.blockPressed.action.performed += _ => this.DoOnValidPres(this.BlockTile);
+            this.primaryPressed.action.performed += _ =>
+            {
+                if (PrimaryAction == BoardAction.Select)
+                {
+                    this.DoOnValidPres(this.SelectTile);
+                }
+                else
+                {
+                    this.DoOnValidPres(this.BlockTile);
+                }
+            };
 
             // Setup select action when player activates select action
-            this.selectPressed.action.performed += _ => this.DoOnValidPres(this.SelectTile);
+            this.secondaryPressed.action.performed += _ => 
+            {
+                if (SecondaryAction == BoardAction.Select)
+                {
+                    this.DoOnValidPres(this.SelectTile);
+                }
+                else
+                {
+                    this.DoOnValidPres(this.BlockTile);
+                }
+            };
         }
 
         /// <summary>
@@ -374,8 +428,8 @@ namespace nickmaltbie.TileMap.Example
             }
 
             // Ensure actions are enabled
-            this.blockPressed.action.Enable();
-            this.selectPressed.action.Enable();
+            this.primaryPressed.action.Enable();
+            this.secondaryPressed.action.Enable();
             this.cursorPosition.action.Enable();
         }
 

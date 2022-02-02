@@ -33,8 +33,8 @@ namespace nickmaltbie.TileMap.Example
     /// </summary>
     public enum BoardAction
     {
-        Select,
-        Block
+        SelectPath,
+        BlockTile
     }
 
     /// <summary>
@@ -188,7 +188,7 @@ namespace nickmaltbie.TileMap.Example
         /// <summary>
         /// Action associated with primary action.
         /// </summary>
-        private BoardAction primaryAction = BoardAction.Select;
+        private BoardAction primaryAction = BoardAction.SelectPath;
 
         /// <summary>
         /// Get the mode selected for the primary button action.
@@ -356,6 +356,14 @@ namespace nickmaltbie.TileMap.Example
         }
 
         /// <summary>
+        /// Toggle primary and secondary actions for board interactions.
+        /// </summary>
+        public void SetPrimaryAction(BoardAction primaryAction)
+        {
+            this.primaryAction = primaryAction;
+        }
+
+        /// <summary>
         /// Setup basic actions for the game.
         /// </summary>
         public void Start()
@@ -363,7 +371,7 @@ namespace nickmaltbie.TileMap.Example
             // Setup block action when player activates block action
             this.primaryPressed.action.performed += _ =>
             {
-                if (PrimaryAction == BoardAction.Select)
+                if (PrimaryAction == BoardAction.SelectPath)
                 {
                     this.DoOnValidPres(this.SelectTile);
                 }
@@ -376,7 +384,7 @@ namespace nickmaltbie.TileMap.Example
             // Setup select action when player activates select action
             this.secondaryPressed.action.performed += _ => 
             {
-                if (SecondaryAction == BoardAction.Select)
+                if (SecondaryAction == BoardAction.SelectPath)
                 {
                     this.DoOnValidPres(this.SelectTile);
                 }

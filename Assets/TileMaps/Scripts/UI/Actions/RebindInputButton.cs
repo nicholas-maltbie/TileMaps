@@ -85,6 +85,10 @@ namespace nickmaltbie.TileSet.UI.Actions
             {
                 this.inputAction.action.ApplyBindingOverride(inputMapping);
             }
+            if (menuController == null)
+            {
+                menuController = GetComponentInParent<MenuController>();
+            }
         }
 
         public void Start()

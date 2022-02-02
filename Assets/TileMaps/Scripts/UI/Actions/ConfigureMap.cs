@@ -48,7 +48,7 @@ namespace nickmaltbie.TileSet.UI.Actions
         /// <summary>
         /// Toggle main pointer action between block and pathfinding.
         /// </summary>
-        public Toggle mainActionToggle;
+        public Dropdown mainActionDropdown;
 
         /// <summary>
         /// Reset the blocked tiles.
@@ -106,10 +106,15 @@ namespace nickmaltbie.TileSet.UI.Actions
             this.GetGrid().searchMode = (PathMode)Enum.Parse(typeof(PathMode), this.modeDropdown.options[0].text);
 
             // Setup blocking toggle
-            this.mainActionToggle.onValueChanged.AddListener(
+            this.mainActionDropdown.ClearOptions();
+            this.mainActionDropdown.AddOptions(Enum.GetNames(typeof(BoardAction)).ToList<string>());
+            this.mainActionDropdown.onValueChanged.AddListener(
                 selected => this.ApplyOperationToMaps(
-                    gridMap => gridMap.ToggleAction()));
-            this.mainActionToggle.isOn = false;
+                    gridMap => gridMap.SetPrimaryAction((BoardAction)Enum.Parse(
+                        typeof(BoardAction), this.mainActionDropdown.options[selected].text))));
+            this.mainActionDropdown.value = 0;
+            this.GetGrid().SetPrimaryAction((BoardAction)
+                Enum.Parse(typeof(BoardAction), this.mainActionDropdown.options[0].text));
 
             // Setup action buttons
             this.stepButton?.onClick.AddListener(() => this.ApplyOperationToMaps(

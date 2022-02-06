@@ -98,3 +98,4 @@ Documentation/index.*
 Documentation/obj/
 _site/
 Assets/**/obj*
+Recordings

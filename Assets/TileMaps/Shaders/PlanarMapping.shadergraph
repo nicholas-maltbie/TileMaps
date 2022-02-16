@@ -399,7 +399,7 @@
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": true,
-    "hlslDeclarationOverride": 2,
+    "hlslDeclarationOverride": 3,
     "m_Hidden": false,
     "m_Value": {
         "r": 0.0,
@@ -1027,7 +1027,7 @@
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": true,
-    "hlslDeclarationOverride": 2,
+    "hlslDeclarationOverride": 3,
     "m_Hidden": false,
     "m_Value": {
         "r": 1.0,

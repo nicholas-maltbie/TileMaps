@@ -306,7 +306,7 @@ namespace nickmaltbie.TileMap.Example
 
             foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
             {
-                mr.material = demoMaterials.pathArrowMaterial;
+                mr.material = this.demoMaterials.pathArrowMaterial;
             }
 
             this.arrows[(start, end)] = arrow;
@@ -698,7 +698,7 @@ namespace nickmaltbie.TileMap.Example
                                 arrow.transform.position += Vector3.up * 0.001f;
                                 foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
                                 {
-                                    mr.material = demoMaterials.pathArrowSelectedMaterial;
+                                    mr.material = this.demoMaterials.pathArrowSelectedMaterial;
                                 }
 
                                 yield return this.WaitStep();
@@ -778,32 +778,32 @@ namespace nickmaltbie.TileMap.Example
         public void UpdateTileColor(Vector2Int loc)
         {
             TileState state = this.GetTileState(loc);
-            var mr = this.GetTile(loc).GetComponent<MeshRenderer>();
+            MeshRenderer mr = this.GetTile(loc).GetComponent<MeshRenderer>();
 
             switch (state)
             {
                 case TileState.Blocked:
                     mr.material = this.demoMaterials.blockedMaterial;
                     break;
-            
+
                 case TileState.Selected:
                     mr.material = this.demoMaterials.selectedMaterial;
                     break;
-                
+
                 case TileState.Path:
                     mr.material = this.demoMaterials.pathMaterial;
                     break;
-                
+
                 case TileState.Searched:
                     mr.material = this.demoMaterials.searchedMaterial;
                     break;
-                
+
                 case TileState.Queued:
                     Color color = this.demoMaterials.queuedColorGradient.Evaluate(this.tileWeights[loc]);
                     mr.material = this.demoMaterials.queuedMaterial;
                     mr.material.SetColor("_Recolor2", color);
                     break;
-                
+
                 case TileState.Default:
                 default:
                     mr.material = this.demoMaterials.defaultMaterial;
@@ -822,18 +822,22 @@ namespace nickmaltbie.TileMap.Example
             {
                 return TileState.Blocked;
             }
+
             if (loc == this.selected1 || loc == this.selected2)
             {
                 return TileState.Selected;
             }
+
             if (this.path != null && this.path.Contains(loc))
             {
                 return TileState.Path;
             }
+
             if (this.searched.Contains(loc))
             {
                 return TileState.Searched;
             }
+
             if (this.tileWeights.ContainsKey(loc))
             {
                 return TileState.Queued;

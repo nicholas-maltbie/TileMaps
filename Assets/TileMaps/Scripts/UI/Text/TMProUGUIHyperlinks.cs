@@ -1,11 +1,28 @@
-﻿using System.Collections;
+﻿// Copyright (C) 2022 Nicholas Maltbie
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+// associated documentation files (the "Software"), to deal in the Software without restriction,
+// including without limitation the rights to use, copy, modify, merge, publish, distribute,
+// sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+// BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+// CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+// ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace nickmaltbie.PoolSet.UI.Text
+namespace nickmaltbie.TileMaps.UI.Text
 {
     /// <summary>
     /// This class handles basic link color behavior, supports also underline (static only)
@@ -35,91 +52,121 @@ namespace nickmaltbie.PoolSet.UI.Text
         private Dictionary<int, bool> usedLinks = new Dictionary<int, bool>();
         private int hoveredLinkIndex = -1;
         private int pressedLinkIndex = -1;
-        private Camera mainCamera;
 
-        void Awake()
+        public void Awake()
         {
-            textMeshPro = GetComponent<TextMeshProUGUI>();
-
-            mainCamera = Camera.main;
+            this.textMeshPro = this.GetComponent<TextMeshProUGUI>();
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            int linkIndex = GetLinkIndex();
+            int linkIndex = this.GetLinkIndex();
             if (linkIndex != -1) // Was pointer intersecting a link?
             {
-                pressedLinkIndex = linkIndex;
-                if (usedLinks.TryGetValue(linkIndex, out bool isUsed) && isUsed) // Has the link been already used?
+                this.pressedLinkIndex = linkIndex;
+                if (this.usedLinks.TryGetValue(linkIndex, out bool isUsed) && isUsed) // Has the link been already used?
                 {
                     // Have we hovered before we pressed? Touch input will first press, then hover
-                    if (pressedLinkIndex != hoveredLinkIndex) startColors = SetLinkColor(linkIndex, usedPressedColor);
-                    else SetLinkColor(linkIndex, usedPressedColor);
+                    if (this.pressedLinkIndex != this.hoveredLinkIndex)
+                    {
+                        this.startColors = this.SetLinkColor(linkIndex, this.usedPressedColor);
+                    }
+                    else
+                    {
+                        this.SetLinkColor(linkIndex, this.usedPressedColor);
+                    }
                 }
                 else
                 {
                     // Have we hovered before we pressed? Touch input will first press, then hover
-                    if (pressedLinkIndex != hoveredLinkIndex) startColors = SetLinkColor(linkIndex, pressedColor);
-                    else SetLinkColor(linkIndex, pressedColor);
+                    if (this.pressedLinkIndex != this.hoveredLinkIndex)
+                    {
+                        this.startColors = this.SetLinkColor(linkIndex, this.pressedColor);
+                    }
+                    else
+                    {
+                        this.SetLinkColor(linkIndex, this.pressedColor);
+                    }
                 }
-                hoveredLinkIndex = pressedLinkIndex; // Changes flow in LateUpdate
+
+                this.hoveredLinkIndex = this.pressedLinkIndex; // Changes flow in LateUpdate
             }
-            else pressedLinkIndex = -1;
+            else
+            {
+                this.pressedLinkIndex = -1;
+            }
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            int linkIndex = GetLinkIndex();
-            if (linkIndex != -1 && linkIndex == pressedLinkIndex) // Was pointer intersecting the same link as OnPointerDown?
+            int linkIndex = this.GetLinkIndex();
+            if (linkIndex != -1 && linkIndex == this.pressedLinkIndex) // Was pointer intersecting the same link as OnPointerDown?
             {
-                TMP_LinkInfo linkInfo = textMeshPro.textInfo.linkInfo[linkIndex];
-                SetLinkColor(linkIndex, usedHoveredColor);
-                startColors.ForEach(c => c[0] = c[1] = c[2] = c[3] = usedColor);
-                usedLinks[linkIndex] = true;
+                TMP_LinkInfo linkInfo = this.textMeshPro.textInfo.linkInfo[linkIndex];
+                this.SetLinkColor(linkIndex, this.usedHoveredColor);
+                this.startColors.ForEach(c => c[0] = c[1] = c[2] = c[3] = this.usedColor);
+                this.usedLinks[linkIndex] = true;
                 UnityEngine.Debug.Log($"Opening link - {linkInfo.GetLinkID()}");
                 Application.OpenURL(linkInfo.GetLinkID());
             }
-            pressedLinkIndex = -1;
+
+            this.pressedLinkIndex = -1;
         }
 
-        private void LateUpdate()
+        public void LateUpdate()
         {
-            int linkIndex = GetLinkIndex();
+            int linkIndex = this.GetLinkIndex();
             if (linkIndex != -1) // Was pointer intersecting a link?
             {
-                if (linkIndex != hoveredLinkIndex) // We started hovering above link (hover can be set from OnPointerDown!)
+                if (linkIndex != this.hoveredLinkIndex) // We started hovering above link (hover can be set from OnPointerDown!)
                 {
-                    if (hoveredLinkIndex != -1) ResetLinkColor(hoveredLinkIndex, startColors); // If we hovered above other link before
-                    hoveredLinkIndex = linkIndex;
-                    if (usedLinks.TryGetValue(linkIndex, out bool isUsed) && isUsed) // Has the link been already used?
+                    if (this.hoveredLinkIndex != -1)
+                    {
+                        this.ResetLinkColor(this.hoveredLinkIndex, this.startColors); // If we hovered above other link before
+                    }
+
+                    this.hoveredLinkIndex = linkIndex;
+                    if (this.usedLinks.TryGetValue(linkIndex, out bool isUsed) && isUsed) // Has the link been already used?
                     {
                         // If we have pressed on link, wandered away and came back, set the pressed color
-                        if (pressedLinkIndex == linkIndex) startColors = SetLinkColor(hoveredLinkIndex, usedPressedColor);
-                        else startColors = SetLinkColor(hoveredLinkIndex, usedHoveredColor);
+                        if (this.pressedLinkIndex == linkIndex)
+                        {
+                            this.startColors = this.SetLinkColor(this.hoveredLinkIndex, this.usedPressedColor);
+                        }
+                        else
+                        {
+                            this.startColors = this.SetLinkColor(this.hoveredLinkIndex, this.usedHoveredColor);
+                        }
                     }
                     else
                     {
                         // If we have pressed on link, wandered away and came back, set the pressed color
-                        if (pressedLinkIndex == linkIndex) startColors = SetLinkColor(hoveredLinkIndex, pressedColor);
-                        else startColors = SetLinkColor(hoveredLinkIndex, hoveredColor);
+                        if (this.pressedLinkIndex == linkIndex)
+                        {
+                            this.startColors = this.SetLinkColor(this.hoveredLinkIndex, this.pressedColor);
+                        }
+                        else
+                        {
+                            this.startColors = this.SetLinkColor(this.hoveredLinkIndex, this.hoveredColor);
+                        }
                     }
                 }
             }
-            else if (hoveredLinkIndex != -1) // If we hovered above other link before
+            else if (this.hoveredLinkIndex != -1) // If we hovered above other link before
             {
-                ResetLinkColor(hoveredLinkIndex, startColors);
-                hoveredLinkIndex = -1;
+                this.ResetLinkColor(this.hoveredLinkIndex, this.startColors);
+                this.hoveredLinkIndex = -1;
             }
         }
 
-        private int GetLinkIndex()
+        public int GetLinkIndex()
         {
-            return TMP_TextUtilities.FindIntersectingLink(textMeshPro, Mouse.current.position.ReadValue(), null);
+            return TMP_TextUtilities.FindIntersectingLink(this.textMeshPro, Mouse.current.position.ReadValue(), null);
         }
 
-        private List<Color32[]> SetLinkColor(int linkIndex, Color32 color)
+        public List<Color32[]> SetLinkColor(int linkIndex, Color32 color)
         {
-            TMP_LinkInfo linkInfo = textMeshPro.textInfo.linkInfo[linkIndex];
+            TMP_LinkInfo linkInfo = this.textMeshPro.textInfo.linkInfo[linkIndex];
 
             var oldVertexColors = new List<Color32[]>(); // Store the old character colors
             int underlineIndex = -1;
@@ -127,12 +174,12 @@ namespace nickmaltbie.PoolSet.UI.Text
             {
                 // For each character in the link string
                 int characterIndex = linkInfo.linkTextfirstCharacterIndex + i; // The current character index
-                var charInfo = textMeshPro.textInfo.characterInfo[characterIndex];
+                TMP_CharacterInfo charInfo = this.textMeshPro.textInfo.characterInfo[characterIndex];
                 int meshIndex = charInfo.materialReferenceIndex; // Get the index of the material/subtext object used by this character.
                 int vertexIndex = charInfo.vertexIndex; // Get the index of the first vertex of this character.
 
                 // This array contains colors for all vertices of the mesh (might be multiple chars)
-                Color32[] vertexColors = textMeshPro.textInfo.meshInfo[meshIndex].colors32;
+                Color32[] vertexColors = this.textMeshPro.textInfo.meshInfo[meshIndex].colors32;
                 oldVertexColors.Add(new Color32[] { vertexColors[vertexIndex + 0], vertexColors[vertexIndex + 1], vertexColors[vertexIndex + 2], vertexColors[vertexIndex + 3] });
                 if (charInfo.isVisible)
                 {
@@ -152,22 +199,22 @@ namespace nickmaltbie.PoolSet.UI.Text
                 }
             }
 
-            textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+            this.textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
             return oldVertexColors;
         }
 
-        private void ResetLinkColor(int linkIndex, List<Color32[]> startColors)
+        public void ResetLinkColor(int linkIndex, List<Color32[]> startColors)
         {
-            TMP_LinkInfo linkInfo = textMeshPro.textInfo.linkInfo[linkIndex];
+            TMP_LinkInfo linkInfo = this.textMeshPro.textInfo.linkInfo[linkIndex];
             int underlineIndex = -1;
             for (int i = 0; i < linkInfo.linkTextLength; i++)
             {
                 int characterIndex = linkInfo.linkTextfirstCharacterIndex + i;
-                var charInfo = textMeshPro.textInfo.characterInfo[characterIndex];
+                TMP_CharacterInfo charInfo = this.textMeshPro.textInfo.characterInfo[characterIndex];
                 int meshIndex = charInfo.materialReferenceIndex;
                 int vertexIndex = charInfo.vertexIndex;
 
-                Color32[] vertexColors = textMeshPro.textInfo.meshInfo[meshIndex].colors32;
+                Color32[] vertexColors = this.textMeshPro.textInfo.meshInfo[meshIndex].colors32;
                 if (charInfo.isVisible)
                 {
                     vertexColors[vertexIndex + 0] = startColors[i][0];
@@ -175,6 +222,7 @@ namespace nickmaltbie.PoolSet.UI.Text
                     vertexColors[vertexIndex + 2] = startColors[i][2];
                     vertexColors[vertexIndex + 3] = startColors[i][3];
                 }
+
                 if (charInfo.isVisible && charInfo.underlineVertexIndex > 0 && charInfo.underlineVertexIndex != underlineIndex && charInfo.underlineVertexIndex < vertexColors.Length)
                 {
                     underlineIndex = charInfo.underlineVertexIndex;
@@ -185,7 +233,7 @@ namespace nickmaltbie.PoolSet.UI.Text
                 }
             }
 
-            textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
+            this.textMeshPro.UpdateVertexData(TMP_VertexDataUpdateFlags.All);
         }
     }
 }

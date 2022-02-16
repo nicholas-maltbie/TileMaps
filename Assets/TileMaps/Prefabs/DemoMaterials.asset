@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e835deb31edf0ef40bbdfe925504db74, type: 3}
+  m_Name: DemoMaterials
+  m_EditorClassIdentifier: 
+  defaultMaterial: {fileID: 2100000, guid: 6e9b5cbb8df145f4ca21068d94ad13c4, type: 2}
+  blockedMaterial: {fileID: 2100000, guid: 318f6c2c16cd0ae4094b5a1beac051f6, type: 2}
+  queuedMaterial: {fileID: 2100000, guid: d83c49738336c9b43bbe10ede3d6ffd1, type: 2}
+  searchedMaterial: {fileID: 2100000, guid: 6374f2d1e03244f478f167b4eec38440, type: 2}
+  selectedMaterial: {fileID: 2100000, guid: 9d656496bd55aab4c82be78a8c4ee238, type: 2}
+  pathMaterial: {fileID: 2100000, guid: 06068b878c7c2df4bb1f5c588044d4fe, type: 2}
+  queuedColorGradient:
+    serializedVersion: 2
+    key0: {r: 0.99491984, g: 0.6462264, b: 1, a: 1}
+    key1: {r: 0, g: 0.21683025, b: 1, a: 1}
+    key2: {r: 1, g: 0, b: 0.9919772, a: 0}
+    key3: {r: 1, g: 0, b: 0.9919772, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 65535
+    ctime3: 65535
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  pathArrowMaterial: {fileID: 2100000, guid: 14959914506e0084fbc44374e4218ce3, type: 2}
+  pathArrowSelectedMaterial: {fileID: 2100000, guid: 1012c20fe69f3964ab9f893d7f6b30f4, type: 2}

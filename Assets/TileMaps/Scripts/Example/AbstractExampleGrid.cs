@@ -20,6 +20,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using nickmaltbie.Data;
 using nickmaltbie.TileMap.Common;
 using nickmaltbie.TileMap.Pathfinding;
 using nickmaltbie.TileMap.Pathfinding.Visualization;
@@ -35,6 +36,19 @@ namespace nickmaltbie.TileMap.Example
     {
         SelectPath,
         BlockTile
+    }
+
+    /// <summary>
+    /// State of a tile for rendering to the end user.
+    /// </summary>
+    public enum TileState
+    {
+        Blocked,
+        Selected,
+        Path,
+        Searched,
+        Queued,
+        Default
     }
 
     /// <summary>
@@ -135,49 +149,14 @@ namespace nickmaltbie.TileMap.Example
         public float arrowOffset = 0.5f;
 
         /// <summary>
-        /// Default color of path elements.
+        /// Demo materials for labeling the graph.
         /// </summary>
-        public Color pathDefaultColor = Color.white;
-
-        /// <summary>
-        /// Color of path arrows when highlighted.
-        /// </summary>
-        public Color pathArrowColor = Color.magenta;
-
-        /// <summary>
-        /// Color of a tile when it is selected as start or end of path.
-        /// </summary>
-        public Color selectedTileColor = Color.red;
-
-        /// <summary>
-        /// Default color of tile in the board.
-        /// </summary>
-        public Color defaultTileColor = Color.white;
-
-        /// <summary>
-        /// Default color of a tile that has been marked as "searched".
-        /// </summary>
-        public Color searchedTileColor = Color.green;
-
-        /// <summary>
-        /// Color of a tile when it is added to the final path.
-        /// </summary>
-        public Color pathTileColor = Color.yellow;
-
-        /// <summary>
-        /// Color of a tile when it is marked as blocked.
-        /// </summary>
-        public Color blockedTileColor = Color.blue;
+        public DemoMaterials demoMaterials;
 
         /// <summary>
         /// Decay of color when displaying priority of next tile to select.
         /// </summary>
         public float priorityDecay = 0.95f;
-
-        /// <summary>
-        /// Gradient of colors to select from when displaying priority.
-        /// </summary>
-        public Gradient priorityGradient;
 
         /// <summary>
         /// Arrow to spawn between hexes
@@ -327,7 +306,7 @@ namespace nickmaltbie.TileMap.Example
 
             foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
             {
-                mr.material.SetColor("_BaseColor", this.pathDefaultColor);
+                mr.material = this.demoMaterials.pathArrowMaterial;
             }
 
             this.arrows[(start, end)] = arrow;
@@ -458,11 +437,6 @@ namespace nickmaltbie.TileMap.Example
         /// <returns>The created world grid and associated blockable tile map for that grid.</returns>
         protected abstract (IWorldGrid<Vector2Int, GameObject>, IBlockableTileMap<Vector2Int, GameObject>)
             CreateGridMap();
-
-        private void ColorTile(Vector2Int loc, Color color)
-        {
-            this.GetTile(loc).GetComponent<MeshRenderer>().material.SetColor("_BaseColor", color);
-        }
 
         public void BlockTile(Vector2Int location)
         {
@@ -724,7 +698,7 @@ namespace nickmaltbie.TileMap.Example
                                 arrow.transform.position += Vector3.up * 0.001f;
                                 foreach (MeshRenderer mr in arrow.GetComponentsInChildren<MeshRenderer>())
                                 {
-                                    mr.material.SetColor("_BaseColor", this.pathArrowColor);
+                                    mr.material = this.demoMaterials.pathArrowSelectedMaterial;
                                 }
 
                                 yield return this.WaitStep();
@@ -803,42 +777,73 @@ namespace nickmaltbie.TileMap.Example
         /// <param name="loc">Location to update within the grid.</param>
         public void UpdateTileColor(Vector2Int loc)
         {
-            this.ColorTile(loc, this.GetTileColor(loc));
+            TileState state = this.GetTileState(loc);
+            MeshRenderer mr = this.GetTile(loc).GetComponent<MeshRenderer>();
+
+            switch (state)
+            {
+                case TileState.Blocked:
+                    mr.material = this.demoMaterials.blockedMaterial;
+                    break;
+
+                case TileState.Selected:
+                    mr.material = this.demoMaterials.selectedMaterial;
+                    break;
+
+                case TileState.Path:
+                    mr.material = this.demoMaterials.pathMaterial;
+                    break;
+
+                case TileState.Searched:
+                    mr.material = this.demoMaterials.searchedMaterial;
+                    break;
+
+                case TileState.Queued:
+                    Color color = this.demoMaterials.queuedColorGradient.Evaluate(this.tileWeights[loc]);
+                    mr.material = this.demoMaterials.queuedMaterial;
+                    mr.material.SetColor("_Recolor2", color);
+                    break;
+
+                case TileState.Default:
+                default:
+                    mr.material = this.demoMaterials.defaultMaterial;
+                    break;
+            }
         }
 
         /// <summary>
-        /// Get the color of a tile within the grid.
+        /// Gets the render state of a tile based on its current configuration and board state.
         /// </summary>
-        /// <param name="loc">Location of a tile within the grid.</param>
-        /// <returns>The color that a tile should be based on its current state.</returns>
-        public Color GetTileColor(Vector2Int loc)
+        /// <param name="loc">Location within the hex grid.</param>
+        /// <returns>Current state of the tile  in the board.</returns>
+        public TileState GetTileState(Vector2Int loc)
         {
             if (this.tileMap.IsBlocked(loc))
             {
-                return this.blockedTileColor;
+                return TileState.Blocked;
             }
 
             if (loc == this.selected1 || loc == this.selected2)
             {
-                return this.selectedTileColor;
+                return TileState.Selected;
             }
 
             if (this.path != null && this.path.Contains(loc))
             {
-                return this.pathTileColor;
+                return TileState.Path;
             }
 
             if (this.searched.Contains(loc))
             {
-                return this.searchedTileColor;
+                return TileState.Searched;
             }
 
             if (this.tileWeights.ContainsKey(loc))
             {
-                return this.priorityGradient.Evaluate(this.tileWeights[loc]);
+                return TileState.Queued;
             }
 
-            return this.defaultTileColor;
+            return TileState.Default;
         }
 
         /// <summary>

@@ -294,7 +294,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 8, y: 20, z: 11.25}
+  m_LocalPosition: {x: 11, y: 23, z: 11.25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -369,43 +369,8 @@ MonoBehaviour:
   tilePrefab: {fileID: 919132149155446097, guid: 30850ceae5a22e84e89cc2f283962f3a, type: 3}
   stepDelay: 0.25
   arrowOffset: 0.5
-  pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  pathArrowColor: {r: 1, g: 0.6, b: 0, a: 1}
-  selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
-  defaultTileColor: {r: 1, g: 1, b: 1, a: 1}
-  searchedTileColor: {r: 0, g: 1, b: 0, a: 1}
-  pathTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  blockedTileColor: {r: 0, g: 0, b: 1, a: 1}
-  priorityDecay: 0.95
-  priorityGradient:
-    serializedVersion: 2
-    key0: {r: 0.6, g: 0.9999998, b: 1, a: 1}
-    key1: {r: 1, g: 0, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
+  demoMaterials: {fileID: 11400000, guid: 79f52e8f755bb0f4882b2b3f91710293, type: 2}
+  priorityDecay: 0.8
   arrowPrefab: {fileID: 3003423559459847268, guid: 75fdfdbf4a39f454aaca178a603e3292, type: 3}
   width: 16
   height: 16
@@ -484,50 +449,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9296cf48ef9f46b41a10d4d4267b1031, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorPosition: {fileID: 0}
-  primaryPressed: {fileID: 0}
-  secondaryPressed: {fileID: 0}
+  cursorPosition: {fileID: 8612821695751886078, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  primaryPressed: {fileID: 39478654124391070, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
+  secondaryPressed: {fileID: 2297275367463140902, guid: 641788d91ca7b634bb9abb653dcef981, type: 3}
   searchMode: 2
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
   stepDelay: 0.15
   arrowOffset: 0.5
-  pathDefaultColor: {r: 1, g: 1, b: 1, a: 1}
-  pathArrowColor: {r: 1, g: 0, b: 1, a: 1}
-  selectedTileColor: {r: 1, g: 0, b: 0, a: 1}
-  defaultTileColor: {r: 1, g: 1, b: 1, a: 1}
-  searchedTileColor: {r: 0, g: 1, b: 0, a: 1}
-  pathTileColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  blockedTileColor: {r: 0, g: 0, b: 1, a: 1}
+  demoMaterials: {fileID: 11400000, guid: 79f52e8f755bb0f4882b2b3f91710293, type: 2}
   priorityDecay: 0.95
-  priorityGradient:
-    serializedVersion: 2
-    key0: {r: 0.6273585, g: 1, b: 0.99707735, a: 1}
-    key1: {r: 0.97479916, g: 0, b: 1, a: 1}
-    key2: {r: 0, g: 0, b: 0, a: 0}
-    key3: {r: 0, g: 0, b: 0, a: 0}
-    key4: {r: 0, g: 0, b: 0, a: 0}
-    key5: {r: 0, g: 0, b: 0, a: 0}
-    key6: {r: 0, g: 0, b: 0, a: 0}
-    key7: {r: 0, g: 0, b: 0, a: 0}
-    ctime0: 0
-    ctime1: 65535
-    ctime2: 0
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 65535
-    atime2: 0
-    atime3: 0
-    atime4: 0
-    atime5: 0
-    atime6: 0
-    atime7: 0
-    m_Mode: 0
-    m_NumColorKeys: 2
-    m_NumAlphaKeys: 2
   arrowPrefab: {fileID: 3003423559459847268, guid: fff395ae90617e74e9048f453c684ed6, type: 3}
   width: 30
   height: 24

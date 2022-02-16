@@ -20,7 +20,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
     /// <summary>
     /// Change the fullscreen mode of the game.

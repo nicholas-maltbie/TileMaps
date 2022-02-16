@@ -20,7 +20,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.UI;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     /// <summary>
     /// Game screen that can be hidden or shown to the player

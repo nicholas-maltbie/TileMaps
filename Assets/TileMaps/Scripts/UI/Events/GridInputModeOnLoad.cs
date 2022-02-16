@@ -16,10 +16,10 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using nickmaltbie.TileMap.Example;
+using nickmaltbie.TileMaps.Example;
 using UnityEngine;
 
-namespace nickmaltbie.TileSet.UI.Events
+namespace nickmaltbie.TileMaps.UI.Events
 {
     /// <summary>
     /// Simple class to set grid input mode on loading this screen.

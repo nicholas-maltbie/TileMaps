@@ -19,10 +19,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using nickmaltbie.TileMap.Common;
-using nickmaltbie.TileMap.Pathfinding.PathOrder;
+using nickmaltbie.TileMaps.Common;
+using nickmaltbie.TileMaps.Pathfinding.PathOrder;
 
-namespace nickmaltbie.TileMap.Pathfinding
+namespace nickmaltbie.TileMaps.Pathfinding
 {
     /// <summary>
     /// Pathfinding extensions between two locations in a hex grid.

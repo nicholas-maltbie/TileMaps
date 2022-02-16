@@ -19,7 +19,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace nickmaltbie.TileMap.Pathfinding.PathOrder
+namespace nickmaltbie.TileMaps.Pathfinding.PathOrder
 {
     /// <summary>
     /// Generic collection of paths used for pathfinding that can have paths of a specific type added to it

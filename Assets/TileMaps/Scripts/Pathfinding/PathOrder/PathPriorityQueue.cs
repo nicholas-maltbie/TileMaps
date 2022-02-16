@@ -18,9 +18,9 @@
 
 using System;
 using System.Collections.Generic;
-using nickmaltbie.TileMap.Common;
+using nickmaltbie.TileMaps.Common;
 
-namespace nickmaltbie.TileMap.Pathfinding.PathOrder
+namespace nickmaltbie.TileMaps.Pathfinding.PathOrder
 {
     /// <summary>
     /// Path collection that uses weighted paths to store the next path in the collection via a function.

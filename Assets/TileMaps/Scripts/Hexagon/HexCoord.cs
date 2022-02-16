@@ -21,7 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Hexagon
+namespace nickmaltbie.TileMaps.Hexagon
 {
     /// <summary>
     /// Directions relative to a hexagon. These are expressed as degrees relative

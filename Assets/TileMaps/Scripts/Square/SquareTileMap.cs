@@ -19,10 +19,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using nickmaltbie.TileMap.Common;
+using nickmaltbie.TileMaps.Common;
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Square
+namespace nickmaltbie.TileMaps.Square
 {
     /// <summary>
     /// Fixed size square grid tile map that can contain generic values at each position within the map.

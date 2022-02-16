@@ -20,14 +20,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using nickmaltbie.Data;
-using nickmaltbie.TileMap.Common;
-using nickmaltbie.TileMap.Pathfinding;
-using nickmaltbie.TileMap.Pathfinding.Visualization;
+using nickmaltbie.TileMaps.Data;
+using nickmaltbie.TileMaps.Common;
+using nickmaltbie.TileMaps.Pathfinding;
+using nickmaltbie.TileMaps.Pathfinding.Visualization;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace nickmaltbie.TileMap.Example
+namespace nickmaltbie.TileMaps.Example
 {
     /// <summary>
     /// Action for main click to toggle between blocking tiles on the map or selecting for pathfinding.

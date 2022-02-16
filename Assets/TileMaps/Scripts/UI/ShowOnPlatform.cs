@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     /// <summary>
     /// Simple class to show an element on a specific runtime platform.

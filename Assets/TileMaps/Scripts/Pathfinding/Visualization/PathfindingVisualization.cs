@@ -18,10 +18,10 @@
 
 using System;
 using System.Collections.Generic;
-using nickmaltbie.TileMap.Common;
-using nickmaltbie.TileMap.Pathfinding.PathOrder;
+using nickmaltbie.TileMaps.Common;
+using nickmaltbie.TileMaps.Pathfinding.PathOrder;
 
-namespace nickmaltbie.TileMap.Pathfinding.Visualization
+namespace nickmaltbie.TileMaps.Pathfinding.Visualization
 {
     /// <summary>
     /// Types of steps/iterations in the pathfinding algorithm.

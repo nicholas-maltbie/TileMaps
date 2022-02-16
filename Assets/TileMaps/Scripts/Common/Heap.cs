@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace nickmaltbie.TileMap.Common
+namespace nickmaltbie.TileMaps.Common
 {
     /// <summary>
     /// Heap data structure that can store any given item for a specific value. Supports storing a generic set of

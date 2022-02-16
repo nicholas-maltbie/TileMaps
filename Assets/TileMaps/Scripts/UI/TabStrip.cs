@@ -25,7 +25,7 @@ using UnityEngine.UI;
 // Code based on a nice tutorial provided by Mark Hedberg via their blog
 // https://www.hedberggames.com/blog/creating-ui-tabs-in-unity-part-1
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     [Serializable]
     public class TabPair

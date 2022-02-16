@@ -16,7 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace nickmaltbie.TileMap.Common
+namespace nickmaltbie.TileMaps.Common
 {
     /// <summary>
     /// A tile map for a given coordinate system that contains specific values.

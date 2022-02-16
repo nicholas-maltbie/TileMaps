@@ -16,11 +16,11 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using nickmaltbie.TileMap.Common;
-using nickmaltbie.TileMap.Square;
+using nickmaltbie.TileMaps.Common;
+using nickmaltbie.TileMaps.Square;
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Example
+namespace nickmaltbie.TileMaps.Example
 {
     /// <summary>
     /// Example square grid of spawned prefabs for testing purposes.

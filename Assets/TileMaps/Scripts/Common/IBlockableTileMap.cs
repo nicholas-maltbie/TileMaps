@@ -16,7 +16,7 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-namespace nickmaltbie.TileMap.Common
+namespace nickmaltbie.TileMaps.Common
 {
     /// <summary>
     /// Tile map that supports blocking spaces within the map. Blocked locations are still within the map but can be

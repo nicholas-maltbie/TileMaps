@@ -18,7 +18,7 @@
 
 using System.Collections.Generic;
 
-namespace nickmaltbie.TileMap.Common
+namespace nickmaltbie.TileMaps.Common
 {
     /// <summary>
     /// A generic graph which represents a collection of connected vertices.

@@ -756,10 +756,10 @@ namespace nickmaltbie.TileMaps.Example
                             pathWeightHillClimbing)));
                     break;
                 case PathMode.AStar:
-                    // Func<Path<Vector2Int>, Tuple<int, float>> pathWeightAStar = (Path<Vector2Int> path) =>
-                    //     new Tuple<int, float>(path.Length(), Vector2Int.Distance(path.Node, selected2));
-                    Func<Path<Vector2Int>, float> pathWeightAStar = (Path<Vector2Int> path) =>
-                        path.Length() + Vector2Int.Distance(path.Node, this.selected2.Value);
+                    Func<Path<Vector2Int>, Tuple<int, float>> pathWeightAStar = (Path<Vector2Int> path) =>
+                        new Tuple<int, float>(path.Length(), Vector2Int.Distance(path.Node, this.selected2.Value));
+                    // Func<Path<Vector2Int>, float> pathWeightAStar = (Path<Vector2Int> path) =>
+                    //     path.Length() + Vector2Int.Distance(path.Node, this.selected2.Value);
                     this.StartCoroutine(this.DrawPathVisualization(
                         this.WorldGrid.GetTileMap().VisualizePathAStar(
                             this.selected1.Value,

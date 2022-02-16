@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Searched
+  m_Name: Path
   m_Shader: {fileID: -6465566751694194690, guid: c8eadb6a5d6ab9349b31749884d817a3, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: b85250bccb40bdd418711d6de813f65f, type: 3}
+        m_Texture: {fileID: 2800000, guid: b6938709e55fc2745807babe96a08c78, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -130,14 +130,14 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Recolor1: {r: 0.039849162, g: 1, b: 0, a: 0}
-    - Recolor2: {r: 1, g: 1, b: 1, a: 0}
-    - Scale: {r: 1, g: 1, b: 1, a: 0}
+    - Recolor1: {r: 0.9433962, g: 0.91520154, b: 0.4494482, a: 0}
+    - Recolor2: {r: 0.9622642, g: 0.65906024, b: 0.20425421, a: 0}
+    - Scale: {r: 2, g: 1, b: 2, a: 0}
     - Weight: {r: 0, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Recolor1: {r: 0.48443198, g: 1, b: 0, a: 0}
-    - _Recolor2: {r: 1, g: 1, b: 1, a: 0}
+    - _Recolor1: {r: 1, g: 0.7463214, b: 0.4669811, a: 0}
+    - _Recolor2: {r: 1, g: 0.5744222, b: 0, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

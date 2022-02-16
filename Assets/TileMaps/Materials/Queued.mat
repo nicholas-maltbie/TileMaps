@@ -37,7 +37,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: bb568fdab3abd2945bac578e86d3e2cf, type: 3}
+        m_Texture: {fileID: 2800000, guid: 80b33ab39798b394ebb9e6bb2018a335, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -132,10 +132,12 @@ Material:
     m_Colors:
     - Recolor1: {r: 1, g: 1, b: 1, a: 0}
     - Recolor2: {r: 0, g: 0.97979045, b: 1, a: 0}
-    - Scale: {r: 3, g: 1, b: 3, a: 0}
+    - Scale: {r: 2, g: 1, b: 2, a: 0}
     - Weight: {r: 0, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _Recolor1: {r: 1, g: 1, b: 1, a: 0}
+    - _Recolor2: {r: 0, g: 0.7765689, b: 1, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

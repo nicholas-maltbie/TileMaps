@@ -23,7 +23,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
     /// <summary>
     /// Screen loading status information

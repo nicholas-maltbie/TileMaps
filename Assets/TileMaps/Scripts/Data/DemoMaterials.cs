@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.Data
+namespace nickmaltbie.TileMaps.Data
 {
     /// <summary>
     /// Demo materials for colors and drawing on the map.

@@ -21,7 +21,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
     /// <summary>
     /// Actions to adjust sound levels via sliders

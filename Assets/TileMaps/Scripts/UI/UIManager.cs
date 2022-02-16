@@ -22,7 +22,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     /// <summary>
     /// Class to hold arguments for showing a new screen

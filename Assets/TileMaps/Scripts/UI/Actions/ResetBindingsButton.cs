@@ -19,7 +19,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
     /// <summary>
     /// Reset binding of all configurable input actions

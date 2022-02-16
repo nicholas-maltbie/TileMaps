@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     [RequireComponent(typeof(UnityEngine.UI.Text))]
     public class PopulateVersion : MonoBehaviour

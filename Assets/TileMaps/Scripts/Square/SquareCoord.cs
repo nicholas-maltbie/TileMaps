@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Square
+namespace nickmaltbie.TileMaps.Square
 {
     /// <summary>
     /// Types of adjacency for square coordinate grid.

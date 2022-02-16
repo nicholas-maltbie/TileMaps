@@ -20,7 +20,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
     /// <summary>
     /// Class to setup dropdown that controls various quality level 

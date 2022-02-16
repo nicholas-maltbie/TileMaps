@@ -21,7 +21,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     [RequireComponent(typeof(UnityEngine.UI.Text))]
     public class DisplayControls : MonoBehaviour, IScreenComponent

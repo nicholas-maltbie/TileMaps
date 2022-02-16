@@ -16,11 +16,11 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using nickmaltbie.Data;
+using nickmaltbie.TileMaps.Data;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     public class LegendColors : MonoBehaviour, IScreenComponent
     {

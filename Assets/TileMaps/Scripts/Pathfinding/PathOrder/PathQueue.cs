@@ -18,7 +18,7 @@
 
 using System.Collections.Generic;
 
-namespace nickmaltbie.TileMap.Pathfinding.PathOrder
+namespace nickmaltbie.TileMaps.Pathfinding.PathOrder
 {
     /// <summary>
     /// Path collection that uses a queue to store the next path to check with a first in first out methodology.

@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileSet.UI
+namespace nickmaltbie.TileMaps.UI
 {
     /// <summary>
     /// Simple class to abstract commands to change UI for a menu screen

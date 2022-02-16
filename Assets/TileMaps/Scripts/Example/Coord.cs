@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Example
+namespace nickmaltbie.TileMaps.Example
 {
     /// <summary>
     /// Coordinate of an element referenced back to the grid it belongs to.

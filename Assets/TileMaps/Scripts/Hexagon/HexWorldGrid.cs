@@ -16,10 +16,10 @@
 // ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-using nickmaltbie.TileMap.Common;
+using nickmaltbie.TileMaps.Common;
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Hexagon
+namespace nickmaltbie.TileMaps.Hexagon
 {
     /// <summary>
     /// Grid for loading a hex grid map into the unity game scene.

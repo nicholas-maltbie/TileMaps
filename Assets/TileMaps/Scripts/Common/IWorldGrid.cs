@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileMap.Common
+namespace nickmaltbie.TileMaps.Common
 {
     /// <summary>
     /// World grid to control and load a TileMap into world space.

@@ -18,7 +18,7 @@
 
 using UnityEngine;
 
-namespace nickmaltbie.TileSet.UI.Events
+namespace nickmaltbie.TileMaps.UI.Events
 {
     /// <summary>
     /// Simple class to load screen when enabled

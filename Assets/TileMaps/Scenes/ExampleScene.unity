@@ -456,7 +456,7 @@ MonoBehaviour:
   tilePrefab: {fileID: 919132149155446097, guid: 3a108c6d30989424a97694d44e0aec8b, type: 3}
   stepDelay: 0.15
   arrowOffset: 0.5
-  demoMaterials: {fileID: 11400000, guid: 79f52e8f755bb0f4882b2b3f91710293, type: 2}
+  demoMaterials: {fileID: 0}
   priorityDecay: 0.95
   arrowPrefab: {fileID: 3003423559459847268, guid: fff395ae90617e74e9048f453c684ed6, type: 3}
   width: 30

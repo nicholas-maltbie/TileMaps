@@ -19,7 +19,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace nickmaltbie.TileMap.Pathfinding
+namespace nickmaltbie.TileMaps.Pathfinding
 {
     /// <summary>
     /// Represent a path via recursive definition for finding a path between nodes in a graph.

@@ -18,11 +18,11 @@
 
 using System;
 using System.Linq;
-using nickmaltbie.TileMap.Example;
+using nickmaltbie.TileMaps.Example;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace nickmaltbie.TileSet.UI.Actions
+namespace nickmaltbie.TileMaps.UI.Actions
 {
 
     /// <summary>

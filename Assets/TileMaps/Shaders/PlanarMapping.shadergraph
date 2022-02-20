@@ -656,7 +656,7 @@
     "m_DefaultRefNameVersion": 1,
     "m_RefNameGeneratedByDisplayName": "Scale",
     "m_DefaultReferenceName": "Scale",
-    "m_OverrideReferenceName": "",
+    "m_OverrideReferenceName": "_Scale",
     "m_GeneratePropertyBlock": true,
     "m_Precision": 0,
     "overrideHLSLDeclaration": false,

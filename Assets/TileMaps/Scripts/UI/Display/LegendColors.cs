@@ -104,7 +104,7 @@ namespace nickmaltbie.TileMaps.UI
             }
 
             mat2.SetTexture("_Albedo", mat1.GetTexture("_Albedo"));
-            mat2.SetVector("_Scale", new Vector3(0.1f, 0.1f, 0.1f));
+            mat2.SetVector("_Scale", mat1.GetVector("_Scale") / 20.0f);
         }
     }
 }

@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Sprite_PathArrow
+  m_Name: Sprite_Legend
   m_Shader: {fileID: -6465566751694194690, guid: 27d436d3d6c90594c8b7ceaca38ff057, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -33,7 +33,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Albedo:
-        m_Texture: {fileID: 2800000, guid: bb568fdab3abd2945bac578e86d3e2cf, type: 3}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _AlphaTex:
@@ -149,10 +149,10 @@ Material:
     - _Color: {r: 0, g: 0.14901961, b: 0.4627451, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
-    - _Recolor1: {r: 1, g: 0.0141509175, b: 0.0141509175, a: 0}
-    - _Recolor2: {r: 1, g: 0.08009437, b: 0.06132078, a: 0}
+    - _Recolor1: {r: 1, g: 1, b: 1, a: 0}
+    - _Recolor2: {r: 1, g: 1, b: 1, a: 0}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
-    - _Scale: {r: 0.1, g: 0.1, b: 0.1, a: 0}
+    - _Scale: {r: 1, g: 1, b: 1, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
     - _Weights: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []

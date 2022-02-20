@@ -132,12 +132,13 @@ Material:
     m_Colors:
     - Recolor1: {r: 0.039849162, g: 1, b: 0, a: 0}
     - Recolor2: {r: 1, g: 1, b: 1, a: 0}
-    - Scale: {r: 1, g: 1, b: 1, a: 0}
+    - Scale: {r: 3, g: 1, b: 3, a: 0}
     - Weight: {r: 0, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _Recolor1: {r: 0.48443198, g: 1, b: 0, a: 0}
-    - _Recolor2: {r: 1, g: 1, b: 1, a: 0}
+    - _Recolor1: {r: 0.9058824, g: 0.43529415, b: 0.31764707, a: 0}
+    - _Recolor2: {r: 0.90588236, g: 0.7609412, b: 0.7247059, a: 0}
+    - _Scale: {r: 3, g: 3, b: 3, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

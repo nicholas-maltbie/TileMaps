@@ -139,6 +139,6 @@ Material:
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _Recolor1: {r: 0.9137255, g: 0.8759246, b: 0.7839765, a: 0}
     - _Recolor2: {r: 0.91372555, g: 0.7686275, b: 0.4156863, a: 0}
-    - _Scale: {r: 3, g: 3, b: 3, a: 0}
+    - _Scale: {r: 2, g: 2, b: 2, a: 0}
     - _SpecColor: {r: 0.2, g: 0.2, b: 0.2, a: 1}
   m_BuildTextureStacks: []

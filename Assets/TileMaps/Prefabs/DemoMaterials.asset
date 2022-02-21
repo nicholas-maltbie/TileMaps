@@ -20,8 +20,8 @@ MonoBehaviour:
   pathMaterial: {fileID: 2100000, guid: 06068b878c7c2df4bb1f5c588044d4fe, type: 2}
   queuedColorGradient:
     serializedVersion: 2
-    key0: {r: 0.91372555, g: 0.7686275, b: 0.4156863, a: 1}
-    key1: {r: 0.9568628, g: 0.63529414, b: 0.3803922, a: 1}
+    key0: {r: 0.9137255, g: 0.75257754, b: 0.38193724, a: 1}
+    key1: {r: 0.859, g: 0.52885187, b: 0.267149, a: 1}
     key2: {r: 0.9137255, g: 0.64938545, b: 0.0063960506, a: 0}
     key3: {r: 1, g: 0, b: 0.9919772, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}

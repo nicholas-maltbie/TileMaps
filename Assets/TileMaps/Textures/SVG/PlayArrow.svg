@@ -14,7 +14,7 @@
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    sodipodi:docname="PlayArrow.svg"
-   inkscape:export-filename="D:\Projects\TileMaps\Assets\TileMaps\Textures\Patterns\PlayArrow.png"
+   inkscape:export-filename="D:\Projects\TileMaps\Assets\TileMaps\Textures\Sprites\PlayArrow.png"
    inkscape:export-xdpi="130.05"
    inkscape:export-ydpi="130.05">
   <style
@@ -58,7 +58,7 @@
      id="layer1">
     <path
        sodipodi:type="star"
-       style="opacity:0.980645;fill:#fb0012;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       style="opacity:0.980645;fill:#e76f51;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
        id="path835"
        sodipodi:sides="3"
        sodipodi:cx="55.813122"

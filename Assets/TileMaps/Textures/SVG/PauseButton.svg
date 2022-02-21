@@ -14,7 +14,7 @@
    id="svg8"
    inkscape:version="1.0.1 (3bc2e813f5, 2020-09-07)"
    sodipodi:docname="PauseButton.svg"
-   inkscape:export-filename="D:\Projects\TileMaps\Assets\TileMaps\Textures\SVG\PauseButton.png"
+   inkscape:export-filename="D:\Projects\TileMaps\Assets\TileMaps\Textures\Sprites\PauseButton.png"
    inkscape:export-xdpi="130.05"
    inkscape:export-ydpi="130.05">
   <style
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -57,7 +57,7 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
-       style="opacity:0.980645;fill:#353535;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       style="opacity:0.980645;fill:#2a9d8f;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
        id="rect837"
        width="76.217918"
        height="249.65869"
@@ -65,7 +65,7 @@
        y="66.015518"
        transform="matrix(0.26240548,0,0,0.32043747,10.354331,-11.153846)" />
     <rect
-       style="opacity:0.980645;fill:#353535;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
+       style="opacity:0.980645;fill:#2a9d8f;fill-opacity:1;stroke:#fefefe;stroke-width:0;stroke-linecap:round;stroke-linejoin:round"
        id="rect837-7"
        width="76.217918"
        height="249.65869"

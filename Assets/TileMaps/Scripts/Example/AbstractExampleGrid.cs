@@ -669,7 +669,7 @@ namespace nickmaltbie.TileMaps.Example
                         this.UpdateTileColor(step.currentPath.Node);
                         this.UpdatePathWeight(step);
                         this.stepCount = 0;
-                        if (ShouldWait())
+                        if (this.ShouldWait())
                         {
                             yield return this.WaitStep();
                         }
@@ -681,7 +681,7 @@ namespace nickmaltbie.TileMaps.Example
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.searched.Add(step.currentPath.Node);
                             this.UpdatePathWeight(step);
-                            if (ShouldWait())
+                            if (this.ShouldWait())
                             {
                                 yield return this.WaitStep();
                             }
@@ -712,8 +712,8 @@ namespace nickmaltbie.TileMaps.Example
                                 {
                                     mr.material = this.demoMaterials.pathArrowSelectedMaterial;
                                 }
-                                
-                                if (ShouldWait())
+
+                                if (this.ShouldWait())
                                 {
                                     yield return this.WaitStep();
                                 }
@@ -734,7 +734,7 @@ namespace nickmaltbie.TileMaps.Example
                         if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
                             this.UpdatePathWeight(step);
-                            if (ShouldWait())
+                            if (this.ShouldWait())
                             {
                                 yield return this.WaitStep();
                             }

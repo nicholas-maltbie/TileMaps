@@ -66,14 +66,14 @@ namespace nickmaltbie.TileMaps.UI.Actions
         public Button clearPathButton;
 
         /// <summary>
-        /// Slider to select pathfinding delay for animation.
+        /// Slider to select pathfinding speed for animation.
         /// </summary>
-        public Slider pathfindingDelay;
+        public Slider pathfindingSpeed;
 
         /// <summary>
-        /// Slider to select pathfinding delay for drawing final path.
+        /// Slider to select pathfinding speed for drawing final path.
         /// </summary>
-        public Slider finalPathDelay;
+        public Slider finalPathSpeed;
 
         /// <summary>
         /// Sprite to show play/pause button.
@@ -148,12 +148,12 @@ namespace nickmaltbie.TileMaps.UI.Actions
                 gridMap => gridMap.ClearPath()));
 
             // Setup sliders
-            this.pathfindingDelay.onValueChanged.AddListener(value => this.ApplyOperationToMaps(
-                gridMap => gridMap.stepDelay = value));
+            this.finalPathSpeed.onValueChanged.AddListener(value => this.ApplyOperationToMaps(
+                gridMap => gridMap.stepDelay = this.finalPathSpeed.maxValue - value));
             // finalPathDelay.onValueChanged.AddListener(value => ApplyOperationToMaps(
             //     gridMap => gridMap.finalPathDelay = value));
-            this.pathfindingDelay.value = this.pathfindingDelay.value;
-            this.finalPathDelay.value = this.finalPathDelay.value;
+            this.finalPathSpeed.value = this.finalPathSpeed.value;
+            this.finalPathSpeed.value = this.finalPathSpeed.value;
         }
 
         public AbstractExampleGrid GetGrid()

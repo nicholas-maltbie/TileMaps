@@ -620,6 +620,15 @@ namespace nickmaltbie.TileMaps.Example
         }
 
         /// <summary>
+        /// Is there a reason to wait a step.
+        /// </summary>
+        /// <returns>True if there is some delay needed, false otherwise.</returns>
+        public bool ShouldWait()
+        {
+            return this.CurrentMode != PathfindingAnimationState.Playing || this.stepDelay > 0;
+        }
+
+        /// <summary>
         /// Wait for the next step in the sequence to be ready.
         /// </summary>
         /// <returns>Enumerator which indicates when the next step is ready.</returns>
@@ -660,7 +669,7 @@ namespace nickmaltbie.TileMaps.Example
                         this.UpdateTileColor(step.currentPath.Node);
                         this.UpdatePathWeight(step);
                         this.stepCount = 0;
-                        if (this.CurrentMode != PathfindingAnimationState.Playing)
+                        if (this.ShouldWait())
                         {
                             yield return this.WaitStep();
                         }
@@ -672,7 +681,10 @@ namespace nickmaltbie.TileMaps.Example
                             this.CreateArrow(step.currentPath.Node, step.currentPath.Previous.Node);
                             this.searched.Add(step.currentPath.Node);
                             this.UpdatePathWeight(step);
-                            yield return this.WaitStep();
+                            if (this.ShouldWait())
+                            {
+                                yield return this.WaitStep();
+                            }
                         }
 
                         break;
@@ -701,7 +713,10 @@ namespace nickmaltbie.TileMaps.Example
                                     mr.material = this.demoMaterials.pathArrowSelectedMaterial;
                                 }
 
-                                yield return this.WaitStep();
+                                if (this.ShouldWait())
+                                {
+                                    yield return this.WaitStep();
+                                }
                             }
                         }
                         else
@@ -719,7 +734,10 @@ namespace nickmaltbie.TileMaps.Example
                         if (this.DeleteArrow(step.currentPath.Node, step.currentPath.Previous.Node))
                         {
                             this.UpdatePathWeight(step);
-                            yield return this.WaitStep();
+                            if (this.ShouldWait())
+                            {
+                                yield return this.WaitStep();
+                            }
                         }
 
                         break;

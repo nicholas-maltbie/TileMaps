@@ -3,13 +3,16 @@
 This project will generate various types of tile maps including square and hexagon maps and allow for spawning in game
 objects based off of these patterns. Includes various features such as path finding.
 
-[![Sample pathfinding demo with astar.](Demo/sample-pathfinding.gif)](https://nickmaltbie.com/TileMaps/)
+[![Sample pathfinding demo with astar.](Demo/sample-pathfinding.gif)](https://youtu.be/1OOXEmKqmxc)
 
 The Tile Maps project is hosted on GitHub at
 [https://github.com/nicholas-maltbie/TileMaps](https://github.com/nicholas-maltbie/TileMaps)
 
 An interactive version demonstrating the TileMaps project is hosted at
 [https://nickmaltbie.com/TileMaps/](https://nickmaltbie.com/TileMaps/).
+
+Series of videos describing how pathfinding works
+* [How Pathfinding Works - Introduction](https://youtu.be/1OOXEmKqmxc)
 
 # Development
 

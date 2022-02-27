@@ -1,0 +1,1038 @@
+{
+  "sitemap": {
+    "fileOptions": {
+      "api/*": {
+        "baseUrl": "https://nickmaltbie.com/TileMaps/docs/",
+        "changefreq": "daily"
+      }
+    },
+    "baseUrl": "https://nickmaltbie.com/TileMaps/docs/",
+    "changefreq": "weekly"
+  },
+  "homepages": [],
+  "source_base_path": "D:/a/TileMaps/TileMaps/Documentation",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "Resource",
+      "output": {
+        "resource": {
+          "relative_path": "index.json"
+        }
+      },
+      "is_incremental": false
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.Heap-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.Heap-2.html",
+          "hash": "0kZ/mRJLZzVKrkk0YU0ALTTjGSXlWCO3PJcJ9m8c0Bw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.IBlockableTileMap-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.IBlockableTileMap-2.html",
+          "hash": "Obj92vcWyKg6++b40EsSmFF+t3FuvLvEXLPWsGn6Ovs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.IGraph-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.IGraph-1.html",
+          "hash": "duj45dAPZCrg6uBbXPqHHX0hyyspkV590swAdjEXxXQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.ITileMap-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.ITileMap-2.html",
+          "hash": "AQ15QR3n0QcKiIZmLANEo8P25tVpDi5G8U6xpy23TMg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.IWorldGrid-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.IWorldGrid-2.html",
+          "hash": "OwO0Wc3ppcq914XiFZbL0S1i5fKVVpq85fYYkUo/Chw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Common.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Common.html",
+          "hash": "xnoxmuZCbKq7wE87dUMHwMQlvwUTe51I0qh/41Nt8lE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Data.DemoMaterials.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Data.DemoMaterials.html",
+          "hash": "s9gz9eBdme/Eyo1Nbqk4FFXALITnS4oyIUyjeMkzfV0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Data.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Data.html",
+          "hash": "sgyEdV4ONMKglS9j5RarIL/OkJxzOpFbsIWRCOx3JOM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.AbstractExampleGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.AbstractExampleGrid.html",
+          "hash": "Aadn+yFYKbRje1SNiIU6ubKIjsWIs1e6QF3IKUllIO8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.BoardAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.BoardAction.html",
+          "hash": "4rpgNDOLz4LuLQ9YOMrREq7dtsa4oQq4BIPq7eoApHI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.Coord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.Coord.html",
+          "hash": "eM5MX1EicAbsO9F+rBbLZ/J9qAOllldTprmtay4ZZ+c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.ExampleHexGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.ExampleHexGrid.html",
+          "hash": "cju3RJp1gjyNSLQbCJCBIBPnQthHuXRvSNunc6G6ulk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.ExampleSquareGrid.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.ExampleSquareGrid.html",
+          "hash": "fS8Q3s3iP8AP3VL9PZ8GY3HkycQxqIJLb1W2V2PtrBs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.PathMode.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.PathMode.html",
+          "hash": "wPZxetaDB07j3+E+bieMnZQGmdnRCpg0ahBeXFqt/90="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.PathfindingAnimationState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.PathfindingAnimationState.html",
+          "hash": "AFXjTAnx+UnFYl8SBoW8TsKpDdg/6goujXk28setLvw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.PathfindingSelectionState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.PathfindingSelectionState.html",
+          "hash": "Z7i30Eo3mSo3Tsbiasu8W8j/rBc/zfnaEq04Z8RXvPY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.TileState.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.TileState.html",
+          "hash": "FDK1qX3oDoMw1Hl/BJgrrzjo1HdX/3nHttfpY/Jl7G4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Example.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Example.html",
+          "hash": "jdwU2Jh6MNmwwjGadZQZiV6LuDZX8IrGi3OAMUNbGD4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexCoord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexCoord.html",
+          "hash": "xB+VqtRLtkeyUi4pmW9KY9q0HNZMLUFvKKMew20qdW8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexDir.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexDir.html",
+          "hash": "47acVrcr4vL3di3h60Fn/yx8nR9ZPKAdWybGp7cJa8s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexTileMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexTileMap-1.html",
+          "hash": "gWplvD+MuiwD+jExc0O+umg4MZtfHMmacMSI93PaZ0E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexWorldGrid-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Hexagon.HexWorldGrid-1.html",
+          "hash": "NZCPrNo4CCqqbGHXLbiJDOCIjCQ7bYZuZLy57lDxcQI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Hexagon.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Hexagon.html",
+          "hash": "k4EOjRvAeU0lXTm07tgQsMe02kFxRE+QICRsWkjznrw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Path-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Path-1.html",
+          "hash": "d0nHvveKqYqrlGuXzdyCqUbFfTf8Iehbm4TC+ljVn+s="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.IPathOrder-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.IPathOrder-1.html",
+          "hash": "88kpLphpC0LGwMYcA4AQ6dIcLbQayTOjc4PF6CniH1c="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathPriorityQueue-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathPriorityQueue-2.html",
+          "hash": "tyJ1hQEBvn9SpVnF50e6CIMhagtucFCuNKo5YW1g8jM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathQueue-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathQueue-1.html",
+          "hash": "Zt3pEA5z/NYhuWrLeoOpswTFg8UgcL4xvOvvV9DJrqs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathStack-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.PathStack-1.html",
+          "hash": "oIShxiMoxm+tHhnlnLthBprMFyQzLU78qQgJfmmO6gE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathOrder.html",
+          "hash": "M3WnSLosoPcyngNMoNxTUd1M2OwXNq0f73my6wSyXxk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathfindExtensions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.PathfindExtensions.html",
+          "hash": "8HAjA2mPoBSSRfucXeskf+zwT/c+mRqazgrYaL20bq4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.PathfindingStep-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.PathfindingStep-1.html",
+          "hash": "gEi7/1hSkMSXk2P8At78G6vLpYOuqp6DhuFZNyNZUUM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.PathfindingVisualization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.PathfindingVisualization.html",
+          "hash": "JOm/lqLp+M/EahNnYxOFf38Qc7ycAa1CANGuE+r3McE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.StepType.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.StepType.html",
+          "hash": "2kNMHiXAqHp/SzDWAZI2uUDJA+9/rPxnoyVs4bN3+ME="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.Visualization.html",
+          "hash": "Zba+X0/vVfh8LuEERP9SWG0cQrcsZXhHE6VDmRsX3ks="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Pathfinding.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Pathfinding.html",
+          "hash": "JbIWEThd/CFY/FFBRO7gOdl/k0eN0UG5PP9h+/BFBNY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Square.Adjacency.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Square.Adjacency.html",
+          "hash": "PkOw0KVrtlgVxcbEmcgbIjT2OiAW+jz+EC7e8L3Xzs0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Square.SquareCoord.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Square.SquareCoord.html",
+          "hash": "fVzzsyEdJyvgCW8tGisu8AsPzQtFQDAYizIyR/rYO3E="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Square.SquareTileMap-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Square.SquareTileMap-1.html",
+          "hash": "eECrBm/26kxmia76WR/cfINC3TaLrPC9MykOkDNgeB8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Square.SquareWorldGrid-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Square.SquareWorldGrid-1.html",
+          "hash": "8s/i6Xpgx/5cVKLre8MnTG3aQLin+moyDnAifCH0ll0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.Square.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.Square.html",
+          "hash": "fjjQE3imcnXKqU2W2AjqKffGgY3hj0iFXP4a+oULna4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeQualityActions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeQualityActions.html",
+          "hash": "w770rHogwtJ/d2VhXNTB4Di9M/pQ5MwCSyLJY3aLchQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeScreenActions.ScreenSettingsGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeScreenActions.ScreenSettingsGroup.html",
+          "hash": "Kr99q66WVIFe0x7MFMEIy8hcr1a+rvTsKd3fKgv9Dq0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeScreenActions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ChangeScreenActions.html",
+          "hash": "rGejn86a/pOM/2uPVAHPP6wEGhQ/H3z2Yjr4MvJeCEE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ConfigureMap.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ConfigureMap.html",
+          "hash": "cnzkXrpvHjRmJNXbHGOY2Yv2/CkTeBzQUd7QAlKTrns="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.IBindingControl.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.IBindingControl.html",
+          "hash": "0GqbKwvzRqu6udLpM6aLU05+dOxbQL3FXu45/0N/BoQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.QuitGameAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.QuitGameAction.html",
+          "hash": "DqEek2FdR1X/oS2sPKe8fji2Cl0PkbgZ6H84piWv0hw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindCompositeInput.RebindingGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindCompositeInput.RebindingGroup.html",
+          "hash": "YrGNZt0X3WGeEegoNegP3J75KM3i0waelffeIzWkyME="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindCompositeInput.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindCompositeInput.html",
+          "hash": "nTeUiH/9x4AHWnYkWvSPW/k9FRRQNfcqatrl/eoWZv8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindInputButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.RebindInputButton.html",
+          "hash": "BnyHYh8+Ca5gi7Ig0a+GCSu4Kc0Kop82gE49o0rnZKI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ResetBindingsButton.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ResetBindingsButton.html",
+          "hash": "6vD+fh54kvtv0fTlCrhzNlAD4fPq0iFY6RdpLPfMo6I="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ScreenLoading.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ScreenLoading.html",
+          "hash": "6r1hkiZ0KPu3nY6yd1L6ZVPz1aCtNoTEYF0wk2iUGXY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.SoundAdjustActions.AudioMixerSettingsGroup.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.SoundAdjustActions.AudioMixerSettingsGroup.html",
+          "hash": "u4nxZZkCKaGie4piBOXN4UvXI/pkltG0FPw+/KmvEZs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.SoundAdjustActions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.SoundAdjustActions.html",
+          "hash": "fR9f3ST3V5NM+l7BsV615glvmVQW+JhJemPQivdnLgU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ToggleFullScreenAction.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.ToggleFullScreenAction.html",
+          "hash": "sgTKxG0SvSfjbMhY4pOb/O6p1WxcgR7ytG9Of9G/TtY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Actions.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Actions.html",
+          "hash": "lwwtLEZLehTfsdIpLyXQvdIOQo+F25xbeUdZtopzAe0="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.DisplayControls.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.DisplayControls.html",
+          "hash": "AVbKq7F5P2whTL4IANYEkJ481+k+S4W6S77mGERl3W4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Events.CursorStateOnMenuLoad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Events.CursorStateOnMenuLoad.html",
+          "hash": "MikwngimnLE8rNJ3Bx2jJgWkWR3JJ0mk/trzmv8ZRP8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Events.GridInputModeOnLoad.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Events.GridInputModeOnLoad.html",
+          "hash": "/zmnGM769cydZsOdNwvd5zmw7l3ryyYX9MVPDj/Ybhs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Events.LoadScreenOnEnable.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Events.LoadScreenOnEnable.html",
+          "hash": "zrRCaJMy9f+33v0mbFauPRfrSChM9DpPuPj4yeGvWGE="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Events.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Events.html",
+          "hash": "m0aW33F71TLAreOEPmAnmUHb+79XbSoS48//9dFk0Uw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.GameScreen.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.GameScreen.html",
+          "hash": "kQCxnDCGOXdSskE++aINgZ9knOtNhZy9sskBwPVqwRc="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.HideOnPlatform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.HideOnPlatform.html",
+          "hash": "5MoUVCHHm8FYpL5oNnXRCWEukIDcbNW2VjtiQ0F4MVM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.IScreenComponent.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.IScreenComponent.html",
+          "hash": "LFjg4kGscmEtFnkq+ItS4wbFzrnjFVEKSAErBea+9u4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.LegendColors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.LegendColors.html",
+          "hash": "v/N5CviLd1M6RQrSdaXqd7TeMPsqFpXHE4YjM8Hsq2A="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.MenuController.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.MenuController.html",
+          "hash": "1peEiBOjsfNIL7KVBpHE6hlFJMSXOazKOBRKUYmVhlM="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.PopulateVersion.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.PopulateVersion.html",
+          "hash": "a7PAekZDu0VtF1SqAF/fiOpK06dNL1503NDuoHzO6LY="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.RequestScreenChangeEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.RequestScreenChangeEventArgs.html",
+          "hash": "R5vcQ06eA5p1Z9v25DqAYQ8BzE/TlX/7WST0JEqON7w="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.ScreenChangeEventArgs.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.ScreenChangeEventArgs.html",
+          "hash": "Vmr+sqZ3YmYmW2omst80fBkRtHlw5QGIQaqPR7geR0o="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.ShowOnPlatform.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.ShowOnPlatform.html",
+          "hash": "InmTS6S1HlpmO4UjByZZWmYaFayPrdiIYm8u+lxcevw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.TabPair.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.TabPair.html",
+          "hash": "EZ9U3ni1Dy3G7Bq8ihYjXhYsYzxEgr/cQ5ZQi9drgJ8="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.TabStrip.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.TabStrip.html",
+          "hash": "F4i0VDB5fiDsIOM4GGlxrQGClUhXrdYvzF1n1MneCwU="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Text.TMProUGUIHyperlinks.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Text.TMProUGUIHyperlinks.html",
+          "hash": "H1lqGIgQD+jITXu3I/FtNpavo8usvaLewgIbcs+0hno="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.Text.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.Text.html",
+          "hash": "Onhdj+BBHszd/SXb4XuzQFvItkf8uut294f7hac/EQw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.UIManager.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.UIManager.html",
+          "hash": "x28bYByWzSrk+zaWuJPP0uFILkWfrfNVLtwjo4IlXQs="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/nickmaltbie.TileMaps.UI.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/nickmaltbie.TileMaps.UI.html",
+          "hash": "u1UWVlBk2RXZiL3TcAM6/d1bL9Jr82HEsbkfnKLUIDQ="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/toc.html",
+          "hash": "HeeaD4AhTc02BRBGrotx7iNReHbT96UVXQZjW4AEOWg="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "log_codes": [
+        "InvalidFileLink"
+      ],
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html",
+          "hash": "BGlrRm3MTcxpES/cg5D2kLYj4abDonBYTFO+8rfnAnk="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "manual/introduction.md",
+      "output": {
+        ".html": {
+          "relative_path": "manual/introduction.html",
+          "hash": "oHvM+K2xKMJzjOC1HtgUymVZMKKNR1CIablZdBmioWw="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "manual/toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "manual/toc.html",
+          "hash": "m2S1Yi8n1lPXDZKT5Jv0VY0xWYHT7GRxoxwMIyyIMSI="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".html": {
+          "relative_path": "toc.html",
+          "hash": "jQ/g7fOI+IjrgCseUNLTr3j6p9dLH51bsW6cAHiCTH4="
+        }
+      },
+      "is_incremental": false,
+      "version": ""
+    }
+  ],
+  "incremental_info": [
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot build incrementally because last build info is missing.",
+        "incrementalPhase": "build",
+        "total_file_count": 0,
+        "skipped_file_count": 0,
+        "full_build_reason_code": "NoAvailableBuildCache"
+      },
+      "processors": {
+        "ConceptualDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 2,
+          "skipped_file_count": 0
+        },
+        "ManagedReferenceDocumentProcessor": {
+          "can_incremental": false,
+          "incrementalPhase": "build",
+          "total_file_count": 75,
+          "skipped_file_count": 0
+        },
+        "TocDocumentProcessor": {
+          "can_incremental": false,
+          "details": "Processor TocDocumentProcessor cannot support incremental build because the processor doesn't implement ISupportIncrementalDocumentProcessor interface.",
+          "incrementalPhase": "build",
+          "total_file_count": 0,
+          "skipped_file_count": 0
+        }
+      }
+    },
+    {
+      "status": {
+        "can_incremental": false,
+        "details": "Cannot support incremental post processing, the reason is: should not trace intermediate info.",
+        "incrementalPhase": "postProcessing",
+        "total_file_count": 0,
+        "skipped_file_count": 0
+      },
+      "processors": {}
+    }
+  ],
+  "version_info": {},
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}

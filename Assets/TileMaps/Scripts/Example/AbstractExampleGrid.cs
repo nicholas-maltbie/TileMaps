@@ -72,6 +72,16 @@ namespace nickmaltbie.TileMaps.Example
     }
 
     /// <summary>
+    /// Current selection state of the pathfinding.
+    /// </summary>
+    public enum PathfindingSelectionState
+    {
+        Start,
+        End,
+        Playing,
+    }
+
+    /// <summary>
     /// Example grid of spawned prefabs.
     /// </summary>
     public abstract class AbstractExampleGrid : MonoBehaviour
@@ -131,7 +141,7 @@ namespace nickmaltbie.TileMaps.Example
         /// <summary>
         /// Toggle of current state in pathfinding.
         /// </summary>
-        protected int toggle = 0;
+        protected PathfindingSelectionState pathfindingSelectionState = PathfindingSelectionState.Start;
 
         /// <summary>
         /// Currently found path.
@@ -535,6 +545,7 @@ namespace nickmaltbie.TileMaps.Example
             // Clear out previous  path
             this.selected1 = null;
             this.selected2 = null;
+            this.pathfindingSelectionState = PathfindingSelectionState.Start;
 
             if (temp1 != null)
             {
@@ -571,22 +582,24 @@ namespace nickmaltbie.TileMaps.Example
                 return;
             }
 
-            if (this.toggle == 0)
+            switch (this.pathfindingSelectionState)
             {
-                this.ClearPath();
-                // Start new path
-                this.selected1 = location;
-                this.UpdateTileColor(location);
-            }
-            else if (this.toggle == 1)
-            {
-                this.selected2 = location;
-                this.UpdateTileColor(location);
+                case PathfindingSelectionState.Playing:
+                case PathfindingSelectionState.Start:
+                    this.ClearPath();
+                    // Start new path
+                    this.selected1 = location;
+                    this.UpdateTileColor(location);
+                    this.pathfindingSelectionState = PathfindingSelectionState.End;
+                    break;
+                case PathfindingSelectionState.End:
+                    this.selected2 = location;
+                    this.UpdateTileColor(location);
 
-                this.DrawPath();
+                    this.DrawPath();
+                    this.pathfindingSelectionState = PathfindingSelectionState.Playing;
+                    break;
             }
-
-            this.toggle = (this.toggle + 1) % 2;
         }
 
         /// <summary>
